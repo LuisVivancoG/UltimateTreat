@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9ef8e4ed5cbfb4d986cd7d5b4a082f, type: 3}
+  m_Name: HealPack
+  m_EditorClassIdentifier: 
+  _itemPrefab: {fileID: 710705024318125830, guid: 621473dc45f72704fb7b33161c58530f,
+    type: 3}
+  _itemSprite: {fileID: 21300000, guid: d634427d88562924ba23d79651b9c872, type: 3}
+  _typeOfItem: 4
+  _itemName: Heal
+  _timeBeforeConsume: 15
+  _isSingleUse: 1
+  _reuseCooldown: 0
+  _isProjectile: 0
+  _speed: 0
+  _hpModifier: 200
+  _canRicochet: 0

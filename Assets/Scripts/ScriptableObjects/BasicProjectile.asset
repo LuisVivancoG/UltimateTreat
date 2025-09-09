@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9ef8e4ed5cbfb4d986cd7d5b4a082f, type: 3}
+  m_Name: BasicProjectile
+  m_EditorClassIdentifier: 
+  _itemPrefab: {fileID: 4882904887958298540, guid: a4100a2f3643cc14783bebc46c3f9f26,
+    type: 3}
+  _itemSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _typeOfItem: 1
+  _itemName: BaseProjectile
+  _timeBeforeConsume: 0
+  _isSingleUse: 0
+  _reuseCooldown: 1
+  _isProjectile: 1
+  _speed: 40
+  _hpModifier: 70
+  _canRicochet: 0
