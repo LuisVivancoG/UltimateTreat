@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManagerOld : MonoBehaviour
 {
     [SerializeField] private PlayerManager _playerPrefab;
     [SerializeField] private int _victoryRoundsSet;
