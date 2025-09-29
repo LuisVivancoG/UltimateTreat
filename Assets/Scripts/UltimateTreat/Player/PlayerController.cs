@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Sub Behaviours")]
     [SerializeField] private CharacterMovement _movementBehaviour;
     [SerializeField] private CharacterShooting _shootingBehaviour;
+    public HealthSystem _playerHealth;
     //public PlayerAnimationBehaviour _playerAnimationBehaviour;
     //public PlayerVisualsBehaviour _playerVisualsBehaviour;
 

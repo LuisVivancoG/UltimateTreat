@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf332b40cf17a5428e6129dfcfb6a37, type: 3}
+  m_Name: BulletTrail
+  m_EditorClassIdentifier: 
+  _objectPrefab: {fileID: -7718792335321468836, guid: 29bf5861e628d7a45b1044186412e9e8,
+    type: 3}
+  _objectName: Bullet trail
+  _objectType: 3

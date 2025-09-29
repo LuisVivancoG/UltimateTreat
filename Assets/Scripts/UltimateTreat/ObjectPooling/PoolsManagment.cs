@@ -47,21 +47,23 @@ public class PoolsManagment : Singleton<PoolsManagment>
         return POData.Data.FirstOrDefault(b => b.ObjectType == itemType);
     }
 
-    public PooledAsset GetObject(SOData objectToGet, Transform locationToSpawn)
-    {
-        var item = _poolsDictionary[objectToGet.ObjectType].Get();
-        item.transform.rotation = locationToSpawn.rotation;
-        item.transform.position = locationToSpawn.position;
-
-        return item;
-    }
-    public PooledAsset GetObject(SOType type, Transform locationToSpawn)
+    public PooledAsset GetObject(SOType type, Transform spawner)
     {
         _poolsDictionary.TryGetValue(type, out PoolBase pool);
         var item = _poolsDictionary[type].Get();
 
-        item.transform.rotation = locationToSpawn.rotation;
-        item.transform.position = locationToSpawn.position;
+        item.transform.position = spawner.position;
+        item.transform.rotation = Quaternion.LookRotation(spawner.forward, Vector3.up);
+
+        return item;
+    }
+    public PooledAsset GetObject(SOType type, Vector3 locationToSpawn, Vector3 spawnedRotation)
+    {
+        _poolsDictionary.TryGetValue(type, out PoolBase pool);
+        var item = _poolsDictionary[type].Get();
+
+        item.transform.localEulerAngles = spawnedRotation;
+        item.transform.position = locationToSpawn;
 
         return item;
     }
