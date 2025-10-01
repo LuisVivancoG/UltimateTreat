@@ -2,14 +2,21 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class HealthSystem : MonoBehaviour
 {
+    [Header ("Flash effect")]
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private float _flashDuration;
     [SerializeField] private int _numberOfFlashes;
-    private int _playerID;
 
+    [Header("Rumble settings")]
+    [SerializeField] private float _leftMotor;
+    [SerializeField] private float _rightMotor;
+    [SerializeField] private float _rumbleDuration;
+
+    private int _playerID;
     private float _maxHealthPoints;
     private bool _isVulnerable;
     private SquashAndStretch _snSComp;
@@ -25,6 +32,15 @@ public class HealthSystem : MonoBehaviour
     private void OnEnable()
     {
         _isVulnerable = true;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(0, 0);
+        }
     }
 
     public void SetHP(int iD, float maxHP)
@@ -53,6 +69,8 @@ public class HealthSystem : MonoBehaviour
     {
         if (_isVulnerable)
         {
+            StartCoroutine(RumbleGamepad());
+
             _isVulnerable = false;
             HitEffect();
 
@@ -94,5 +112,12 @@ public class HealthSystem : MonoBehaviour
             yield return new WaitForSeconds(singleFlashDuration);
         }
         _isVulnerable = true;
+    }
+
+    IEnumerator RumbleGamepad()
+    {
+        Gamepad.current.SetMotorSpeeds(_leftMotor, _rightMotor);
+        yield return new WaitForSeconds(_rumbleDuration);
+        Gamepad.current.SetMotorSpeeds(0, 0);
     }
 }

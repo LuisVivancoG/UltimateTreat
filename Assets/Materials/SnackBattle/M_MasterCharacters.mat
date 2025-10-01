@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_TestColor
+  m_Name: M_MasterCharacters
   m_Shader: {fileID: -6465566751694194690, guid: 750b6ac900940f94a9fd9b6070fecd4e,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,8 +25,32 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainText:
+    - _AORM_Map:
+        m_Texture: {fileID: 2800000, guid: 3f61242b237377e4590f4e6d1c869079, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo_Map:
         m_Texture: {fileID: 2800000, guid: b81b746ea3b5a4f4ab92a152e3b0b01d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Map:
+        m_Texture: {fileID: 2800000, guid: b81b746ea3b5a4f4ab92a152e3b0b01d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Color_Mask_Map:
+        m_Texture: {fileID: 2800000, guid: 94a3862f62ee7a84bb5746a2281cbf8b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainText:
+        m_Texture: {fileID: 2800000, guid: 3f61242b237377e4590f4e6d1c869079, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal_Map:
+        m_Texture: {fileID: 2800000, guid: 43cfa3b308732c941a0fbb4334ecefcc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6cbe878cdbc8434fb9de77679fd805a2_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,11 +67,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _B_Tint_Offset: 100
     - _Flash: 0
+    - _G_Tint_Offset: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
+    - _Clothing_Tint: {r: 1, g: 1, b: 1, a: 1}
     - _ColorFlash: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorVariation: {r: 0.3932668, g: 1, b: 0.033018887, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2576817176731686751

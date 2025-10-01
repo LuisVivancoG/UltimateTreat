@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,37 @@ public class PlayerController : MonoBehaviour
     private string _actionMapPlayerControls = "Player Controls";
     private string _actionMapMenuControls = "Menu Controls";
     private string _currentControlScheme;
+
+
+    [SerializeField] private MeshRenderer _renderer;
+    private MaterialPropertyBlock _colorPBlock;
+
+    private void Awake()
+    {
+        _colorPBlock = new MaterialPropertyBlock();
+    }
+
+    private void Start()
+    {
+        var newColor = RandomColor();
+        _renderer.GetPropertyBlock(_colorPBlock);
+        _colorPBlock.SetColor("_Clothing_Tint", newColor);
+        _renderer.SetPropertyBlock(_colorPBlock);
+        Debug.Log("Color applied" + newColor);
+    }
+
+    private Color RandomColor()
+    {
+        return new Color(Random.value, Random.value, Random.value, 1f);
+    }
+
+    private void OnEnable()
+    {
+        var playersArray = GameManager.Instance._currentPlayers;
+        playersArray.Add(this);
+
+        GameManager.Instance.SetUpPlayers();
+    }
 
     public void SetUpPlayer (int currentPlayerID)
     {

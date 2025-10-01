@@ -10,7 +10,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _turnSpeed = 0.1f;
 
     //Stored values
-    [SerializeField] private GameObject _worldReference;
     private Vector3 _movementDirection;
     private Quaternion _currentOrientation;
     private Vector3 _lookAtDirection;
@@ -57,8 +56,8 @@ public class CharacterMovement : MonoBehaviour
     }
     Vector3 WorldDirection(Vector3 movementDirection)
     {
-        var worldForward = _worldReference.transform.forward;
-        var worldRight = _worldReference.transform.right;
+        var worldForward = Vector3.forward;
+        var worldRight = Vector3.right;
 
         worldForward.y = 0f;
         worldRight.y = 0f;

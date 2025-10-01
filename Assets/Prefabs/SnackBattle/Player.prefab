@@ -74,7 +74,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d78d6cd3137a8824699cde034b4270c0, type: 2}
+  - {fileID: 2100000, guid: 00c1e347e6c36bb4e907f3e73e2f78dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   _shootingBehaviour: {fileID: 196600146685471231}
   _playerHealth: {fileID: 4638268491177831039}
   _movementSmoothSpeed: 5
+  _renderer: {fileID: 403314329700760004}
 --- !u!114 &4638268491177831039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +178,9 @@ MonoBehaviour:
   _renderer: {fileID: 403314329700760004}
   _flashDuration: 1
   _numberOfFlashes: 4
+  _leftMotor: 0.3
+  _rightMotor: 0
+  _rumbleDuration: 0.15
   HPChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -211,7 +215,6 @@ MonoBehaviour:
   _rb: {fileID: 8245579238674242169}
   _movementSpeed: 15
   _turnSpeed: 0.35
-  _worldReference: {fileID: 0}
 --- !u!114 &4287366412309801544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,49 +233,13 @@ MonoBehaviour:
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5849564934258674782}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnDeviceLost
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_DeviceRegainedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5849564934258674782}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnDeviceRegained
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5849564934258674782}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnControlsChanged
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -378,7 +345,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9ebbe067-acca-4606-994b-5756eaf6b4c4
     m_ActionName: 'Menu Controls/TogglePause[/Keyboard/p]'
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1

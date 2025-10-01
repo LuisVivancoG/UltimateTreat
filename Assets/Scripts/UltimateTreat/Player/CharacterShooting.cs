@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterShooting : MonoBehaviour
 {
@@ -111,7 +112,6 @@ public class CharacterShooting : MonoBehaviour
         component.returnItem();
         //Destroy(Trail.gameObject, Trail.time);
     }*/
-
     [SerializeField] private Transform _spawnerLoc;
     [SerializeField] private float _forceSpeed = 100f;
     [SerializeField] private float _fireCd = 3f;
