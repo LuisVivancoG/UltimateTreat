@@ -42,8 +42,9 @@ public class CharacterMovement : MonoBehaviour
 
     void MoveThePlayer()
     {
-        Vector3 movement = WorldDirection(_movementDirection) * _movementSpeed * Time.deltaTime;
-        _rb.MovePosition(transform.position + movement);
+        Vector3 movement = WorldDirection(_movementDirection);
+        //_rb.MovePosition(transform.position + movement);
+        _rb.AddForce(movement * _movementSpeed * Time.deltaTime);
     }
 
     void TurnThePlayer()
