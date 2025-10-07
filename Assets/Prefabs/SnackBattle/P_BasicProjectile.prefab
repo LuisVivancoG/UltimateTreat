@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sOData: {fileID: 11400000, guid: 214332a8afd69fe469b958ea7f7d81aa, type: 2}
   _damageDeal: 10
+  _rb: {fileID: 3017404566454881957}
 --- !u!54 &3017404566454881957
 Rigidbody:
   m_ObjectHideFlags: 0

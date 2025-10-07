@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "LocalMultiplayer-Tanks",
+    "name": "PlayerInputMultiplayer",
     "maps": [
         {
             "name": "Player Controls",
@@ -40,6 +40,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability",
+                    "type": "Button",
+                    "id": "7e90cd4d-510c-4ffc-b51c-490449853a5b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -111,17 +120,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Arrows",
                     "id": "93b23a42-83de-4c97-8dd8-5e64aa25d372",
                     "path": "2DVector",
@@ -178,6 +176,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0dc573a1-d506-49b6-9085-715f645a8b96",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
@@ -190,7 +199,7 @@
                 {
                     "name": "",
                     "id": "a6a510e5-e4b5-4043-a182-ca08cf33334d",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -217,6 +226,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "TogglePause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24c15cb4-139f-4c7b-a5c4-22a51048c531",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "076b41e9-59cc-4692-9d77-415e47af34cc",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

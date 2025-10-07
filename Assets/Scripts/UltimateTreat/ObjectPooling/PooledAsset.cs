@@ -9,20 +9,6 @@ public class PooledAsset : MonoBehaviour
     /*private void OnCollisionEnter(Collision collision)
     {
         AudioManager.PlaySound(TypeOfSound.Explosion);
-
-        if (collision.gameObject.layer != 8)
-        {
-            returnItem();
-        }
-
-        else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
-        {
-            var player = collision.collider.GetComponent<HealthManager>();
-            if (player != null)
-            {
-                player.DoDamage(_itemData.HPModifier);
-            }
-        }
     }*/
 
     internal void SetPoolManager(PoolsManagment poolsManager)

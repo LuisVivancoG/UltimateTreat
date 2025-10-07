@@ -70,7 +70,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
 
     public void RemoveObject(PooledAsset objectToRemove)
     {
-        objectToRemove.gameObject.SetActive(false);
         _poolsDictionary[objectToRemove.SOData.ObjectType].Release(objectToRemove);
+        objectToRemove.gameObject.SetActive(false);
     }
 }

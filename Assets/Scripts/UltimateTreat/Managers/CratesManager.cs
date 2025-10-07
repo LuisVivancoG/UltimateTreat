@@ -36,6 +36,16 @@ public class CratesManager : Singleton<CratesManager>
 
     void SpawnOnNavMesh()
     {
+        /*NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
+        int randomIndex = Random.Range(0, triangulation.vertices.Length);
+        var randomPos = triangulation.vertices[randomIndex];
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPos, out hit, 1f, 0))
+        {
+            PoolsManagment.Instance.GetObject(SOType.Crate, hit.position, new Vector3());
+        }*/
+
         NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
 
 

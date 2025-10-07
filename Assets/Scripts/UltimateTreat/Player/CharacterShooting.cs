@@ -113,12 +113,15 @@ public class CharacterShooting : MonoBehaviour
         //Destroy(Trail.gameObject, Trail.time);
     }*/
     [SerializeField] private Transform _spawnerLoc;
-    [SerializeField] private float _forceSpeed = 100f;
+    [SerializeField] private float _baseForce = 100f;
     [SerializeField] private float _fireCd = 3f;
     private bool _canShoot = true;
     public SOType _currentPower = SOType.BasicProjectile;
 
     public Transform SpawnerLoc => _spawnerLoc;
+
+    private bool _hasItem;
+    private bool _itemUsed;
 
     public void Fire()
     {
@@ -127,8 +130,10 @@ public class CharacterShooting : MonoBehaviour
             _canShoot = false;
             var projectile = PoolsManagment.Instance.GetObject(SOType.BasicProjectile, SpawnerLoc);
             projectile.TryGetComponent<Rigidbody>(out Rigidbody rb);
-            rb.linearVelocity = SpawnerLoc.forward * _forceSpeed;
+            rb.linearVelocity = SpawnerLoc.forward * _baseForce;
             StartCoroutine(FireCooldown());
+
+            CameraShakeManager.Instance.AddShake(.05f, .15f, .1f);
         }
     }
 
@@ -136,5 +141,15 @@ public class CharacterShooting : MonoBehaviour
     {
         yield return new WaitForSeconds(_fireCd);
         _canShoot = true;
+    }
+
+    public void ActivateItem()
+    {
+        if (_hasItem)
+        {
+            float initialForce = _baseForce;
+
+            _baseForce = _baseForce * 2.5f;
+        }
     }
 }

@@ -5,9 +5,16 @@ public class CharacterMovement : MonoBehaviour
     [Header("Component references")]
     [SerializeField] private Rigidbody _rb;
 
-    [Header("Parameters settings")]
+    [Header("Movement settings")]
     [SerializeField] private float _movementSpeed = 3f;
     [SerializeField] private float _turnSpeed = 0.1f;
+
+    [Header("Gravity settings")]
+    [SerializeField] private float _gravity = -9.8f;
+    [SerializeField] private float _groundedGravity = -0.2f;
+    [SerializeField] private float _groundCheckDistance = .2f;
+    [SerializeField] private LayerMask _groundMask;
+    bool _isGrounded;
 
     //Stored values
     private Vector3 _movementDirection;
@@ -18,6 +25,8 @@ public class CharacterMovement : MonoBehaviour
     {
         _currentOrientation = Quaternion.identity;
         _lookAtDirection = Vector3.forward;
+
+        _rb.useGravity = false;
     }
     public void UpdateMovementData(Vector3 newMovementDirection)
     {
@@ -30,21 +39,39 @@ public class CharacterMovement : MonoBehaviour
         {
             _lookAtDirection = newLookDirection;
         }
+        else _lookAtDirection = _movementDirection;
     }
 
     void FixedUpdate()
     {
+        CheckGrounded();
         MoveThePlayer();
         TurnThePlayer();
+        HandleGravity();
+    }
 
-        //Debug.Log($"Current move direction = {_movementDirection}");
+    void CheckGrounded()
+    {
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundMask);
+    }
+
+    void HandleGravity()
+    {
+        float gravityForce = _isGrounded ? _groundedGravity : _gravity;
+
+        Vector3 velocity = _rb.linearVelocity;
+        velocity.y += gravityForce + Time.deltaTime;
+        _rb.linearVelocity = velocity;
     }
 
     void MoveThePlayer()
     {
         Vector3 movement = WorldDirection(_movementDirection);
-        //_rb.MovePosition(transform.position + movement);
-        _rb.AddForce(movement * _movementSpeed * Time.deltaTime);
+        Vector3 velocity = _rb.linearVelocity;
+        velocity.x = movement.x * _movementSpeed;
+        velocity.z = movement.z * _movementSpeed;
+
+        _rb.linearVelocity = velocity;
     }
 
     void TurnThePlayer()
@@ -64,5 +91,11 @@ public class CharacterMovement : MonoBehaviour
         worldRight.y = 0f;
 
         return worldForward * movementDirection.z + worldRight * movementDirection.x;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = _isGrounded ? Color.green : Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * _groundCheckDistance);
     }
 }

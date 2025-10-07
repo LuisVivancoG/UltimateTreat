@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4638268491177831039}
   - component: {fileID: 196600146685471231}
   - component: {fileID: 185604015590141601}
+  - component: {fileID: 1740699374721373943}
   - component: {fileID: 4287366412309801544}
   - component: {fileID: 2605272095789283465}
   m_Layer: 0
@@ -35,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1209566949876670262}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -160,9 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementBehaviour: {fileID: 185604015590141601}
   _shootingBehaviour: {fileID: 196600146685471231}
+  _visualsBehaviour: {fileID: 1740699374721373943}
   _playerHealth: {fileID: 4638268491177831039}
   _movementSmoothSpeed: 5
-  _renderer: {fileID: 403314329700760004}
 --- !u!114 &4638268491177831039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,15 +176,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecd647575eff2047be0f7a84eb5225f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 403314329700760004}
-  _flashDuration: 1
-  _numberOfFlashes: 4
-  _leftMotor: 0.3
-  _rightMotor: 0
-  _rumbleDuration: 0.15
-  HPChanged:
+  _lowHPMark: 10
+  OnDamageTaken:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1740699374721373943}
+        m_TargetAssemblyTypeName: CharacterVisualsBehaviour, Assembly-CSharp
+        m_MethodName: FlashMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLastHP:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1740699374721373943}
+        m_TargetAssemblyTypeName: CharacterVisualsBehaviour, Assembly-CSharp
+        m_MethodName: VulnerabilitySequence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &196600146685471231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnerLoc: {fileID: 8138716147729364984}
-  _forceSpeed: 100
+  _baseForce: 100
   _fireCd: 0.175
   _currentPower: 1
 --- !u!114 &185604015590141601
@@ -213,8 +236,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 8245579238674242169}
-  _movementSpeed: 2500
+  _movementSpeed: 13
   _turnSpeed: 0.35
+  _gravity: -3
+  _groundedGravity: -0.002
+  _groundCheckDistance: 1
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1740699374721373943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209566949876670262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6275529d169710046827e074744d4d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 403314329700760004}
+  _allColorsPicker: {fileID: 0}
+  _flashDuration: 2
+  _numberOfFlashes: 4
 --- !u!114 &4287366412309801544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +390,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9ebbe067-acca-4606-994b-5756eaf6b4c4
     m_ActionName: 'Menu Controls/TogglePause[/Keyboard/p]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e90cd4d-510c-4ffc-b51c-490449853a5b
+    m_ActionName: 'Player Controls/Ability[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows2/buttonSouth,/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls

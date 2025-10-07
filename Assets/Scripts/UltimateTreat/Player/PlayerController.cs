@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     [Header("Sub Behaviours")]
     [SerializeField] private CharacterMovement _movementBehaviour;
     [SerializeField] private CharacterShooting _shootingBehaviour;
-    public HealthSystem _playerHealth;
+    [SerializeField] private CharacterVisualsBehaviour _visualsBehaviour;
+    [SerializeField] private HealthSystem _playerHealth;
     //public PlayerAnimationBehaviour _playerAnimationBehaviour;
-    //public PlayerVisualsBehaviour _playerVisualsBehaviour;
 
 
     [Header("Input settings")]
@@ -27,29 +27,6 @@ public class PlayerController : MonoBehaviour
     private string _actionMapMenuControls = "Menu Controls";
     private string _currentControlScheme;
 
-
-    [SerializeField] private MeshRenderer _renderer;
-    private MaterialPropertyBlock _colorPBlock;
-
-    private void Awake()
-    {
-        _colorPBlock = new MaterialPropertyBlock();
-    }
-
-    private void Start()
-    {
-        var newColor = RandomColor();
-        _renderer.GetPropertyBlock(_colorPBlock);
-        _colorPBlock.SetColor("_Clothing_Tint", newColor);
-        _renderer.SetPropertyBlock(_colorPBlock);
-        Debug.Log("Color applied" + newColor);
-    }
-
-    private Color RandomColor()
-    {
-        return new Color(Random.value, Random.value, Random.value, 1f);
-    }
-
     private void OnEnable()
     {
         var playersArray = GameManager.Instance._currentPlayers;
@@ -58,10 +35,10 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.SetUpPlayers();
     }
 
-    public void SetUpPlayer (int currentPlayerID)
+    public void SetUpPlayer (int currentPlayerID, float hP)
     {
         _playerID = currentPlayerID;
-
+        _playerHealth.SetHP(currentPlayerID, hP);
         //_currentControlScheme = _playerInput.currentControlScheme;
 
         //_movementBehaviour.SetupBehaviour();
@@ -83,9 +60,18 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            Debug.Log("Bang!");
+            //Debug.Log("Bang!");
             //_playerAnimationBehaviour.PlayAttackAnimation();
             _shootingBehaviour.Fire();
+        }
+    }
+
+    public void OnAbilityTriggered(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            Debug.Log("Ability used");
+            _shootingBehaviour.ActivateItem();
         }
     }
 

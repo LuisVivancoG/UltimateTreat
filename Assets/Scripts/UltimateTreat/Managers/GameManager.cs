@@ -12,6 +12,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private CratesManager _spawnerManager;
     [SerializeField] private NavMeshSurface _levelSruface;
 
+    [SerializeField] private float _initialHP;
+
     private void Start()
     {
         Bounds bounds = _levelSruface.navMeshData.sourceBounds;
@@ -28,8 +30,7 @@ public class GameManager : Singleton<GameManager>
         {
             tempID++;
 
-            player.SetUpPlayer(tempID);
-            player._playerHealth.SetHP(tempID, 200);
+            player.SetUpPlayer(tempID, _initialHP);
             _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
         }
 

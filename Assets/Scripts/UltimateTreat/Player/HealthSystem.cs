@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,14 +8,9 @@ using UnityEngine.InputSystem;
 public class HealthSystem : MonoBehaviour
 {
     [Header ("Flash effect")]
-    [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private float _flashDuration;
-    [SerializeField] private int _numberOfFlashes;
-
-    [Header("Rumble settings")]
-    [SerializeField] private float _leftMotor;
-    [SerializeField] private float _rightMotor;
-    [SerializeField] private float _rumbleDuration;
+    [SerializeField] private float _lowHPMark;
+    public UnityEvent OnDamageTaken;
+    public UnityEvent OnLastHP;
 
     private int _playerID;
     private float _maxHealthPoints;
@@ -22,7 +18,6 @@ public class HealthSystem : MonoBehaviour
     private SquashAndStretch _snSComp;
     public bool IsDead { get; private set; }
     public float CurrentHealthPoints { get; private set; }
-    public UnityEvent<float> HPChanged;
 
     private void Start()
     {
@@ -37,10 +32,6 @@ public class HealthSystem : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        if (Gamepad.current != null)
-        {
-            Gamepad.current.SetMotorSpeeds(0, 0);
-        }
     }
 
     public void SetHP(int iD, float maxHP)
@@ -50,7 +41,7 @@ public class HealthSystem : MonoBehaviour
         CurrentHealthPoints = _maxHealthPoints;
         IsDead = false;
 
-        Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
+        //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
     }
 
     public void Heal(float heal)
@@ -61,63 +52,59 @@ public class HealthSystem : MonoBehaviour
             CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints, 0, _maxHealthPoints);
         }
 
-        Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
-        HPChanged?.Invoke(CurrentHealthPoints);
+        //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
+        //_playerVisuals?.FlashMaterial();
     }
 
     public void TakeDamage(float damage)
     {
         if (_isVulnerable)
         {
-            StartCoroutine(RumbleGamepad());
-
+            CameraShakeManager.Instance.AddShake(.5f, .3f, .25f);
             _isVulnerable = false;
-            HitEffect();
+
+            OnDamageTaken?.Invoke();
+            RumbleManager.Instance.RumblePulse(0.15f, 0.15f, Gamepad.current);
+
+            _snSComp.CheckForAndStartCoroutine();
 
             CurrentHealthPoints = CurrentHealthPoints - damage;
             CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints, 0, _maxHealthPoints);
 
             HealthCheck();
 
-            Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
-            HPChanged?.Invoke(CurrentHealthPoints);
+            //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
+
+            StartCoroutine(ExitVulnerability());
         }
     }
 
     void HealthCheck()
     {
+        if(CurrentHealthPoints <= _lowHPMark)
+        {
+            OneHit();
+        }
+
         if (CurrentHealthPoints <= 0 && !IsDead)
         {
+            RumbleManager.Instance.StopAllMotions(Gamepad.current);
+            CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
             IsDead = true;
             //AudioManager.PlaySound(TypeOfSound.Death);
             gameObject.SetActive(false);
         }
     }
 
-    void HitEffect()
+    void OneHit()
     {
-        _snSComp.CheckForAndStartCoroutine();
-        StartCoroutine(FlashRoutine(_numberOfFlashes));
+        RumbleManager.Instance.RumbleConstant(0.05f, 1f, Gamepad.current);
+        OnLastHP?.Invoke();
     }
 
-    IEnumerator FlashRoutine(int flashes)
+    IEnumerator ExitVulnerability()
     {
-        float singleFlashDuration = _flashDuration / (flashes * 2f);
-
-        for (int i = 0; i < flashes; i++)
-        {
-            _renderer.material.SetInt("_Flash", 1);
-            yield return new WaitForSeconds(singleFlashDuration);
-            _renderer.material.SetInt("_Flash", 0);
-            yield return new WaitForSeconds(singleFlashDuration);
-        }
+        yield return new WaitForSeconds(2);
         _isVulnerable = true;
-    }
-
-    IEnumerator RumbleGamepad()
-    {
-        Gamepad.current.SetMotorSpeeds(_leftMotor, _rightMotor);
-        yield return new WaitForSeconds(_rumbleDuration);
-        Gamepad.current.SetMotorSpeeds(0, 0);
     }
 }
