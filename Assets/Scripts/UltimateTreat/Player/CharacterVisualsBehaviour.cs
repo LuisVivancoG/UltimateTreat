@@ -1,12 +1,12 @@
-using DG.Tweening.Core.Easing;
+using DG.Tweening;
 using System.Collections;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class CharacterVisualsBehaviour : MonoBehaviour
 {
     [Header ("Assign chosen material")]
     [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] private GameObject _hitStopGO;
     [SerializeField] private AllColorsPicker _allColorsPicker;
     private MaterialPropertyBlock _colorPBlock;
     //private PlayerController _currentPlayer;
@@ -40,9 +40,15 @@ public class CharacterVisualsBehaviour : MonoBehaviour
         return new Color(Random.value, Random.value, Random.value, 1f);
     }
 
-    public void FlashMaterial()
+    public void OnHitStop()
     {
+        ShakeVisuals();
         StartCoroutine(FlashRoutine(_numberOfFlashes));
+    }
+
+    private void ShakeVisuals()
+    {
+        _hitStopGO.transform.DOShakePosition(1f, .3f);
     }
 
     IEnumerator FlashRoutine(int flashes)

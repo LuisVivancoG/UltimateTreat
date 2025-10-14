@@ -1,6 +1,5 @@
-using DG.Tweening;
-using System;
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -18,6 +17,8 @@ public class HealthSystem : MonoBehaviour
     private SquashAndStretch _snSComp;
     public bool IsDead { get; private set; }
     public float CurrentHealthPoints { get; private set; }
+
+    [SerializeField] private CinemachineImpulseSource _impulseSource;
 
     private void Start()
     {
@@ -60,7 +61,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (_isVulnerable)
         {
-            CameraShakeManager.Instance.AddShake(.5f, .3f, .25f);
+            //CameraShakeManager.Instance.AddShake(.5f, .3f, .25f);
             _isVulnerable = false;
 
             OnDamageTaken?.Invoke();
@@ -88,12 +89,19 @@ public class HealthSystem : MonoBehaviour
 
         if (CurrentHealthPoints <= 0 && !IsDead)
         {
-            RumbleManager.Instance.StopAllMotions(Gamepad.current);
-            CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
-            IsDead = true;
-            //AudioManager.PlaySound(TypeOfSound.Death);
-            gameObject.SetActive(false);
+            Death();
         }
+    }
+
+    public void Death()
+    {
+        PoolsManagment.Instance.GetObject(SOType.KillParticles, transform.position, transform.localEulerAngles);
+        _impulseSource.GenerateImpulse(.3f);
+        RumbleManager.Instance.StopAllMotions(Gamepad.current);
+        //CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
+        IsDead = true;
+        //AudioManager.PlaySound(TypeOfSound.Death);
+        gameObject.SetActive(false);
     }
 
     void OneHit()

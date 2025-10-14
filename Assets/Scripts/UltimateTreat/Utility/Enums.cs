@@ -5,6 +5,9 @@ public enum SOType
     Crate = 2,
     BulletTrail = 3,
     Missile = 4,
+    KillParticles = 5,
+    HitParticles = 6,
+    Muzzle = 7,
 }
 
 public enum CharacterType

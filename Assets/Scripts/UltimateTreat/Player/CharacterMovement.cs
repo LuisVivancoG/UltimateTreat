@@ -44,19 +44,14 @@ public class CharacterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        CheckGrounded();
         MoveThePlayer();
         TurnThePlayer();
         HandleGravity();
     }
-
-    void CheckGrounded()
-    {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundMask);
-    }
-
     void HandleGravity()
     {
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundMask);
+
         float gravityForce = _isGrounded ? _groundedGravity : _gravity;
 
         Vector3 velocity = _rb.linearVelocity;

@@ -1614,7 +1614,7 @@
     "m_Title": "Normals",
     "m_Position": {
         "x": -1022.0,
-        "y": 340.00006103515627
+        "y": 340.0
     }
 }
 
@@ -3191,8 +3191,8 @@
     "m_ObjectId": "7b0e053ae567443197996dca27db0d1e",
     "m_Title": "Unpack AO/R/M maps",
     "m_Position": {
-        "x": -1010.0003051757813,
-        "y": 835.9999389648438
+        "x": -1010.0,
+        "y": 836.0
     }
 }
 
@@ -4810,7 +4810,7 @@
     "m_ObjectId": "c764d7073a12453f9b8dfe13b63b2b6f",
     "m_Title": "Flash on hit settings",
     "m_Position": {
-        "x": -1354.000244140625,
+        "x": -1354.0,
         "y": -758.0
     }
 }

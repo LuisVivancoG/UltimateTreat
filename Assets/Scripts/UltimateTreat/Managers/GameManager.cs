@@ -3,6 +3,7 @@ using Unity.AI.Navigation;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -14,8 +15,13 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private float _initialHP;
 
+    [SerializeField] private InputActionReference _actionReference;
+
     private void Start()
     {
+        _actionReference.action.started += context => OnExitEditMode(context);
+        _actionReference.action.performed += context => OnExitEditMode(context);
+
         Bounds bounds = _levelSruface.navMeshData.sourceBounds;
         //_currentPlayers = new List<PlayerController>();
         //SetUpPlayers();
@@ -80,4 +86,11 @@ public class GameManager : Singleton<GameManager>
             player._playerHealth.SetHP(200);
         }
     }*/
+    public void OnExitEditMode(InputAction.CallbackContext value)
+    {
+        Debug.Log("Button pressed");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }

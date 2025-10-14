@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using TreeEditor;
 using Unity.Cinemachine;
 using UnityEngine;
 
     public class CameraShakeManager : Singleton<CameraShakeManager>
 {
-    [SerializeField] private CinemachineBasicMultiChannelPerlin _noise;
+    /*[SerializeField] private CinemachineBasicMultiChannelPerlin _noise;
 
     [SerializeField] private float _blendSpeed = 10f;
     [SerializeField] private float _decaySpeed = 5f;
@@ -13,17 +12,20 @@ using UnityEngine;
     
     private List<ShakeRequest> _activeShakes = new List<ShakeRequest>();
     private float _totalIntensity;
-    private float _maxFrequency;
+    private float _maxFrequency;*/
+
+    [SerializeField] private CinemachineImpulseListener _listener;
+    [SerializeField] private CinemachineCollisionImpulseSource _source;
 
 
     private void Start()
     {
-        _totalIntensity = 0f;
-        _maxFrequency = 0f;
+        //_totalIntensity = 0f;
+        //_maxFrequency = 0f;
     }
     private void Update()
     {
-        for (int i = _activeShakes.Count - 1; i >= 0; i--)
+        /*for (int i = _activeShakes.Count - 1; i >= 0; i--)
         {
             var shake = _activeShakes[i];
             shake.Elapsed += Time.deltaTime;
@@ -49,10 +51,10 @@ using UnityEngine;
         {
             _noise.AmplitudeGain = Mathf.Lerp(_noise.AmplitudeGain, _totalIntensity, Time.deltaTime * _blendSpeed);
             _noise.FrequencyGain = Mathf.Lerp(_noise.FrequencyGain, _maxFrequency, Time.deltaTime * _blendSpeed);
-        }
+        }*/
     }
 
-    public void AddShake(float baseIntensity, float baseDuration, float baseFrequency, int totalPlayersShooting = 4)
+    /*public void AddShake(float baseIntensity, float baseDuration, float baseFrequency, int totalPlayersShooting = 4)
     {
         float multiplier = Mathf.Clamp01(totalPlayersShooting / 4f);
         float scaledIntensity = Mathf.Lerp(baseIntensity, _maxTotalIntensity, multiplier);
@@ -75,5 +77,5 @@ using UnityEngine;
             Frequency = frequency;
             Elapsed = 0f;
         }
-    }
+    }*/
 }

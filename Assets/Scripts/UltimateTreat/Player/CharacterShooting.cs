@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CharacterShooting : MonoBehaviour
 {
@@ -127,13 +126,14 @@ public class CharacterShooting : MonoBehaviour
     {
         if (_canShoot)
         {
+            PoolsManagment.Instance.GetObject(SOType.Muzzle, _spawnerLoc.position, transform.localEulerAngles);
             _canShoot = false;
             var projectile = PoolsManagment.Instance.GetObject(SOType.BasicProjectile, SpawnerLoc);
             projectile.TryGetComponent<Rigidbody>(out Rigidbody rb);
             rb.linearVelocity = SpawnerLoc.forward * _baseForce;
             StartCoroutine(FireCooldown());
 
-            CameraShakeManager.Instance.AddShake(.05f, .15f, .1f);
+            //CameraShakeManager.Instance.AddShake(.05f, .15f, .1f);
         }
     }
 

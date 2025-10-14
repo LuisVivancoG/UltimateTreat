@@ -10,12 +10,6 @@ public class CratesManager : Singleton<CratesManager>
     
     private NavMeshSurface _surface;
 
-    private void Start()
-    {
-        Bounds bounds = _surface.navMeshData.sourceBounds;
-        StartCoroutine(CratesSpawning());
-    }
-
     public void SetSurface(NavMeshSurface navMesh)
     {
         _surface = navMesh;

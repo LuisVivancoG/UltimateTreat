@@ -9,7 +9,10 @@ public class ProjectileBase : PooledAsset
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.TryGetComponent<HealthSystem>(out var targetHealth))
+        var positionContact = collision.contacts[0];
+        PoolsManagment.Instance.GetObject(SOType.HitParticles, positionContact.point, transform.localEulerAngles);
+
+        if (collision.transform.TryGetComponent<HealthSystem>(out var targetHealth))
         {
             targetHealth.TakeDamage(_damageDeal);
         }
