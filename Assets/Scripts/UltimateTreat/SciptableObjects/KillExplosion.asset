@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf332b40cf17a5428e6129dfcfb6a37, type: 3}
   m_Name: KillExplosion
   m_EditorClassIdentifier: 
-  _objectPrefab: {fileID: 5562182164051500486, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
+  _objectPrefab: {fileID: 963041771496894405, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
     type: 3}
   _objectName: KillParticles
   _objectType: 5

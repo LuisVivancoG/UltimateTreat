@@ -49,7 +49,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
 
     public PooledAsset GetObject(SOType type, Transform spawner)
     {
-        _poolsDictionary.TryGetValue(type, out PoolBase pool);
+        //_poolsDictionary.TryGetValue(type, out PoolBase pool);
         var item = _poolsDictionary[type].Get();
 
         item.transform.position = spawner.position;
@@ -59,7 +59,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
     }
     public PooledAsset GetObject(SOType type, Vector3 locationToSpawn, Vector3 spawnedRotation)
     {
-        _poolsDictionary.TryGetValue(type, out PoolBase pool);
+        //_poolsDictionary.TryGetValue(type, out PoolBase pool);
         var item = _poolsDictionary[type].Get();
 
         item.transform.localEulerAngles = spawnedRotation;

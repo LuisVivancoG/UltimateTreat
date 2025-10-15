@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
         Bounds bounds = _levelSruface.navMeshData.sourceBounds;
         //_currentPlayers = new List<PlayerController>();
         //SetUpPlayers();
-        _spawnerManager.SetSurface(_levelSruface);
+        _spawnerManager.StartSpawningCrates();
     }
 
     public void SetUpPlayers()

@@ -8,7 +8,7 @@ public class ParticleEffect : PooledAsset
     private void Awake()
     {
         var particleSystem = transform.GetComponent<ParticleSystem>();
-        _lifeTime = particleSystem.main.duration + .2f;
+        _lifeTime = particleSystem.main.duration;
     }
     private void OnEnable()
     {

@@ -15,6 +15,9 @@ public class CharacterVisualsBehaviour : MonoBehaviour
     [SerializeField] private float _flashDuration;
     [SerializeField] private int _numberOfFlashes;
 
+    [Header ("Particles")]
+    [SerializeField] ParticleSystem _muzzle;
+
     private void Awake()
     {
         _colorPBlock = new MaterialPropertyBlock();
@@ -38,6 +41,13 @@ public class CharacterVisualsBehaviour : MonoBehaviour
     private Color RandomColor()
     {
         return new Color(Random.value, Random.value, Random.value, 1f);
+    }
+
+    public void PlayMuzzleParticles(Vector3 location, Vector3 rotation)
+    {
+        _muzzle.transform.position = location;
+        _muzzle.transform.localEulerAngles = rotation;
+        _muzzle.Play();
     }
 
     public void OnHitStop()

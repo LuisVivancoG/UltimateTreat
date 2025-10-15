@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         //_movementBehaviour.SetupBehaviour();
         //_playerAnimationBehaviour.SetupBehaviour();
         //_playerVisualsBehaviour.SetupBehaviour(_playerID, _playerInput);
+        _shootingBehaviour.SetBehaviours(_visualsBehaviour, _movementBehaviour.RB);
     }
     public void OnMovement(InputAction.CallbackContext value)
     {

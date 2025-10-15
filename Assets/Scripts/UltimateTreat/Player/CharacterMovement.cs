@@ -21,6 +21,9 @@ public class CharacterMovement : MonoBehaviour
     private Quaternion _currentOrientation;
     private Vector3 _lookAtDirection;
 
+    //Getter
+    public Rigidbody RB { get { return _rb; } }
+
     private void Start()
     {
         _currentOrientation = Quaternion.identity;
