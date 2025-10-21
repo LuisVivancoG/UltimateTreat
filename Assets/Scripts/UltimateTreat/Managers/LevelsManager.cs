@@ -14,7 +14,10 @@ public class LevelsManager : PersistentSingleton<LevelsManager>
     {
         base.Awake();
         //DontDestroyOnLoad(_loadingUIPrefab);
+    }
 
+    private void Start()
+    {
         _loadingUIPrefab.SetActive(false);
     }
 

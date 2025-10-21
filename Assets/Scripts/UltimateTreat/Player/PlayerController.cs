@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HealthSystem _playerHealth;
     //public PlayerAnimationBehaviour _playerAnimationBehaviour;
 
-
     [Header("Input settings")]
     [SerializeField] private float _movementSmoothSpeed = 1f;
+
     private PlayerInput _playerInput;
+    private float _maxHP;
     private Vector3 _rawInputMovement;
     private Vector3 _smoothInputMovement;
     private Vector3 _lookAtInput;
@@ -28,22 +29,27 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        var playersArray = GameManager.Instance._currentPlayers;
+        /*var playersArray = GameManager.Instance._currentPlayers;
         playersArray.Add(this);
 
-        GameManager.Instance.SetUpPlayers();
+        GameManager.Instance.SetUpPlayers();*/
     }
 
-    public void SetUpPlayer (int currentPlayerID, float hP)
+    public void SetUp(int currentPlayerID, float hP)
     {
         _playerID = currentPlayerID;
-        _playerHealth.SetHP(currentPlayerID, hP);
-        //_currentControlScheme = _playerInput.currentControlScheme;
+        _maxHP = hP;
+        _playerHealth.SetHP(_maxHP);
+        _currentControlScheme = _playerInput.currentControlScheme;
 
         //_movementBehaviour.SetupBehaviour();
         //_playerAnimationBehaviour.SetupBehaviour();
         //_playerVisualsBehaviour.SetupBehaviour(_playerID, _playerInput);
         _shootingBehaviour.SetBehaviours(_visualsBehaviour, _movementBehaviour.RB);
+    }
+    public void RestoreStats()
+    {
+        _playerHealth.SetHP(_maxHP);
     }
     public void OnMovement(InputAction.CallbackContext value)
     {
@@ -86,13 +92,13 @@ public class PlayerController : MonoBehaviour
     public void OnControlsChanged()
     {
 
-        if (_playerInput.currentControlScheme != _currentControlScheme)
+        /*if (_playerInput.currentControlScheme != _currentControlScheme)
         {
             _currentControlScheme = _playerInput.currentControlScheme;
 
             //_playerVisualsBehaviour.UpdatePlayerVisuals();
             RemoveAllBindingOverrides();
-        }
+        }*/
     }
     public void OnDeviceLost()
     {

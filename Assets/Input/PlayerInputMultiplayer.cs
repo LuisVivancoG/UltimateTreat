@@ -136,15 +136,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Escape"",
-                    ""type"": ""Button"",
-                    ""id"": ""4a0cf5c5-84d5-4238-9936-9cc5fe313988"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -343,17 +334,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2f49d5d9-8518-43a3-9653-00cba2c6c424"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -831,7 +811,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
         m_PlayerControls_TogglePause = m_PlayerControls.FindAction("TogglePause", throwIfNotFound: true);
         m_PlayerControls_Ability = m_PlayerControls.FindAction("Ability", throwIfNotFound: true);
-        m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
         // Menu Controls
         m_MenuControls = asset.FindActionMap("Menu Controls", throwIfNotFound: true);
         m_MenuControls_Navigate = m_MenuControls.FindAction("Navigate", throwIfNotFound: true);
@@ -927,7 +906,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
     private readonly InputAction m_PlayerControls_Attack;
     private readonly InputAction m_PlayerControls_TogglePause;
     private readonly InputAction m_PlayerControls_Ability;
-    private readonly InputAction m_PlayerControls_Escape;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player Controls".
     /// </summary>
@@ -959,10 +937,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         /// Provides access to the underlying input action "PlayerControls/Ability".
         /// </summary>
         public InputAction @Ability => m_Wrapper.m_PlayerControls_Ability;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerControls/Escape".
-        /// </summary>
-        public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1004,9 +978,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
             @Ability.started += instance.OnAbility;
             @Ability.performed += instance.OnAbility;
             @Ability.canceled += instance.OnAbility;
-            @Escape.started += instance.OnEscape;
-            @Escape.performed += instance.OnEscape;
-            @Escape.canceled += instance.OnEscape;
         }
 
         /// <summary>
@@ -1033,9 +1004,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
             @Ability.started -= instance.OnAbility;
             @Ability.performed -= instance.OnAbility;
             @Ability.canceled -= instance.OnAbility;
-            @Escape.started -= instance.OnEscape;
-            @Escape.performed -= instance.OnEscape;
-            @Escape.canceled -= instance.OnEscape;
         }
 
         /// <summary>
@@ -1338,13 +1306,6 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAbility(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEscape(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu Controls" which allows adding and removing callbacks.

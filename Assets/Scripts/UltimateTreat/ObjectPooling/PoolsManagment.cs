@@ -10,8 +10,10 @@ public class PoolsManagment : Singleton<PoolsManagment>
     public AllPOData POData => _pObjectsData;
     internal Dictionary<SOType, PoolBase> _poolsDictionary;
 
-    private void Start()
+    private void Awake()
     {
+        base.Awake();
+
         InitializePool();
     }
 

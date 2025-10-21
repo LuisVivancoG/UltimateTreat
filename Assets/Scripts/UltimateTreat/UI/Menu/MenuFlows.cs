@@ -17,7 +17,6 @@ public class MenuFlows : MonoBehaviour
     [SerializeField] private GameObject _fButtonLand;
     [SerializeField] private GameObject _fButtonSelection;
     private EventSystem _system;
-    private GameObject _lastSelected;
 
     private void Awake()
     {

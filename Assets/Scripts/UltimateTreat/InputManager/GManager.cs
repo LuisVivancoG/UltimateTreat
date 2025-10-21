@@ -1,17 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.AI.Navigation;
-using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+public class GManager : MonoBehaviour
 {
-    [Header("Players")]
+    [Header("Current players")]
     [SerializeField] private int _currentPlayers;
-    [SerializeField] private PlayerController _prefab;
-    [SerializeField] private float _initialHP;
+    [SerializeField] private TempPlayer _prefab;
 
     [Header("Win condition")]
     [SerializeField] private int _maxPoints; //Rounds necessary to win match
@@ -22,53 +19,35 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _timeToStartRound;
     [SerializeField] private float _timeToEndRound;
 
-    [Header("Misc")]
-    [SerializeField] private LevelsManager _levelsManager;
-    [SerializeField] private CinemachineTargetGroup _targetGroup;
-    [SerializeField] private CratesManager _spawnerManager;
-    [SerializeField] private PlayerInputManager _inputManager;
-
     private List<RoundTracker> _activePlayers = new List<RoundTracker>();
     private RoundTracker _roundWinner;
     private RoundTracker _gameWinner;
 
-    //[SerializeField] public List<PlayerController> _currentPlayers;
-
-    //[SerializeField] private NavMeshSurface _levelSruface;
-
-    //[SerializeField] private InputActionReference _actionReference;
-
     private void Start()
     {
-        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
-        if (levelsManager == null)
-        {
-            Instantiate(_levelsManager);
-        }
-
-        StartCoroutine(InitiateCrates());
         SpawnPlayers();
-    }
-
-    IEnumerator InitiateCrates()
-    {
-        yield return new WaitForSeconds(7f);
-        _spawnerManager.SpawnCrates();
     }
 
     void SpawnPlayers()
     {
         for (int i = 0; i < _currentPlayers; i++)
         {
-            //var player = Instantiate(_prefab);
-            var player = _inputManager.JoinPlayer(i);
-            var component = player.GetComponent<PlayerController>();
+            var player = Instantiate(_prefab);
             var tracker = player.AddComponent<RoundTracker>();
-            tracker.SetPlayer(component, i + 1);
+            //tracker.SetPlayer(player, i);
             _activePlayers.Add(tracker);
         }
 
         StartCoroutine(GameLoop());
+    }
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            int randomPlayer = Random.Range(0, _activePlayers.Count);
+            _activePlayers[randomPlayer].gameObject.SetActive(false);
+        }
     }
 
     IEnumerator GameLoop()
@@ -83,7 +62,6 @@ public class GameManager : Singleton<GameManager>
 
         if (_gameWinner != null)
         {
-            yield return StartCoroutine(DisplayScores());
             VictorySequence();
         }
         else
@@ -98,11 +76,6 @@ public class GameManager : Singleton<GameManager>
         foreach (var player in _activePlayers)
         {
             Debug.Log($"{player}: {player.VictoryRounds} wins");
-
-            if(player.VictoryRounds == _maxPoints)
-            {
-                Debug.LogWarning($"{player.name} has won the game");
-            }
         }
         yield return new WaitForSeconds(_timeScoresDisplayed);
     }
@@ -120,8 +93,6 @@ public class GameManager : Singleton<GameManager>
         foreach (var player in _activePlayers)
         {
             player.RestoreStats();
-            _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
-            player.transform.position = _spawnerManager.GetLocationInBoundBox();
             //Set position within boundaries
         }
     }
@@ -193,27 +164,4 @@ public class GameManager : Singleton<GameManager>
     {
         LevelsManager.Instance.ChangeScene(_nextScene);
     }
-
-    /*public void SetUpPlayers()
-    {
-        int tempID = 0;
-
-        foreach (var player in _activePlayers)
-        {
-            tempID++;
-
-            player.SetPlayer(_initialHP);
-            _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
-            player.transform.position = _spawnerManager.GetLocationInBoundBox();
-        }
-        //SetPlayersHealth();
-    }*/
-
-    /*#if UNITY_EDITOR
-        public void OnExitEditMode(InputAction.CallbackContext value)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-
-        }
-    #endif*/
 }

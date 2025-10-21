@@ -8,7 +8,6 @@ public class CharacterVisualsBehaviour : MonoBehaviour
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private GameObject _hitStopGO;
     private MaterialPropertyBlock _colorPBlock;
-    //private PlayerController _currentPlayer;
 
     [Header ("Flash effect")]
     [SerializeField] private float _flashDuration;

@@ -35,9 +35,9 @@ public class HealthSystem : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void SetHP(int iD, float maxHP)
+    public void SetHP(float maxHP)
     {
-        _playerID = iD;
+        //_playerID = iD;
         _maxHealthPoints = maxHP;
         CurrentHealthPoints = _maxHealthPoints;
         IsDead = false;
