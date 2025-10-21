@@ -392,7 +392,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7e90cd4d-510c-4ffc-b51c-490449853a5b
     m_ActionName: 'Player Controls/Ability[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows2/buttonSouth,/Keyboard/shift]'
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1

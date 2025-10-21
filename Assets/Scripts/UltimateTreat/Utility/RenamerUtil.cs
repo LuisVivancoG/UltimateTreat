@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class RenamerUtil : EditorWindow
+/*public class RenamerUtil : EditorWindow
 {
     private string _prefix = "Prefix_";
     private string _sufix = "_sufix";
@@ -63,4 +63,4 @@ public class RenamerUtil : EditorWindow
     }
 
     //
-}
+}*/

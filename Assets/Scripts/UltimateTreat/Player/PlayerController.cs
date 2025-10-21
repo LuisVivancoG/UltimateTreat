@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         _playerID = currentPlayerID;
         _maxHP = hP;
         _playerHealth.SetHP(_maxHP);
-        _currentControlScheme = _playerInput.currentControlScheme;
+        //_currentControlScheme = _playerInput.currentControlScheme;
 
         //_movementBehaviour.SetupBehaviour();
         //_playerAnimationBehaviour.SetupBehaviour();

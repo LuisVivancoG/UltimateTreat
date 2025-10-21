@@ -10,7 +10,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
     public AllPOData POData => _pObjectsData;
     internal Dictionary<SOType, PoolBase> _poolsDictionary;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -23,7 +23,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
         foreach (SOType type in Enum.GetValues(typeof(SOType))) //Adds a pool for each SOType in the _poolsDictionary
         {
             _poolsDictionary.Add(type, new PoolBase(() => CreatePoolObjectType(type), GetObjectFromPool, ReturnObjectToPool));
-            //Debug.LogWarning($"Pool initialized: {type} || current dictionary: {_poolsDictionary.Keys}");
+            Debug.LogWarning($"Pool initialized: {type} || current dictionary: {_poolsDictionary.Keys}");
         }
     }
 

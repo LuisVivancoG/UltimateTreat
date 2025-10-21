@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class PrefabReplacer : EditorWindow
+/*public class PrefabReplacer : EditorWindow
 {
 private GameObject _replacementPrefab;
     private bool _addNumber = true;
@@ -70,4 +70,4 @@ private GameObject _replacementPrefab;
         }
         Debug.Log("Meshes Replaced");
     }
-}
+}*/

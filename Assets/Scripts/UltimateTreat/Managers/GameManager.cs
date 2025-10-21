@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
             //var player = Instantiate(_prefab);
             var player = _inputManager.JoinPlayer(i);
             var component = player.GetComponent<PlayerController>();
+            component.SetUp(i + 1, _initialHP);
             var tracker = player.AddComponent<RoundTracker>();
             tracker.SetPlayer(component, i + 1);
             _activePlayers.Add(tracker);
@@ -109,7 +110,7 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator RoundStarting()
     {
-        Debug.LogWarning("Setting players");
+        //Debug.LogWarning("Setting players");
         //Clear items on scene
         SetUpPlayers();
         yield return new WaitForSeconds(_timeToStartRound);
@@ -128,12 +129,12 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator RoundPlaying()
     {
-        Debug.LogWarning("Battle started");
+        //Debug.LogWarning("Battle started");
         while (!OnePlayerLeft())
         {
             yield return null;
         }
-        Debug.LogWarning("No more players");
+        //Debug.LogWarning("No more players");
     }
     IEnumerator RoundEnding()
     {
@@ -143,7 +144,7 @@ public class GameManager : Singleton<GameManager>
         if (_roundWinner != null)
         {
             _roundWinner.IncrementVictoryCount();
-            Debug.Log($"Round winner {_roundWinner.name}");
+            //Debug.Log($"Round winner {_roundWinner.name}");
         }
 
         _gameWinner = GetGameWinner();
@@ -193,27 +194,4 @@ public class GameManager : Singleton<GameManager>
     {
         LevelsManager.Instance.ChangeScene(_nextScene);
     }
-
-    /*public void SetUpPlayers()
-    {
-        int tempID = 0;
-
-        foreach (var player in _activePlayers)
-        {
-            tempID++;
-
-            player.SetPlayer(_initialHP);
-            _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
-            player.transform.position = _spawnerManager.GetLocationInBoundBox();
-        }
-        //SetPlayersHealth();
-    }*/
-
-    /*#if UNITY_EDITOR
-        public void OnExitEditMode(InputAction.CallbackContext value)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-
-        }
-    #endif*/
 }

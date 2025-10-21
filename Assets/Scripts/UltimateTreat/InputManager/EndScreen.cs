@@ -6,12 +6,15 @@ public class EndScreen : MonoBehaviour
     [Header("GameplayScene")]
     [SerializeField] private string _nextScene;
 
-    //[Header("EventSystem")]
-    //private EventSystem _system;
+    [SerializeField] private LevelsManager _levelsManager;
 
-    private void Awake()
+    private void Start()
     {
-        //_system = FindAnyObjectByType<EventSystem>();
+        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
+        if (levelsManager == null)
+        {
+            Instantiate(_levelsManager);
+        }
     }
 
     public void BackToMenu(string scene)

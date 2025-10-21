@@ -18,6 +18,8 @@ public class MenuFlows : MonoBehaviour
     [SerializeField] private GameObject _fButtonSelection;
     private EventSystem _system;
 
+    [SerializeField] private LevelsManager _levelsManager;
+
     private void Awake()
     {
         _system = FindAnyObjectByType<EventSystem>();
@@ -25,6 +27,15 @@ public class MenuFlows : MonoBehaviour
         _landUI.SetActive(true);
         _selectionUI.SetActive(false);
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
+    }
+
+    private void Start()
+    {
+        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
+        if (levelsManager == null)
+        {
+            Instantiate(_levelsManager);
+        }
     }
 
     public void PlayersSelection()
