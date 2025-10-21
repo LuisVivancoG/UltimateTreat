@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd15a31f3017c4c4aa5b32dbcbfbf4b8, type: 3}
-  m_Name: CapsuleColors
+  m_Name: GummyVariations
   m_EditorClassIdentifier: 
   _colorsAvailable:
   - {fileID: 11400000, guid: 9f55c0e6b43887245a38726c6db73d06, type: 2}

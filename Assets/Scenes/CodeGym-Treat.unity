@@ -201,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54739868}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -858,6 +858,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea946c7bdc4864c488955319887a4475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelsM: {fileID: 4849255140502763260, guid: b21201a3eb6f5eb46982bb74396fca92,
+    type: 3}
   _currentPlayers: []
   _targetGroup: {fileID: 969945317}
   _spawnerManager: {fileID: 697316080}
@@ -874,7 +876,7 @@ Transform:
   m_GameObject: {fileID: 697316077}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.5, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -892,19 +894,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b7458f4df8e4a4bb571503153f6e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnableArea: {x: 50, y: 50}
-  _spawnHeight: 10
+  _spawnableArea: {x: 50, y: 10, z: 50}
   _groundMask:
     serializedVersion: 2
     m_Bits: 256
-  _obstaclesMask:
-    serializedVersion: 2
-    m_Bits: 128
-  _groundTag: Ground
-  _cratePrefab: {fileID: 2575494738605092936, guid: ab1c03b06632bb94fa7b3949e179c244,
-    type: 3}
-  _minDistanceCrates: 0.05
-  _maxAttempts: 100
+  _frequencyTime: 2
 --- !u!114 &697316081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +914,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
   m_AllowJoining: 1
-  m_JoinBehavior: 1
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []

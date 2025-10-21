@@ -15,4 +15,4 @@ MonoBehaviour:
   _objectPrefab: {fileID: 963041771496894405, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
     type: 3}
   _objectName: KillParticles
-  _objectType: 5
+  _objectType: 3

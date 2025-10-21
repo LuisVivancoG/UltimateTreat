@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CratesManager : Singleton<CratesManager>
 {
@@ -64,78 +64,77 @@ public class CratesManager : Singleton<CratesManager>
         return a + r1 * (b - a) + r2 * (c - a);
     }*/
     [Header("Spawn Settings")]
-    [SerializeField] private Vector2 _spawnableArea = new Vector2(50f, 50f);
-    [SerializeField] private float _spawnHeight = 20f;
+    [SerializeField] private Vector3 _spawnableArea = new Vector3(50f, 50f, 50f);
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private LayerMask _obstaclesMask;
-    [SerializeField] private string _groundTag = "Ground";
+    [SerializeField] private float _frequencyTime = 5f;
 
-    [Header("Crates")]
-    [SerializeField] private GameObject _cratePrefab;
-    [SerializeField] private float _minDistanceCrates = 1.5f;
-    [SerializeField] private int _maxAttempts = 20;
+    private float _currentFrequency;
+    private Vector3 _spawnOrigin;
+    private float _yMin;
+    private float _yMax;
+    //private List<Vector3> _spawnedPositions;
 
-    private List<Vector3> _spawnedPositions = new List<Vector3>();
-
-    public void StartSpawningCrates()
+    private void Start()
     {
-        for (int i = 0; i < _maxAttempts; i++)
-        {
-            Vector3 randomXZ = new Vector3(
-                Random.Range(-_spawnableArea.x / 2f, _spawnableArea.x / 2f),
-                0f,
-                Random.Range(-_spawnableArea.y / 2f, _spawnableArea.y / 2f)
-            );
-
-            Vector3 rayOrigin = transform.position + randomXZ;
-
-            rayOrigin.y = transform.position.y;
-
-            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, _spawnHeight, _groundMask))
-            {
-                if (!hit.collider.CompareTag(_groundTag))
-                    continue;
-
-                if (Physics.CheckSphere(hit.point, 0.5f, _obstaclesMask))
-                    continue;
-
-                if (TooCloseToOthers(hit.point))
-                    continue;
-
-                //PoolsManagment.Instance.GetObject(SOType.Crate, hit.point, transform.rotation.eulerAngles);
-                Instantiate(_cratePrefab, hit.point, Quaternion.identity);
-                _spawnedPositions.Add(hit.point);
-                return;
-            }
-        }
-
-        Debug.LogWarning("No valid spawn position found after multiple attempts.");
+        _yMax = transform.position.y;
+        _yMin = transform.position.y - _spawnableArea.y;
+        _currentFrequency = _frequencyTime;
+        //_spawnedPositions = new List<Vector3>();
     }
-    private bool TooCloseToOthers(Vector3 pos)
+
+    public void SpawnCrates()
     {
-        foreach (var p in _spawnedPositions)
+        var crate = PoolsManagment.Instance.GetObject(SOType.Crate, GetLocationInBoundBox());
+        //_spawnedPositions.Add(crate.transform.position);
+        StartCoroutine(Cooldown());
+    }
+
+    public Vector3 GetLocationInBoundBox()
+    {
+        float rayDistance = _spawnableArea.y;
+        Vector3 rayOrigin = new Vector3(transform.position.x + Random.Range(-_spawnableArea.x / 2f, _spawnableArea.x / 2f), transform.position.y, transform.position.z + Random.Range(-_spawnableArea.z / 2f, _spawnableArea.z / 2f));
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, rayDistance, _groundMask))
         {
-            if (Vector3.Distance(p, pos) < _minDistanceCrates)
-                return true;
+            _spawnOrigin = hit.point;
+            //_spawnOrigin.y = _yMax;
+            return _spawnOrigin;
         }
-        return false;
+
+        Debug.LogError($"Location not found within bound box {hit.point}");
+        _spawnOrigin = Vector3.zero;
+        //_spawnOrigin.y = _yMax;
+        return _spawnOrigin;
+    }
+
+    private float FrequencyCheck()
+    {
+
+
+        return _currentFrequency;
+    }
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(_frequencyTime);
+        SpawnCrates();
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        //_spawnableArea.y = transform.position.y;
-        Vector3 center = transform.position - new Vector3(0, _spawnHeight / 2f, 0);
-        Vector3 size = new Vector3(_spawnableArea.x, _spawnHeight, _spawnableArea.y);
+        var yOffset = transform.position.y - (_spawnableArea.y/2);
+        Vector3 center = transform.position;
+        center.y = yOffset;
 
-        Gizmos.DrawWireCube(center, size);
+        Gizmos.DrawWireCube(center, _spawnableArea);
 
-        Gizmos.color = Color.yellow;
-        foreach (var p in _spawnedPositions)
+        /*Gizmos.color = Color.yellow;
+        foreach(var item in _spawnedPositions)
         {
-            Gizmos.DrawSphere(p, 0.2f);
-        }
+            Gizmos.DrawSphere(item, 1f);
+        }*/
     }
 #endif
 }

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf332b40cf17a5428e6129dfcfb6a37, type: 3}
-  m_Name: BulletTrail
+  m_Script: {fileID: 11500000, guid: 49d9510ccf75a9741a1e496bda2dda18, type: 3}
+  m_Name: Gummy-Red
   m_EditorClassIdentifier: 
-  _objectPrefab: {fileID: -7718792335321468836, guid: 29bf5861e628d7a45b1044186412e9e8,
-    type: 3}
-  _objectName: Bullet trail
-  _objectType: 3
+  _CharacterModel: 1
+  _colorOption: {r: 0.9622642, g: 0.21333215, b: 0.21333215, a: 0}

@@ -138,7 +138,7 @@ public class CharacterShooting : MonoBehaviour
             //PoolsManagment.Instance.GetObject(SOType.Muzzle, _spawnerLoc.position, transform.localEulerAngles);
             _visuals.PlayMuzzleParticles(_spawnerLoc.position, transform.localEulerAngles);
             _canShoot = false;
-            var projectile = PoolsManagment.Instance.GetObject(SOType.BasicProjectile, SpawnerLoc);
+            var projectile = PoolsManagment.Instance.GetObject(SOType.BasicProjectile, SpawnerLoc.position, transform.localEulerAngles);
             projectile.TryGetComponent<Rigidbody>(out Rigidbody rb);
             rb.linearVelocity = SpawnerLoc.forward * _baseForce;
             StartCoroutine(FireCooldown());

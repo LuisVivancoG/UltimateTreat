@@ -21,6 +21,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
         foreach (SOType type in Enum.GetValues(typeof(SOType))) //Adds a pool for each SOType in the _poolsDictionary
         {
             _poolsDictionary.Add(type, new PoolBase(() => CreatePoolObjectType(type), GetObjectFromPool, ReturnObjectToPool));
+            //Debug.LogWarning($"Pool initialized: {type} || current dictionary: {_poolsDictionary.Keys}");
         }
     }
 
@@ -47,25 +48,33 @@ public class PoolsManagment : Singleton<PoolsManagment>
         return POData.Data.FirstOrDefault(b => b.ObjectType == itemType);
     }
 
-    public PooledAsset GetObject(SOType type, Transform spawner)
+    public PooledAsset GetObject(SOType type, Vector3 locationToSpawn)
     {
-        //_poolsDictionary.TryGetValue(type, out PoolBase pool);
-        var item = _poolsDictionary[type].Get();
+        if(_poolsDictionary.TryGetValue(type, out PoolBase pool))
+        {
+            var item = pool.Get();
 
-        item.transform.position = spawner.position;
-        item.transform.rotation = Quaternion.LookRotation(spawner.forward, Vector3.up);
+            item.transform.position = locationToSpawn;
 
-        return item;
+            return item;
+        }
+        Debug.LogError($"{type} not found in {_poolsDictionary}");
+        return null;
     }
     public PooledAsset GetObject(SOType type, Vector3 locationToSpawn, Vector3 spawnedRotation)
     {
-        //_poolsDictionary.TryGetValue(type, out PoolBase pool);
-        var item = _poolsDictionary[type].Get();
+        if(_poolsDictionary.TryGetValue(type, out PoolBase pool))
+        {
+            var item = pool.Get();
 
-        item.transform.localEulerAngles = spawnedRotation;
-        item.transform.position = locationToSpawn;
+            item.transform.localEulerAngles = spawnedRotation;
+            item.transform.position = locationToSpawn;
 
-        return item;
+            return item;
+        }
+        Debug.LogError($"{type} not found in {_poolsDictionary}" +
+            $"Dictionary pools: {_poolsDictionary.Keys}");
+        return null;
     }
 
     public void RemoveObject(PooledAsset objectToRemove)

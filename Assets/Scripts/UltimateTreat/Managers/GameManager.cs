@@ -1,12 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private GameObject _levelsM;
+
     [SerializeField] public List<PlayerController> _currentPlayers;
     [SerializeField] private CinemachineTargetGroup _targetGroup;
 
@@ -19,13 +21,26 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
+        if (levelsManager == null)
+        {
+            Instantiate(_levelsM);
+        }
+
+#if UNITY_EDITOR
         _actionReference.action.started += context => OnExitEditMode(context);
         _actionReference.action.performed += context => OnExitEditMode(context);
+#endif
 
-        Bounds bounds = _levelSruface.navMeshData.sourceBounds;
         //_currentPlayers = new List<PlayerController>();
         //SetUpPlayers();
-        _spawnerManager.StartSpawningCrates();
+        StartCoroutine(Delay());
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(7f);
+        _spawnerManager.SpawnCrates();
     }
 
     public void SetUpPlayers()
@@ -38,59 +53,16 @@ public class GameManager : Singleton<GameManager>
 
             player.SetUpPlayer(tempID, _initialHP);
             _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
+            player.transform.position = _spawnerManager.GetLocationInBoundBox();
         }
-
-        PlacePlayers();
         //SetPlayersHealth();
     }
 
-    void PlacePlayers()
-    {
-        foreach (var player in _currentPlayers)
-        {
-            NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
-
-
-            int triangleIndex = Random.Range(0, triangulation.indices.Length / 3) * 3;
-
-            Vector3 vert1 = triangulation.vertices[triangulation.indices[triangleIndex]];
-            Vector3 vert2 = triangulation.vertices[triangulation.indices[triangleIndex + 1]];
-            Vector3 vert3 = triangulation.vertices[triangulation.indices[triangleIndex + 2]];
-
-            Vector3 randomPoint = RandomPointInTriangle(vert1, vert2, vert3);
-
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1f, NavMesh.AllAreas))
-            {
-                player.transform.position = hit.position;
-            }
-        }
-    }
-    private Vector3 RandomPointInTriangle(Vector3 a, Vector3 b, Vector3 c)
-    {
-        float r1 = Random.value;
-        float r2 = Random.value;
-
-        if (r1 + r2 > 1f)
-        {
-            r1 = 1f - r1;
-            r2 = 1f - r2;
-        }
-
-        return a + r1 * (b - a) + r2 * (c - a);
-    }
-
-    /*void SetPlayersHealth()
-    {
-        foreach (var player in _currentPlayers)
-        {
-            player._playerHealth.SetHP(200);
-        }
-    }*/
+#if UNITY_EDITOR
     public void OnExitEditMode(InputAction.CallbackContext value)
     {
-        Debug.Log("Button pressed");
-#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#endif
+
     }
+#endif
 }

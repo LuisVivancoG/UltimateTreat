@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AllColorsPicker : ScriptableObject
 {
+    [SerializeField] private GameObject _displayModel;
     [SerializeField] private SO_CharacterVariation[] _colorsAvailable; 
     public SO_CharacterVariation[] ColorsAvailable => _colorsAvailable;
+    public GameObject DisplayModel => _displayModel;
 }

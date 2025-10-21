@@ -3,15 +3,13 @@ public enum SOType
     None = 0,
     BasicProjectile = 1,
     Crate = 2,
-    BulletTrail = 3,
-    Missile = 4,
-    KillParticles = 5,
+    KillParticles = 3,
 }
 
 public enum CharacterType
 {
     None = 0,
-    Gingerbread = 1,
+    Gummybear = 1,
     Marshmallow = 2,
 }
 

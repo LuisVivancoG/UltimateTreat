@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49d9510ccf75a9741a1e496bda2dda18, type: 3}
-  m_Name: Default_Red
+  m_Name: Gummy-Green
   m_EditorClassIdentifier: 
-  _CharacterModel: 0
-  _colorOption: {r: 0.9622642, g: 0.21333215, b: 0.21333215, a: 0}
+  _CharacterModel: 1
+  _colorOption: {r: 0.26330543, g: 0.9150943, b: 0.42381194, a: 0}

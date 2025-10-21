@@ -7,7 +7,6 @@ public class CharacterVisualsBehaviour : MonoBehaviour
     [Header ("Assign chosen material")]
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private GameObject _hitStopGO;
-    [SerializeField] private AllColorsPicker _allColorsPicker;
     private MaterialPropertyBlock _colorPBlock;
     //private PlayerController _currentPlayer;
 
@@ -25,22 +24,17 @@ public class CharacterVisualsBehaviour : MonoBehaviour
 
     private void Start()
     {
-        var newColor = RandomColor();
+        //_renderer.GetPropertyBlock(_colorPBlock);
+        //_colorPBlock.SetColor("_Clothing_Tint", RandomColor());
+        //_renderer.SetPropertyBlock(_colorPBlock);
+        //Debug.Log("Color applied" + newColor);
+    }
+
+    public void SetColor(Color colorChosen)
+    {
         _renderer.GetPropertyBlock(_colorPBlock);
-        _colorPBlock.SetColor("_Clothing_Tint", RandomColor());
+        _colorPBlock.SetColor("_Clothing_Tint", colorChosen);
         _renderer.SetPropertyBlock(_colorPBlock);
-        Debug.Log("Color applied" + newColor);
-    }
-
-    private int RandomInt()
-    {
-        int newSelection = Random.Range(0, _allColorsPicker.ColorsAvailable.Length);
-        return newSelection;
-    }
-
-    private Color RandomColor()
-    {
-        return new Color(Random.value, Random.value, Random.value, 1f);
     }
 
     public void PlayMuzzleParticles(Vector3 location, Vector3 rotation)
@@ -72,7 +66,6 @@ public class CharacterVisualsBehaviour : MonoBehaviour
             _renderer.material.SetInt("_Flash", 0);
             yield return new WaitForSeconds(singleFlashDuration);
         }
-        //_isVulnerable = true;
     }
 
     public void VulnerabilitySequence()
@@ -82,15 +75,12 @@ public class CharacterVisualsBehaviour : MonoBehaviour
 
     IEnumerator FlickrColor()
     {
-        float time = 0;
         _renderer.material.SetColor("_Clothing_Tint", Color.red);
 
         float singleFlashDuration = _flashDuration / (_numberOfFlashes * 2f);
 
         while (true)
         {
-            //var sineValue = Mathf.PingPong(time, 1);
-
             _renderer.material.SetInt("_Flash", 1);
             yield return new WaitForSeconds(singleFlashDuration);
             _renderer.material.SetInt("_Flash", 0);
