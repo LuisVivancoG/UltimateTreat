@@ -1,15 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDisplay : MonoBehaviour
 {
-    [SerializeField] private RectTransform _gOTransform;
-    //[SerializeField] private GameObject _inputGO;
-    public RectTransform GOTransform { get { return _gOTransform; } }
-    //public GameObject InputGO { get { return _inputGO; } }
+    [SerializeField] private Button _rightButton;
+    [SerializeField] private Button _leftButton;
 
-    private void Start()
-    {
-        var component = FindAnyObjectByType<SystemInputsManager>().PlayersGrp;
-        gameObject.transform.SetParent(component.transform);
-    }
+    public Button RightBtn { get { return _rightButton; } set { _rightButton = value; } }
+    public Button LeftBtn { get { return _leftButton; } set { _leftButton = value; } }
 }

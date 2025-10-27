@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Input settings")]
     [SerializeField] private float _movementSmoothSpeed = 1f;
-
-    private PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
+    
     private float _maxHP;
     private Vector3 _rawInputMovement;
     private Vector3 _smoothInputMovement;

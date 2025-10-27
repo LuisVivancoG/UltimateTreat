@@ -38,20 +38,20 @@ public class SystemInputsManager : MonoBehaviour
         Debug.Log($"Initial scale {playerInput.gameObject.transform.localScale}" +
             $"Initial position {playerInput.gameObject.transform.localPosition}");
 
-        playerInput.TryGetComponent<PlayerDisplay>(out var component);
+        /*playerInput.TryGetComponent<PlayerDisplay>(out var component);
         PrefabTransformCheck(component.GOTransform);
 
         Debug.Log($"Initial scale {component.GOTransform.localScale}" +
-            $"Initial position {component.GOTransform.localPosition}");
+            $"Initial position {component.GOTransform.localPosition}");*/
 
         _playersCount++;
     }
 
-    void PrefabTransformCheck(RectTransform transform)
+    /*void PrefabTransformCheck(RectTransform transform)
     {
         transform.localScale = Vector3.one;
         transform.localPosition = Vector3.zero;
-    }
+    }*/
 
     /*private void Update()
     {

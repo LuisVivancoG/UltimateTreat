@@ -904,8 +904,8 @@
     "m_ObjectId": "057cf042ae4c42159d7a1d3993b6132e",
     "m_Title": "Color variation through masks",
     "m_Position": {
-        "x": -3562.0,
-        "y": -41.0
+        "x": -3562.39990234375,
+        "y": -41.600006103515628
     }
 }
 
@@ -1613,8 +1613,8 @@
     "m_ObjectId": "2aaa879aad7640069a87e3dad251accc",
     "m_Title": "Normals",
     "m_Position": {
-        "x": -1022.0,
-        "y": 340.0
+        "x": -1022.39990234375,
+        "y": 339.20001220703127
     }
 }
 
@@ -3191,8 +3191,8 @@
     "m_ObjectId": "7b0e053ae567443197996dca27db0d1e",
     "m_Title": "Unpack AO/R/M maps",
     "m_Position": {
-        "x": -1010.0,
-        "y": 836.0
+        "x": -1010.39990234375,
+        "y": 835.1998291015625
     }
 }
 
@@ -4810,8 +4810,8 @@
     "m_ObjectId": "c764d7073a12453f9b8dfe13b63b2b6f",
     "m_Title": "Flash on hit settings",
     "m_Position": {
-        "x": -1354.0,
-        "y": -758.0
+        "x": -1354.39990234375,
+        "y": -759.2000122070313
     }
 }
 
