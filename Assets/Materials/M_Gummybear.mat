@@ -48,6 +48,7 @@ Material:
     - _Maximum: -0.56
     - _Minimum: 0.15
     - _Mnimum: -0.1
+    - _Outline_Thickness: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScaleIntensity: 0.15
@@ -58,6 +59,8 @@ Material:
     m_Colors:
     - _ColorFlash: {r: 0.6320754, g: 0.12820399, b: 0.12820399, a: 0}
     - _MainColor: {r: 0.94509804, g: 0.2916223, b: 0.109803915, a: 1}
+    - _OutlineColor: {r: 0.49411756, g: 0.20784307, b: 0.24313727, a: 1}
+    - _Outline_Color: {r: 0.49411756, g: 0.20784307, b: 0.24313727, a: 1}
     - _SubColor: {r: 0.8113207, g: 0.40098038, b: 0.17221427, a: 0}
     - _Vector2: {r: 1.18, g: -0.1, b: 0, a: 0}
     - _Vector2_1: {r: 0.52, g: -0.56, b: 0, a: 0}

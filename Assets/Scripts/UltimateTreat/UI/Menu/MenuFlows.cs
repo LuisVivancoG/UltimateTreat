@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -77,12 +78,22 @@ public class MenuFlows : MonoBehaviour
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
     }
 
-    public void TransitionToMatch()
+    public void TransitionToMatch(TMP_Text prompt)
     {
-        LevelsManager.Instance.ChangeScene(_nextScene);
-        foreach (var player in _playersList)
+        if(_playersList.Count < 2)
         {
-            player.PlayerInput.SwitchCurrentActionMap("Player Controls");
+            prompt.color = Color.red;
+            prompt.text = new string("Not enough players. Plug another device");
+        }
+        else
+        {
+            prompt.color = Color.white;
+            prompt.text = new string("GET READY!");
+            LevelsManager.Instance.ChangeScene(_nextScene);
+            foreach (var player in _playersList)
+            {
+                player.PlayerInput.SwitchCurrentActionMap("Player Controls");
+            }
         }
     }
 
