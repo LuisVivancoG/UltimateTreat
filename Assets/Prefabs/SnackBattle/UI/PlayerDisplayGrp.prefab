@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6dcc158cc2afe4c98f526679048350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _displayedSprite: {fileID: 1353682627784510545}
   _rightButton: {fileID: 8869154895195474998}
   _leftButton: {fileID: 6166700375406752544}
 --- !u!1 &2807605960202485926

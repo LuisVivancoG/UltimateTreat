@@ -1,27 +1,98 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 public class MESManager : MonoBehaviour
 {
     [SerializeField] private MultiplayerEventSystem _playerEventS;
     [SerializeField] private GameObject _displayPrefab;
 
+    [Header ("Color display")]
+    [SerializeField] private PlayerInput _inputs;
+    [SerializeField] private CharacterVisualsBehaviour _playerVisuals;
+
+    public PlayerInput PlayerInput { get { return _inputs; } }
+
+    private DisplayColorManager _colorManager;
+    private PlayerDisplay _display;
+    private int _currentColor;
+
     private MenuFlows _inputManager;
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+
         _inputManager = FindAnyObjectByType<MenuFlows>();
         if (_inputManager != null )
         {
             Debug.Log("Manager found");
         }
+
+        _currentColor = 0;
     }
 
     private void Start()
     {
+        _colorManager = FindAnyObjectByType<DisplayColorManager>();
+
         StartCoroutine(FirstSelectionDelay());
-        Instantiate(_displayPrefab, _inputManager.DisplayGrp.transform);
+        var ui = Instantiate(_displayPrefab, _inputManager.DisplayGrp.transform);
+        ui.TryGetComponent<PlayerDisplay>(out var component);
+        _display = component;
+        _display.DisplayedSprite.color = _colorManager.LookForColor(_currentColor);
+
+        _inputManager.AddPlayerToList(this);
+    }
+
+    public void RightTrigger(InputAction.CallbackContext value)
+    {
+        if(value.performed)
+        {
+            AddIndexColor();
+        }
+    }
+    public void LeftTrigger(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            DecreaseIndexColor();
+        }
+    }
+
+    public void AddIndexColor()
+    {
+        _currentColor += 1;
+        if (_currentColor > _colorManager.ColorsAvailable.ColorsDictionary.Count)
+        {
+            _currentColor = 0;
+            ApplyNewColor(_colorManager.LookForColor(_currentColor));
+        }
+        else
+        {
+            ApplyNewColor(_colorManager.LookForColor(_currentColor));
+        }
+    }
+    public void DecreaseIndexColor()
+    {
+        _currentColor -= 1;
+        if (_currentColor < 0)
+        {
+            _currentColor = _colorManager.ColorsAvailable.ColorsDictionary.Count;
+            ApplyNewColor(_colorManager.LookForColor(_currentColor));
+        }
+        else
+        {
+            ApplyNewColor(_colorManager.LookForColor(_currentColor));
+        }
+    }
+
+    void ApplyNewColor(Color current)
+    {
+        _display.DisplayedSprite.color = current;
+        _playerVisuals.SetColor(current);
     }
 
     public void UpdateCurrentSelection(GameObject current)

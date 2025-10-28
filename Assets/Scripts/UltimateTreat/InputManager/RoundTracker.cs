@@ -3,6 +3,7 @@ using UnityEngine;
 public class RoundTracker : MonoBehaviour
 {
     private PlayerController _player;
+    public PlayerController Controller { get { return _player; } }
     public int VictoryRounds { get; private set; }
     public int _playerInt { get; private set; }
 
@@ -19,7 +20,7 @@ public class RoundTracker : MonoBehaviour
 
     public void RestoreStats()
     {
-        gameObject.SetActive(true);
+        Controller.CharacterGO.SetActive(true);
         _player.RestoreStats();
     }
 

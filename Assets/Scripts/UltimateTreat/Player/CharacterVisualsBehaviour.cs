@@ -7,7 +7,10 @@ public class CharacterVisualsBehaviour : MonoBehaviour
     [Header ("Assign chosen material")]
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private GameObject _hitStopGO;
+    private Color _pickedColor;
     private MaterialPropertyBlock _colorPBlock;
+
+    public Color PickedColor => _pickedColor;
 
     [Header ("Flash effect")]
     [SerializeField] private float _flashDuration;
@@ -31,9 +34,15 @@ public class CharacterVisualsBehaviour : MonoBehaviour
 
     public void SetColor(Color colorChosen)
     {
+        _pickedColor = colorChosen;
         _renderer.GetPropertyBlock(_colorPBlock);
-        _colorPBlock.SetColor("_Clothing_Tint", colorChosen);
+        _colorPBlock.SetColor("_MainColor", colorChosen);
         _renderer.SetPropertyBlock(_colorPBlock);
+    }
+
+    public void ResetColor()
+    {
+        _renderer.material.SetFloat("_Flash", 0);
     }
 
     public void PlayMuzzleParticles(Vector3 location, Vector3 rotation)
@@ -74,7 +83,7 @@ public class CharacterVisualsBehaviour : MonoBehaviour
 
     IEnumerator FlickrColor()
     {
-        _renderer.material.SetColor("_Clothing_Tint", Color.red);
+        //_renderer.material.SetColor("_Clothing_Tint", Color.red);
 
         float singleFlashDuration = _flashDuration / (_numberOfFlashes * 2f);
 

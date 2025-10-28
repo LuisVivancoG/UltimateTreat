@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player ID")]
+    [SerializeField] private GameObject _characterGO;
     private int _playerID;
 
     [Header("Sub Behaviours")]
@@ -27,13 +28,7 @@ public class PlayerController : MonoBehaviour
     private string _actionMapMenuControls = "Menu Controls";
     private string _currentControlScheme;
 
-    private void OnEnable()
-    {
-        /*var playersArray = GameManager.Instance._currentPlayers;
-        playersArray.Add(this);
-
-        GameManager.Instance.SetUpPlayers();*/
-    }
+    public GameObject CharacterGO { get { return _characterGO; } }
 
     public void SetUp(int currentPlayerID, float hP)
     {
@@ -50,6 +45,7 @@ public class PlayerController : MonoBehaviour
     public void RestoreStats()
     {
         _playerHealth.SetHP(_maxHP);
+        _visualsBehaviour.ResetColor();
     }
     public void OnMovement(InputAction.CallbackContext value)
     {

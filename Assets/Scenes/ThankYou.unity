@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1905a0a6272a14d9425c670209444a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextScene: MainMenu
+  _nextScene: GameMenu
   _levelsManager: {fileID: 1988691630416240633, guid: b21201a3eb6f5eb46982bb74396fca92,
     type: 3}
 --- !u!224 &2140305133

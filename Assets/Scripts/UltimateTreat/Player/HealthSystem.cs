@@ -20,6 +20,8 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private CinemachineImpulseSource _impulseSource;
 
+    public UnityEvent OnDeath;
+
     private void Start()
     {
         _snSComp = GetComponent<SquashAndStretch>();
@@ -101,7 +103,8 @@ public class HealthSystem : MonoBehaviour
         //CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
         IsDead = true;
         //AudioManager.PlaySound(TypeOfSound.Death);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        OnDeath?.Invoke();
     }
 
     void OneHit()

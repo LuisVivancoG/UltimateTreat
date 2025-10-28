@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d9510ccf75a9741a1e496bda2dda18, type: 3}
   m_Name: Gummy-Yellow
   m_EditorClassIdentifier: 
-  _CharacterModel: 1
-  _colorOption: {r: 0.9056604, g: 0.6589386, b: 0.26059094, a: 0}
+  _colorOption: {r: 0.9056604, g: 0.6589386, b: 0.26059094, a: 1}

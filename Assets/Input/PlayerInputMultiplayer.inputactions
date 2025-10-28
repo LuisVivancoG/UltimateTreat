@@ -267,9 +267,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "SwipeRight",
                     "type": "Value",
                     "id": "4e98ac09-8537-41f5-ab19-06c495fa1c30",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SwipeLeft",
+                    "type": "Value",
+                    "id": "73ada82d-c405-4324-a681-7f66c19dfaa5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
@@ -633,11 +642,11 @@
                 {
                     "name": "",
                     "id": "a9d967ef-d39b-4792-a31b-075f501c5dc9",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Attack",
+                    "action": "SwipeRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -647,8 +656,30 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Attack",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SwipeRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92717611-4028-4876-b082-dc9a63f59812",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SwipeLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8db9ff5-3e64-446d-914a-36e7ecae77e0",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SwipeLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00c1e347e6c36bb4e907f3e73e2f78dc, type: 2}
+  - {fileID: 2100000, guid: de294b86608ab9d4aa58522ad701e28e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -590,7 +590,6 @@ GameObject:
   - component: {fileID: 1290218386803149268}
   - component: {fileID: 420962067584349696}
   - component: {fileID: 700641312981229445}
-  - component: {fileID: 7398713803078573731}
   - component: {fileID: 4274620907565676617}
   - component: {fileID: 4816538052755614504}
   - component: {fileID: 3338073341351606071}
@@ -603,7 +602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1290218386803149268
 Transform:
   m_ObjectHideFlags: 0
@@ -672,24 +671,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7398713803078573731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4389245370772683684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa0b23a7224c9c4383f8a0b6fe2609a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementBehaviour: {fileID: 3338073341351606071}
-  _shootingBehaviour: {fileID: 4816538052755614504}
-  _visualsBehaviour: {fileID: 6765310103578933774}
-  _playerHealth: {fileID: 4274620907565676617}
-  _movementSmoothSpeed: 5
-  _playerInput: {fileID: 7431840355324615707}
 --- !u!114 &4274620907565676617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +715,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _impulseSource: {fileID: 638206407169878215}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4389245370772683684}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4816538052755614504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,7 +991,7 @@ MonoBehaviour:
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7398713803078573731}
+      - m_Target: {fileID: 7032233936414940689}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnDeviceLost
         m_Mode: 1
@@ -1010,7 +1006,7 @@ MonoBehaviour:
   m_DeviceRegainedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7398713803078573731}
+      - m_Target: {fileID: 7032233936414940689}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnDeviceRegained
         m_Mode: 1
@@ -1025,7 +1021,7 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7398713803078573731}
+      - m_Target: {fileID: 7032233936414940689}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnControlsChanged
         m_Mode: 1
@@ -1039,23 +1035,83 @@ MonoBehaviour:
         m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7032233936414940689}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e0c08122-9b68-46c1-9e15-f71268a254fb
     m_ActionName: 'Player Controls/Move[/Keyboard/w,/Keyboard/a,/Keyboard/s,/Keyboard/d,/XInputControllerWindows/leftStick]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7032233936414940689}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAiming
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 603d91d5-e54d-4b9e-92c7-d1e2f32643ec
     m_ActionName: 'Player Controls/Aim[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/rightStick]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7032233936414940689}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8459c9c3-fc69-4d8f-bdb8-32cef6a0364c
     m_ActionName: 'Player Controls/Attack[/XInputControllerWindows/rightTrigger,/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7032233936414940689}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnTogglePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: de57a1cc-57d2-46fa-99d7-89e2c9f6bf1b
     m_ActionName: 'Player Controls/TogglePause[/Keyboard/p,/XInputControllerWindows/start]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7032233936414940689}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAbilityTriggered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7e90cd4d-510c-4ffc-b51c-490449853a5b
     m_ActionName: 'Player Controls/Ability[/XInputControllerWindows/buttonSouth,/Keyboard/shift]'
   - m_PersistentCalls:
@@ -1063,7 +1119,19 @@ MonoBehaviour:
     m_ActionId: 28fa6ee6-dad2-495a-b4d1-02e1f893f0a7
     m_ActionName: 'Menu Controls/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8266742049148822159}
+        m_TargetAssemblyTypeName: MESManager, Assembly-CSharp
+        m_MethodName: RightTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4e98ac09-8537-41f5-ab19-06c495fa1c30
     m_ActionName: 'Menu Controls/Attack[/XInputControllerWindows/buttonSouth,/Keyboard/e]'
   - m_PersistentCalls:
@@ -1086,6 +1154,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9ebbe067-acca-4606-994b-5756eaf6b4c4
     m_ActionName: 'Menu Controls/TogglePause[/Keyboard/p,/XInputControllerWindows/start]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8266742049148822159}
+        m_TargetAssemblyTypeName: MESManager, Assembly-CSharp
+        m_MethodName: LeftTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73ada82d-c405-4324-a681-7f66c19dfaa5
+    m_ActionName: 'Menu Controls/SwipeLeft[/XInputControllerWindows/leftTrigger,/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Menu Controls
@@ -1106,6 +1190,8 @@ MonoBehaviour:
   _playerEventS: {fileID: 1133212738556026150}
   _displayPrefab: {fileID: 2580567797528369108, guid: 8d8acf4ff412f584f8bb075a996a013e,
     type: 3}
+  _inputs: {fileID: 7431840355324615707}
+  _playerVisuals: {fileID: 6765310103578933774}
 --- !u!114 &7032233936414940689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,12 +1204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa0b23a7224c9c4383f8a0b6fe2609a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementBehaviour: {fileID: 0}
-  _shootingBehaviour: {fileID: 0}
-  _visualsBehaviour: {fileID: 0}
-  _playerHealth: {fileID: 0}
-  _movementSmoothSpeed: 1
-  _playerInput: {fileID: 0}
+  _characterGO: {fileID: 4389245370772683684}
+  _movementBehaviour: {fileID: 3338073341351606071}
+  _shootingBehaviour: {fileID: 4816538052755614504}
+  _visualsBehaviour: {fileID: 6765310103578933774}
+  _playerHealth: {fileID: 4274620907565676617}
+  _movementSmoothSpeed: 5
+  _playerInput: {fileID: 7431840355324615707}
 --- !u!1 &5888058752160003184
 GameObject:
   m_ObjectHideFlags: 0

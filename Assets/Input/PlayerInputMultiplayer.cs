@@ -353,9 +353,18 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""SwipeRight"",
                     ""type"": ""Value"",
                     ""id"": ""4e98ac09-8537-41f5-ab19-06c495fa1c30"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwipeLeft"",
+                    ""type"": ""Value"",
+                    ""id"": ""73ada82d-c405-4324-a681-7f66c19dfaa5"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -719,11 +728,11 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
                 {
                     ""name"": """",
                     ""id"": ""a9d967ef-d39b-4792-a31b-075f501c5dc9"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
+                    ""action"": ""SwipeRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -733,8 +742,30 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SwipeRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92717611-4028-4876-b082-dc9a63f59812"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwipeLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8db9ff5-3e64-446d-914a-36e7ecae77e0"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SwipeLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -814,7 +845,8 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         // Menu Controls
         m_MenuControls = asset.FindActionMap("Menu Controls", throwIfNotFound: true);
         m_MenuControls_Navigate = m_MenuControls.FindAction("Navigate", throwIfNotFound: true);
-        m_MenuControls_Attack = m_MenuControls.FindAction("Attack", throwIfNotFound: true);
+        m_MenuControls_SwipeRight = m_MenuControls.FindAction("SwipeRight", throwIfNotFound: true);
+        m_MenuControls_SwipeLeft = m_MenuControls.FindAction("SwipeLeft", throwIfNotFound: true);
         m_MenuControls_LeftClick = m_MenuControls.FindAction("Left Click", throwIfNotFound: true);
         m_MenuControls_Point = m_MenuControls.FindAction("Point", throwIfNotFound: true);
         m_MenuControls_Submit = m_MenuControls.FindAction("Submit", throwIfNotFound: true);
@@ -1042,7 +1074,8 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
     private readonly InputActionMap m_MenuControls;
     private List<IMenuControlsActions> m_MenuControlsActionsCallbackInterfaces = new List<IMenuControlsActions>();
     private readonly InputAction m_MenuControls_Navigate;
-    private readonly InputAction m_MenuControls_Attack;
+    private readonly InputAction m_MenuControls_SwipeRight;
+    private readonly InputAction m_MenuControls_SwipeLeft;
     private readonly InputAction m_MenuControls_LeftClick;
     private readonly InputAction m_MenuControls_Point;
     private readonly InputAction m_MenuControls_Submit;
@@ -1064,9 +1097,13 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         /// </summary>
         public InputAction @Navigate => m_Wrapper.m_MenuControls_Navigate;
         /// <summary>
-        /// Provides access to the underlying input action "MenuControls/Attack".
+        /// Provides access to the underlying input action "MenuControls/SwipeRight".
         /// </summary>
-        public InputAction @Attack => m_Wrapper.m_MenuControls_Attack;
+        public InputAction @SwipeRight => m_Wrapper.m_MenuControls_SwipeRight;
+        /// <summary>
+        /// Provides access to the underlying input action "MenuControls/SwipeLeft".
+        /// </summary>
+        public InputAction @SwipeLeft => m_Wrapper.m_MenuControls_SwipeLeft;
         /// <summary>
         /// Provides access to the underlying input action "MenuControls/LeftClick".
         /// </summary>
@@ -1116,9 +1153,12 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
             @Navigate.started += instance.OnNavigate;
             @Navigate.performed += instance.OnNavigate;
             @Navigate.canceled += instance.OnNavigate;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @SwipeRight.started += instance.OnSwipeRight;
+            @SwipeRight.performed += instance.OnSwipeRight;
+            @SwipeRight.canceled += instance.OnSwipeRight;
+            @SwipeLeft.started += instance.OnSwipeLeft;
+            @SwipeLeft.performed += instance.OnSwipeLeft;
+            @SwipeLeft.canceled += instance.OnSwipeLeft;
             @LeftClick.started += instance.OnLeftClick;
             @LeftClick.performed += instance.OnLeftClick;
             @LeftClick.canceled += instance.OnLeftClick;
@@ -1148,9 +1188,12 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
             @Navigate.started -= instance.OnNavigate;
             @Navigate.performed -= instance.OnNavigate;
             @Navigate.canceled -= instance.OnNavigate;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @SwipeRight.started -= instance.OnSwipeRight;
+            @SwipeRight.performed -= instance.OnSwipeRight;
+            @SwipeRight.canceled -= instance.OnSwipeRight;
+            @SwipeLeft.started -= instance.OnSwipeLeft;
+            @SwipeLeft.performed -= instance.OnSwipeLeft;
+            @SwipeLeft.canceled -= instance.OnSwipeLeft;
             @LeftClick.started -= instance.OnLeftClick;
             @LeftClick.performed -= instance.OnLeftClick;
             @LeftClick.canceled -= instance.OnLeftClick;
@@ -1322,12 +1365,19 @@ public partial class @PlayerInputMultiplayer: IInputActionCollection2, IDisposab
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNavigate(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SwipeRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttack(InputAction.CallbackContext context);
+        void OnSwipeRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SwipeLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwipeLeft(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Left Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

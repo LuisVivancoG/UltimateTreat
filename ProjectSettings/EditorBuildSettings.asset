@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: e7c55c9f6c6e77c4199f8ebf9b5cd89d
+    path: Assets/Scenes/GameMenu.unity
+    guid: 70835cb9fa366754c9c31fb024cd7900
   - enabled: 1
     path: Assets/Scenes/CodeGym-Treat.unity
     guid: f503e5a1667f890459c22920eca752f2

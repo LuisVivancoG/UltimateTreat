@@ -17,15 +17,14 @@ public class MenuFlows : MonoBehaviour
     [Header("EventSystem")]
     [SerializeField] private GameObject _fButtonLand;
     [SerializeField] private GameObject _fButtonSelection;
+    private GameObject _currentSelection;
     //private EventSystem _system;
 
     [SerializeField] private LevelsManager _levelsManager;
     [SerializeField] private GameObject _displayGrp;
-    private PlayerInputManager _inputManager;
-    private List<PlayerInput> _playersList;//Make function to update current selection when changing screens for each player on list
-                                           //Add each player when added OnStart to players list
-                                           //Make sure only first player on top gets control of menus
-                                           //Consider instead of list, use stack for players
+    //private PlayerInputManager _inputManager;
+    private List<MESManager> _playersList;
+    private MESManager _playerOne;
 
     public GameObject InitialSelection {  get { return _fButtonLand; } set { _fButtonSelection = value; } }
     public GameObject DisplayGrp {  get { return _displayGrp; } }
@@ -38,6 +37,7 @@ public class MenuFlows : MonoBehaviour
         _selectionUI.SetActive(false);
         //_currentSelection = _fButtonLand;
         //StartCoroutine(CurrentSelectionDelay(_fButtonLand));
+        _playersList = new List<MESManager>();
     }
 
     private void Start()
@@ -46,26 +46,44 @@ public class MenuFlows : MonoBehaviour
         if (levelsManager == null)
         {
             Instantiate(_levelsManager);
+            Debug.Log($"{_levelsManager.gameObject.name}");
         }
+        else
+        {
+            Debug.Log($"{LevelsManager.Instance.gameObject.name}");
+        }
+    }
+
+    public void AddPlayerToList(MESManager player)
+    {
+        if (_playerOne == null)
+        {
+            _playerOne = player;
+        }
+        _playersList.Add(player);
     }
 
     public void PlayersSelection()
     {
         _landUI.SetActive(false);
         _selectionUI.SetActive(true);
-        //StartCoroutine(CurrentSelectionDelay(_fButtonSelection));
+        StartCoroutine(CurrentSelectionDelay(_fButtonSelection));
     }
 
     public void LandMenu()
     {
         _selectionUI.SetActive(false);
         _landUI.SetActive(true);
-        //StartCoroutine(CurrentSelectionDelay(_fButtonLand));
+        StartCoroutine(CurrentSelectionDelay(_fButtonLand));
     }
 
     public void TransitionToMatch()
     {
         LevelsManager.Instance.ChangeScene(_nextScene);
+        foreach (var player in _playersList)
+        {
+            player.PlayerInput.SwitchCurrentActionMap("Player Controls");
+        }
     }
 
     public void TerminateGame()
@@ -76,7 +94,7 @@ public class MenuFlows : MonoBehaviour
     IEnumerator CurrentSelectionDelay(GameObject selection)
     {
         yield return new WaitForSeconds(.2f);
-        //_currentSelection = selection;
-        //_system.SetSelectedGameObject(selection);
+
+        _playerOne.UpdateCurrentSelection(selection);
     }
 }

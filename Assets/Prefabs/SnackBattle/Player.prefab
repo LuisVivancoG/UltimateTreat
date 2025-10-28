@@ -111,6 +111,7 @@ MonoBehaviour:
   _visualsBehaviour: {fileID: 1740699374721373943}
   _playerHealth: {fileID: 4638268491177831039}
   _movementSmoothSpeed: 5
+  _playerInput: {fileID: 4287366412309801544}
 --- !u!114 &4638268491177831039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +574,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00c1e347e6c36bb4e907f3e73e2f78dc, type: 2}
+  - {fileID: 2100000, guid: de294b86608ab9d4aa58522ad701e28e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

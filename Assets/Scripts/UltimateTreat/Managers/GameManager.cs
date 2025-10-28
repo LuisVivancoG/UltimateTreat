@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.AI.Navigation;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,8 +8,6 @@ using UnityEngine.InputSystem;
 public class GameManager : Singleton<GameManager>
 {
     [Header("Players")]
-    [SerializeField] private int _currentPlayers;
-    [SerializeField] private PlayerController _prefab;
     [SerializeField] private float _initialHP;
 
     [Header("Win condition")]
@@ -32,12 +29,6 @@ public class GameManager : Singleton<GameManager>
     private RoundTracker _roundWinner;
     private RoundTracker _gameWinner;
 
-    //[SerializeField] public List<PlayerController> _currentPlayers;
-
-    //[SerializeField] private NavMeshSurface _levelSruface;
-
-    //[SerializeField] private InputActionReference _actionReference;
-
     private void Start()
     {
         var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
@@ -47,7 +38,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         StartCoroutine(InitiateCrates());
-        SpawnPlayers();
+        FetchPlayers();
     }
 
     IEnumerator InitiateCrates()
@@ -56,17 +47,19 @@ public class GameManager : Singleton<GameManager>
         _spawnerManager.SpawnCrates();
     }
 
-    void SpawnPlayers()
+    void FetchPlayers()
     {
-        for (int i = 0; i < _currentPlayers; i++)
+        int i = 0;
+
+        PlayerController[] players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+        foreach (var player in players)
         {
-            //var player = Instantiate(_prefab);
-            var player = _inputManager.JoinPlayer(i);
-            var component = player.GetComponent<PlayerController>();
-            component.SetUp(i + 1, _initialHP);
+            Debug.Log($"{player.gameObject.name}");
+            player.SetUp(i + 1, _initialHP);
             var tracker = player.AddComponent<RoundTracker>();
-            tracker.SetPlayer(component, i + 1);
+            tracker.SetPlayer(player, i + 1);
             _activePlayers.Add(tracker);
+            i++;
         }
 
         StartCoroutine(GameLoop());
@@ -110,7 +103,6 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator RoundStarting()
     {
-        //Debug.LogWarning("Setting players");
         //Clear items on scene
         SetUpPlayers();
         yield return new WaitForSeconds(_timeToStartRound);
@@ -121,20 +113,17 @@ public class GameManager : Singleton<GameManager>
         foreach (var player in _activePlayers)
         {
             player.RestoreStats();
-            _targetGroup.AddMember(player.gameObject.transform, 1f, 1f);
-            player.transform.position = _spawnerManager.GetLocationInBoundBox();
-            //Set position within boundaries
+            _targetGroup.AddMember(player.Controller.CharacterGO.transform, 1f, 1f);
+            player.Controller.CharacterGO.transform.position = _spawnerManager.GetLocationInBoundBox();
         }
     }
 
     IEnumerator RoundPlaying()
     {
-        //Debug.LogWarning("Battle started");
         while (!OnePlayerLeft())
         {
             yield return null;
         }
-        //Debug.LogWarning("No more players");
     }
     IEnumerator RoundEnding()
     {
@@ -144,11 +133,9 @@ public class GameManager : Singleton<GameManager>
         if (_roundWinner != null)
         {
             _roundWinner.IncrementVictoryCount();
-            //Debug.Log($"Round winner {_roundWinner.name}");
         }
 
         _gameWinner = GetGameWinner();
-        //AudioManager.PlaySound(TypeOfSound.Victory);
         yield return new WaitForSeconds(_timeToEndRound);
     }
 
@@ -158,7 +145,7 @@ public class GameManager : Singleton<GameManager>
 
         for (int i = 0; i < _activePlayers.Count; i++)
         {
-            if (_activePlayers[i].gameObject.activeSelf)
+            if (_activePlayers[i].Controller.CharacterGO.activeSelf)
             {
                 playersLeft++;
             }
@@ -192,6 +179,10 @@ public class GameManager : Singleton<GameManager>
 
     void VictorySequence()
     {
+        foreach (var player in _activePlayers)
+        {
+            Destroy(player.gameObject);
+        }
         LevelsManager.Instance.ChangeScene(_nextScene);
     }
 }
