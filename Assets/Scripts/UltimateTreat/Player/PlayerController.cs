@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         //_playerAnimationBehaviour.SetupBehaviour();
         //_playerVisualsBehaviour.SetupBehaviour(_playerID, _playerInput);
         _shootingBehaviour.SetBehaviours(_visualsBehaviour, _movementBehaviour.RB);
+        _visualsBehaviour.EnableGeo();
     }
     public void RestoreStats()
     {
@@ -81,7 +82,8 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            Debug.Log("Game paused");
+            UIManager.Instance.ShowDialog(Menus.PauseMenu);
+            _playerInput.SwitchCurrentActionMap("Menu Controls");
             //GameManager.Instance.TogglePauseState(this);
         }
     }

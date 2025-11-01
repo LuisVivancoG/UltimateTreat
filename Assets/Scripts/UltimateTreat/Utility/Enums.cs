@@ -19,3 +19,12 @@ public enum RumblePattern
     Pulse = 1,
     Linear = 2,
 }
+
+public enum Menus
+{
+    Underfined = 0,
+    PauseMenu = 1,
+    ConfirmationDialog = 2,
+    Scoreboard = 3,
+    PlayAgain = 4,
+}

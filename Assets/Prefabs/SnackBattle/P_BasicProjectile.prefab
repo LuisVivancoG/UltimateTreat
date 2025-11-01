@@ -127,6 +127,7 @@ MonoBehaviour:
   _damageDeal: 10
   _rb: {fileID: 3017404566454881957}
   _hitParticles: {fileID: 8412981141899765053}
+  _decal: {fileID: 5062677987358962498, guid: 1c79beda19fa300438b1ff77715f5763, type: 3}
 --- !u!54 &3017404566454881957
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class ProjectileBase : PooledAsset
     [SerializeField] private float _damageDeal;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private ParticleSystem _hitParticles;
+    [SerializeField] private GameObject _decal;
     private MeshRenderer _projectileMesh;
     private float _particlesDuration;
 
@@ -25,9 +26,13 @@ public class ProjectileBase : PooledAsset
 
     private void OnCollisionEnter(Collision collision)
     {
-        var positionContact = collision.contacts[0];
+        var contactPoint = collision.GetContact(0).point;
+        var contactNormal = collision.GetContact(0).normal;
+        Instantiate(_decal, contactPoint, Quaternion.identity);
+
+        /*var positionContact = collision.contacts[0];
         _hitParticles.transform.position = positionContact.point;
-        _hitParticles.transform.localEulerAngles = positionContact.normal;
+        _hitParticles.transform.localEulerAngles = positionContact.normal;*/
         _hitParticles.Play();
         //PoolsManagment.Instance.GetObject(SOType.HitParticles, positionContact.point, transform.localEulerAngles);
 
@@ -36,7 +41,7 @@ public class ProjectileBase : PooledAsset
             targetHealth.TakeDamage(_damageDeal);
             if(collision.transform.TryGetComponent<Rigidbody>(out var body))
             {
-                body.AddForce(positionContact.point.normalized * 30f, ForceMode.Impulse);
+                body.AddForce(contactPoint.normalized * 30f, ForceMode.Impulse);
             }
         }
 

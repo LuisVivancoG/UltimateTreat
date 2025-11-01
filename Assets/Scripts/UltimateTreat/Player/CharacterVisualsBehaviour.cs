@@ -40,6 +40,11 @@ public class CharacterVisualsBehaviour : MonoBehaviour
         _renderer.SetPropertyBlock(_colorPBlock);
     }
 
+    public void EnableGeo()
+    {
+        _hitStopGO.SetActive(true);
+    }
+
     public void ResetColor()
     {
         _renderer.material.SetFloat("_Flash", 0);
