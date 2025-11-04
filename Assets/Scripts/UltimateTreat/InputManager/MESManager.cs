@@ -23,13 +23,9 @@ public class MESManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         _inputManager = FindAnyObjectByType<MenuFlows>();
-        if (_inputManager != null )
-        {
-            Debug.Log("Manager found");
-        }
 
         _currentColor = 0;
     }
@@ -42,7 +38,9 @@ public class MESManager : MonoBehaviour
         var ui = Instantiate(_displayPrefab, _inputManager.DisplayGrp.transform);
         ui.TryGetComponent<PlayerDisplay>(out var component);
         _display = component;
-        _display.DisplayedSprite.color = _colorManager.LookForColor(_currentColor);
+        _display.DisplayedSprite.color = _colorManager.LookForColor(0);
+
+        ApplyNewColor(_colorManager.LookForColor(0));
 
         _inputManager.AddPlayerToList(this);
     }

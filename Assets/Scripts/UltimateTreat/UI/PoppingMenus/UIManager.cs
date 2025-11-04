@@ -7,7 +7,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private PauseDialog _pauseOptionsPrefab;
     [SerializeField] private ConfirmationDialog _confirmationDialogPrefab;
     [SerializeField] private ScoreboardDialog _scoreboardPrefab;
-    [SerializeField] private PlayAgainDialog _playAgainPrefab;
+    //[SerializeField] private PlayAgainDialog _playAgainPrefab;
 
     Dictionary<Menus, DialogBase> _dialogInstances = new();
 
@@ -38,9 +38,9 @@ public class UIManager : Singleton<UIManager>
                 case Menus.Scoreboard:
                     created = CreateDialogFromPrefab(_scoreboardPrefab);
                     break;
-                case Menus.PlayAgain:
+                /*case Menus.PlayAgain:
                     created = CreateDialogFromPrefab(_playAgainPrefab);
-                    break;
+                    break;*/
             }
             if (created == null)
             {

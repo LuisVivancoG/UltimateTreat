@@ -32,6 +32,8 @@ public class MenuFlows : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
+
         //_system = FindAnyObjectByType<EventSystem>();
 
         _landUI.SetActive(true);
@@ -47,11 +49,6 @@ public class MenuFlows : MonoBehaviour
         if (levelsManager == null)
         {
             Instantiate(_levelsManager);
-            Debug.Log($"{_levelsManager.gameObject.name}");
-        }
-        else
-        {
-            Debug.Log($"{LevelsManager.Instance.gameObject.name}");
         }
     }
 
@@ -94,6 +91,8 @@ public class MenuFlows : MonoBehaviour
             {
                 player.PlayerInput.SwitchCurrentActionMap("Player Controls");
             }
+            _landUI.SetActive(false);
+            _selectionUI.SetActive(false);
         }
     }
 

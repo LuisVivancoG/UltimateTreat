@@ -29,13 +29,14 @@ public class PlayerController : MonoBehaviour
     private string _currentControlScheme;
 
     public GameObject CharacterGO { get { return _characterGO; } }
+    public Color PlayerColor => _visualsBehaviour.PickedColor;
 
     public void SetUp(int currentPlayerID, float hP)
     {
         _playerID = currentPlayerID;
         _maxHP = hP;
         _playerHealth.SetHP(_maxHP);
-        //_currentControlScheme = _playerInput.currentControlScheme;
+        _currentControlScheme = _playerInput.currentControlScheme;
 
         //_movementBehaviour.SetupBehaviour();
         //_playerAnimationBehaviour.SetupBehaviour();
@@ -90,13 +91,13 @@ public class PlayerController : MonoBehaviour
     public void OnControlsChanged()
     {
 
-        /*if (_playerInput.currentControlScheme != _currentControlScheme)
+        if (_playerInput.currentControlScheme != _currentControlScheme)
         {
             _currentControlScheme = _playerInput.currentControlScheme;
 
             //_playerVisualsBehaviour.UpdatePlayerVisuals();
             RemoveAllBindingOverrides();
-        }*/
+        }
     }
     public void OnDeviceLost()
     {

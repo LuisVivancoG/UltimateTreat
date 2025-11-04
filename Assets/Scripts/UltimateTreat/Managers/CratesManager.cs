@@ -52,8 +52,6 @@ public class CratesManager : Singleton<CratesManager>
 
     private float FrequencyCheck()
     {
-
-
         return _currentFrequency;
     }
 

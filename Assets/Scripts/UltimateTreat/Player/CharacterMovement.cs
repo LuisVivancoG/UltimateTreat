@@ -74,11 +74,14 @@ public class CharacterMovement : MonoBehaviour
 
     void TurnThePlayer()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(_lookAtDirection);
+        if (_lookAtDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(_lookAtDirection);
 
-        Quaternion rotation = Quaternion.Slerp(_currentOrientation, targetRotation, _turnSpeed);
-        _rb.MoveRotation(rotation);
-        _currentOrientation = rotation;
+            Quaternion rotation = Quaternion.Slerp(_currentOrientation, targetRotation, _turnSpeed);
+            _rb.MoveRotation(rotation);
+            _currentOrientation = rotation;
+        }
     }
     Vector3 WorldDirection(Vector3 movementDirection)
     {

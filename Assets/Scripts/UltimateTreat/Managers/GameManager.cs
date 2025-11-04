@@ -29,6 +29,8 @@ public class GameManager : Singleton<GameManager>
     private RoundTracker _roundWinner;
     private RoundTracker _gameWinner;
 
+    private ScoreboardDialog _matchBoard;
+
     private void Start()
     {
         var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
@@ -37,8 +39,12 @@ public class GameManager : Singleton<GameManager>
             Instantiate(_levelsManager);
         }
 
+        UIManager.Instance.ShowDialog(Menus.Scoreboard);
+
         StartCoroutine(InitiateCrates());
         FetchPlayers();
+
+        StartCoroutine(GameLoop());
     }
 
     IEnumerator InitiateCrates()
@@ -49,21 +55,64 @@ public class GameManager : Singleton<GameManager>
 
     void FetchPlayers()
     {
-        int i = 0;
+        int iD = 1;
 
         PlayerController[] players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
         foreach (var player in players)
         {
-            Debug.Log($"{player.gameObject.name}");
-            player.SetUp(i + 1, _initialHP);
-            var tracker = player.AddComponent<RoundTracker>();
-            tracker.SetPlayer(player, i + 1);
-            _activePlayers.Add(tracker);
-            i++;
-        }
+            //Debug.LogError($"{player.gameObject.name}");
+            player.SetUp(iD, _initialHP);
 
-        StartCoroutine(GameLoop());
+            var tracker = player.AddComponent<RoundTracker>();
+
+            _activePlayers.Add(tracker);
+
+            var scoreBoard = FindAnyObjectByType<ScoreboardDialog>();
+            if (scoreBoard == null)
+            {
+                var created = UIManager.Instance.ShowDialog(Menus.Scoreboard);
+
+                var newBoard = created.GetComponent<ScoreboardDialog>();
+                var playerI = newBoard.AddPlayerToBoard(tracker, iD);
+                tracker.SetPlayer(player, playerI);
+            }
+
+            var playerUI = scoreBoard.AddPlayerToBoard(tracker, iD);
+            tracker.SetPlayer(player, playerUI);
+
+            iD++;
+        }
+            //var scoreBoard = UIManager.Instance;
+            //scoreBoard.ShowDialog(Menus.Scoreboard);
+            //scoreBoard.HideDialog(Menus.Scoreboard);
+        
+        //InitialiceScoreborad();
+        UIManager.Instance.HideDialog(Menus.Scoreboard);
     }
+
+    public void SetScoreboard(ScoreboardDialog currentBoard)
+    {
+        _matchBoard = currentBoard;
+    }
+
+    /*void InitialiceScoreborad()
+    {
+        var board = FindAnyObjectByType<ScoreboardDialog>();
+
+        if (board != null)
+        {
+            //var playerUI = board.AddPlayerToBoard(tracker, iD);
+            //_activePlayers.Add(tracker);
+            //tracker.SetPlayer(player, playerUI);
+            //iD++;
+
+            Debug.Log($"{board.gameObject}");
+        }
+        else
+        {
+            Debug.Log($"Couldn't fetch ScoreboardDialog component from Menu prefab");
+        }
+    }*/
 
     IEnumerator GameLoop()
     {
@@ -77,8 +126,8 @@ public class GameManager : Singleton<GameManager>
 
         if (_gameWinner != null)
         {
-            yield return StartCoroutine(DisplayScores());
-            VictorySequence();
+            //yield return StartCoroutine(DisplayScores());
+            StartCoroutine(VictorySequence());
         }
         else
         {
@@ -88,17 +137,27 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator DisplayScores()
     {
-        Debug.Log($"Current results");
+        UIManager.Instance.ShowDialog(Menus.Scoreboard);
+        /*Debug.Log($"Current results");
         foreach (var player in _activePlayers)
         {
             Debug.Log($"{player}: {player.VictoryRounds} wins");
+            //player.Controller.SetInputActiveState(false);
 
             if(player.VictoryRounds == _maxPoints)
             {
                 Debug.LogWarning($"{player.name} has won the game");
             }
-        }
+        }*/
+
         yield return new WaitForSeconds(_timeScoresDisplayed);
+
+        /*foreach (var player in _activePlayers)
+        {
+            player.Controller.SetInputActiveState(true);
+        }*/
+
+        UIManager.Instance.HideDialog(Menus.Scoreboard);
     }
 
     IEnumerator RoundStarting()
@@ -158,7 +217,7 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < _activePlayers.Count; i++)
         {
-            if (_activePlayers[i].gameObject.activeSelf)
+            if (_activePlayers[i].Controller.CharacterGO.activeSelf)
             {
                 return _activePlayers[i].GetComponent<RoundTracker>();
             }
@@ -170,14 +229,21 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < _activePlayers.Count; i++)
         {
-            if (_activePlayers[i].VictoryRounds == _maxPoints)
+            if (_activePlayers[i].VictoryRounds >= _maxPoints)
                 return _activePlayers[i];
         }
 
         return null;
     }
 
-    void VictorySequence()
+    IEnumerator VictorySequence()
+    {
+        yield return new WaitForSeconds(6f);
+
+        ShowCredits();
+    }
+
+    void ShowCredits()
     {
         foreach (var player in _activePlayers)
         {
