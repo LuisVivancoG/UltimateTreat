@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class PauseDialog : DialogBase
 {
     [SerializeField] private string _menuLvl;
+    [SerializeField] GameObject _firstSelection;
+
     private Action _resume;
+    public GameObject FirstSelection { get { return _firstSelection; } }
     public override Menus MenuType()
     {
         return Menus.PauseMenu;

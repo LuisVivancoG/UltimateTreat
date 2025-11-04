@@ -136,15 +136,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: image_0
+      name: MacaroonPink
       rect:
         serializedVersion: 2
         x: 24
-        y: 760
+        y: 761
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -158,7 +158,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_1
+      name: MacaroonGreen
       rect:
         serializedVersion: 2
         x: 278
@@ -166,7 +166,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -180,7 +180,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_2
+      name: MacaroonYellow
       rect:
         serializedVersion: 2
         x: 513
@@ -188,7 +188,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_3
+      name: MacaroonPurple
       rect:
         serializedVersion: 2
         x: 747
@@ -210,7 +210,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -224,7 +224,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_4
+      name: CandyCaneTraditional
       rect:
         serializedVersion: 2
         x: 13
@@ -232,7 +232,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -246,7 +246,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_5
+      name: CandyCaneMint
       rect:
         serializedVersion: 2
         x: 260
@@ -254,7 +254,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -268,7 +268,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_6
+      name: CandyCaneRainbow
       rect:
         serializedVersion: 2
         x: 485
@@ -276,7 +276,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -290,7 +290,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_7
+      name: CandyCaneBlue
       rect:
         serializedVersion: 2
         x: 730
@@ -298,7 +298,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -312,7 +312,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_8
+      name: GummyPink
       rect:
         serializedVersion: 2
         x: 48
@@ -320,7 +320,7 @@ TextureImporter:
         width: 200
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -334,15 +334,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_9
+      name: GummyGreen
       rect:
         serializedVersion: 2
         x: 286
-        y: 314
+        y: 315
         width: 200
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -356,7 +356,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_10
+      name: GummyRed
       rect:
         serializedVersion: 2
         x: 521
@@ -364,7 +364,7 @@ TextureImporter:
         width: 200
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -378,7 +378,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_11
+      name: GummyYellow
       rect:
         serializedVersion: 2
         x: 765
@@ -386,7 +386,7 @@ TextureImporter:
         width: 200
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -400,7 +400,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_12
+      name: MarshmallowPink
       rect:
         serializedVersion: 2
         x: 34
@@ -408,7 +408,7 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -422,7 +422,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_13
+      name: MarshmallowGreen
       rect:
         serializedVersion: 2
         x: 273
@@ -430,7 +430,7 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_14
+      name: MarshmallowYellow
       rect:
         serializedVersion: 2
         x: 498
@@ -452,7 +452,7 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -466,7 +466,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_15
+      name: MarshmallowPurple
       rect:
         serializedVersion: 2
         x: 743
@@ -474,7 +474,7 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -501,22 +501,22 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      image_0: 1848061961
-      image_1: -528032315
-      image_10: -1863441700
-      image_11: 1944418802
-      image_12: 1690874910
-      image_13: 1044106072
-      image_14: 844173660
-      image_15: -642299438
-      image_2: -1471223743
-      image_3: -1681471197
-      image_4: -1294204119
-      image_5: 564191720
-      image_6: 2023298175
-      image_7: -1957503598
-      image_8: 335149704
-      image_9: 1989827674
+      CandyCaneBlue: -1957503598
+      CandyCaneMint: 564191720
+      CandyCaneRainbow: 2023298175
+      CandyCaneTraditional: -1294204119
+      GummyGreen: 1989827674
+      GummyPink: 335149704
+      GummyRed: -1863441700
+      GummyYellow: 1944418802
+      MacaroonGreen: -528032315
+      MacaroonPink: 1848061961
+      MacaroonPurple: -1681471197
+      MacaroonYellow: -1471223743
+      MarshmallowGreen: 1044106072
+      MarshmallowPink: 1690874910
+      MarshmallowPurple: -642299438
+      MarshmallowYellow: 844173660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

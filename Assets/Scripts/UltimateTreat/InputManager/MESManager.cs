@@ -12,6 +12,7 @@ public class MESManager : MonoBehaviour
     [Header ("Color display")]
     [SerializeField] private PlayerInput _inputs;
     [SerializeField] private CharacterVisualsBehaviour _playerVisuals;
+    [SerializeField] private PlayerController _controller;
 
     public PlayerInput PlayerInput { get { return _inputs; } }
 
@@ -43,6 +44,8 @@ public class MESManager : MonoBehaviour
         ApplyNewColor(_colorManager.LookForColor(0));
 
         _inputManager.AddPlayerToList(this);
+
+        _controller.SetEventHandler(this);
     }
 
     public void RightTrigger(InputAction.CallbackContext value)

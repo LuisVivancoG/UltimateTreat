@@ -4,6 +4,9 @@ public enum SOType
     BasicProjectile = 1,
     Crate = 2,
     KillParticles = 3,
+    Chocolate = 4,
+    HealPack = 5,
+    Candy = 6,
 }
 
 public enum CharacterType

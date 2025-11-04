@@ -137,27 +137,19 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator DisplayScores()
     {
-        UIManager.Instance.ShowDialog(Menus.Scoreboard);
-        /*Debug.Log($"Current results");
         foreach (var player in _activePlayers)
         {
-            Debug.Log($"{player}: {player.VictoryRounds} wins");
-            //player.Controller.SetInputActiveState(false);
-
-            if(player.VictoryRounds == _maxPoints)
-            {
-                Debug.LogWarning($"{player.name} has won the game");
-            }
-        }*/
-
-        yield return new WaitForSeconds(_timeScoresDisplayed);
-
-        /*foreach (var player in _activePlayers)
-        {
             player.Controller.SetInputActiveState(true);
-        }*/
+        }
 
+        UIManager.Instance.ShowDialog(Menus.Scoreboard);
+        yield return new WaitForSeconds(_timeScoresDisplayed);
         UIManager.Instance.HideDialog(Menus.Scoreboard);
+
+        foreach (var player in _activePlayers)
+        {
+            player.Controller.SetInputActiveState(false);
+        }
     }
 
     IEnumerator RoundStarting()

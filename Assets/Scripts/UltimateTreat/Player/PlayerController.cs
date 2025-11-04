@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private string _actionMapMenuControls = "Menu Controls";
     private string _currentControlScheme;
 
+    private MESManager _mESManager;
+
     public GameObject CharacterGO { get { return _characterGO; } }
     public Color PlayerColor => _visualsBehaviour.PickedColor;
 
@@ -43,6 +46,10 @@ public class PlayerController : MonoBehaviour
         //_playerVisualsBehaviour.SetupBehaviour(_playerID, _playerInput);
         _shootingBehaviour.SetBehaviours(_visualsBehaviour, _movementBehaviour.RB);
         _visualsBehaviour.EnableGeo();
+    }
+    public void SetEventHandler(MESManager currentMES)
+    {
+        _mESManager = currentMES;
     }
     public void RestoreStats()
     {
@@ -85,6 +92,18 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.Instance.ShowDialog(Menus.PauseMenu);
             _playerInput.SwitchCurrentActionMap("Menu Controls");
+
+            var pauseMenu = FindAnyObjectByType<PauseDialog>();
+            if (pauseMenu != null)
+            {
+                _mESManager.UpdateCurrentSelection(pauseMenu.FirstSelection);
+            }
+            /*else
+            {
+                var menu = UIManager.Instance.ShowDialog(Menus.PauseMenu);
+                menu.TryGetComponent<PauseDialog>(out var component);
+                _mESManager.UpdateCurrentSelection(component.FirstSelection);
+            }*/
             //GameManager.Instance.TogglePauseState(this);
         }
     }

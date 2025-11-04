@@ -1134,7 +1134,7 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 256
-  _frequencyTime: 2
+  _frequencyTime: 10
 --- !u!114 &697316081
 MonoBehaviour:
   m_ObjectHideFlags: 0

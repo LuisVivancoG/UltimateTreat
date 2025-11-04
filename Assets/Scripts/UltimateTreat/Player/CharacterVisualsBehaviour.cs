@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterVisualsBehaviour : MonoBehaviour
 {
     [Header ("Assign chosen material")]
-    [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] private SkinnedMeshRenderer _renderer;
     [SerializeField] private GameObject _hitStopGO;
     private Color _pickedColor;
     private MaterialPropertyBlock _colorPBlock;

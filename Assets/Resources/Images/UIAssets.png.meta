@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIAssets_0
+      name: PinkButton-UI
       rect:
         serializedVersion: 2
         x: 58
@@ -158,11 +158,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIAssets_1
+      name: BlueButton-UI
       rect:
         serializedVersion: 2
         x: 58
-        y: 1728
+        y: 1730
         width: 222
         height: 123
       alignment: 0
@@ -180,11 +180,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIAssets_2
+      name: GreenButton-UI
       rect:
         serializedVersion: 2
         x: 58
-        y: 1592
+        y: 1595
         width: 222
         height: 123
       alignment: 0
@@ -215,9 +215,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UIAssets_0: -902022581
-      UIAssets_1: -970822015
-      UIAssets_2: 1673226821
+      BlueButton-UI: -970822015
+      GreenButton-UI: 1673226821
+      PinkButton-UI: -902022581
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
