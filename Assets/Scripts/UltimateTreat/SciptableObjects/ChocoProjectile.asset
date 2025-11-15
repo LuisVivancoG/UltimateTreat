@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf332b40cf17a5428e6129dfcfb6a37, type: 3}
+  m_Name: ChocoProjectile
+  m_EditorClassIdentifier: 
+  _objectPrefab: {fileID: 66380083216345059, guid: 57fa9c39f97992f44b8a410072e3de2f,
+    type: 3}
+  _objectName: ChocoProjectile
+  _objectType: 10

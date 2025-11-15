@@ -7,6 +7,12 @@ public enum SOType
     Chocolate = 4,
     HealPack = 5,
     Candy = 6,
+    Cotton = 7,
+    BasicProjectileImpact = 8,
+    ChocoSplatter = 9,
+    ChocoProjectile = 10,
+    RollerProjectile = 11,
+    CottonProjectile = 12,
 }
 
 public enum CharacterType

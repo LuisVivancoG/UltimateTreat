@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -5,36 +6,46 @@ using UnityEngine;
 
 public class ProjectileBase : PooledAsset
 {
+    //Common properties projectiles
     [SerializeField] private float _damageDeal;
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private ParticleSystem _hitParticles;
-    [SerializeField] private GameObject _decal;
-    private MeshRenderer _projectileMesh;
-    private float _particlesDuration;
+    [SerializeField] private float _gravityForce;
+    [SerializeField] private SOType _impactParticles = SOType.BasicProjectileImpact;
+    [SerializeField] private float _speedForce = 30f;
+    [SerializeField] private float _fireCD = 0.7f;
+    [SerializeField] private float _recoil = 10f;
+    public SphereCollider BulletCollider { get; private set; }
+    public float SpeedForce { get { return _speedForce; } }
+    public float FireCD { get { return _fireCD; } }
+    public float Recoil { get { return _recoil; } }
+    public Rigidbody RB { get { return _rb; } }
+    public float Gravity { get { return _gravityForce; } }
 
     private void Awake()
     {
-        _projectileMesh = GetComponent<MeshRenderer>();
-        _particlesDuration = _hitParticles.main.duration;
+        Vector3 velocity = _rb.linearVelocity;
+        velocity.y += _gravityForce + Time.deltaTime;
+        _rb.linearVelocity = velocity;
+        BulletCollider = GetComponent<SphereCollider>();
     }
 
     private void OnEnable()
     {
-        _projectileMesh.enabled = true;
+        SetProjectile();
+    }
+
+    internal virtual void SetProjectile()
+    {
         _rb.isKinematic = false;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         var contactPoint = collision.GetContact(0).point;
         var contactNormal = collision.GetContact(0).normal;
-        Instantiate(_decal, contactPoint, Quaternion.identity);
 
-        /*var positionContact = collision.contacts[0];
-        _hitParticles.transform.position = positionContact.point;
-        _hitParticles.transform.localEulerAngles = positionContact.normal;*/
-        _hitParticles.Play();
-        //PoolsManagment.Instance.GetObject(SOType.HitParticles, positionContact.point, transform.localEulerAngles);
+        ProcessEffects(contactPoint, contactNormal);
 
         if (collision.transform.TryGetComponent<HealthSystem>(out var targetHealth))
         {
@@ -47,14 +58,12 @@ public class ProjectileBase : PooledAsset
 
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
-        _rb.isKinematic = true;
-        _projectileMesh.enabled = false;
-        StartCoroutine(Countdown());
+
+        returnItem();
     }
 
-    IEnumerator Countdown()
+    internal virtual void ProcessEffects(Vector3 contactP, Vector3 contactN)
     {
-        yield return new WaitForSeconds(_particlesDuration);
-        returnItem();
+        PoolsManagment.Instance.GetObject(_impactParticles, contactP, contactN);
     }
 }

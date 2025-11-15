@@ -15,10 +15,17 @@ public class CratesManager : Singleton<CratesManager>
     private Vector3 _spawnOrigin;
     private float _yMin;
     private float _yMax;
+
+    private List<SOType> _pickups = new List<SOType>();
     //private List<Vector3> _spawnedPositions;
 
     private void Start()
     {
+        _pickups.Add(SOType.Chocolate);
+        _pickups.Add(SOType.HealPack);
+        _pickups.Add(SOType.Cotton);
+        _pickups.Add(SOType.Candy);
+
         _yMax = transform.position.y;
         _yMin = transform.position.y - _spawnableArea.y;
         _currentFrequency = _frequencyTime;
@@ -27,9 +34,17 @@ public class CratesManager : Singleton<CratesManager>
 
     public void SpawnCrates()
     {
-        var crate = PoolsManagment.Instance.GetObject(SOType.Crate, GetLocationInBoundBox());
+        var crate = PoolsManagment.Instance.GetObject(RandomPickup(), GetLocationInBoundBox());
         //_spawnedPositions.Add(crate.transform.position);
         StartCoroutine(Cooldown());
+    }
+
+    SOType RandomPickup()
+    {
+        var randomNumber = Random.Range(0, _pickups.Count);
+        SOType created = _pickups[randomNumber];
+
+        return created;
     }
 
     public Vector3 GetLocationInBoundBox()

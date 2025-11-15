@@ -235,8 +235,7 @@ Transform:
   m_LocalPosition: {x: 5.3599997, y: 0, z: -0.17999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7995676242438695004}
+  m_Children: []
   m_Father: {fileID: 4425160675534490041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &10195800427211684
@@ -255,59 +254,8 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 8976364075239559070}
     m_Source: {fileID: 8494968929129719941}
-    m_DampPosition: 0.1
-    m_DampRotation: 0
-    m_MaintainAim: 1
---- !u!1 &6836234597137506339
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 254084351594804680}
-  - component: {fileID: 4056220525420278977}
-  m_Layer: 0
-  m_Name: Ear2Damped
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &254084351594804680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836234597137506339}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9049885663174382590}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4056220525420278977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836234597137506339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b37cffab30b939469bac076fdd82c59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 2662580794169912873}
-    m_Source: {fileID: 6471356218794326763}
-    m_DampPosition: 0.15
-    m_DampRotation: 0.2
+    m_DampPosition: 0.05
+    m_DampRotation: 0.1
     m_MaintainAim: 1
 --- !u!1 &7317505807064936627
 GameObject:
@@ -360,57 +308,6 @@ MonoBehaviour:
     m_DampPosition: 0.25
     m_DampRotation: 0.75
     m_MaintainAim: 1
---- !u!1 &7388593800993646264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7545013585379804649}
-  - component: {fileID: 6691059440271446745}
-  m_Layer: 0
-  m_Name: Ear2Damped
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7545013585379804649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7388593800993646264}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6798691258277923656}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6691059440271446745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7388593800993646264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b37cffab30b939469bac076fdd82c59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 3662050186261222731}
-    m_Source: {fileID: 644028195777034377}
-    m_DampPosition: 0.15
-    m_DampRotation: 0.2
-    m_MaintainAim: 1
 --- !u!1 &8214874310490396753
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,8 +337,7 @@ Transform:
   m_LocalPosition: {x: -0.522, y: 1.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7545013585379804649}
+  m_Children: []
   m_Father: {fileID: 4425160675534490041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5875802061499334951
@@ -458,61 +354,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 644028195777034377}
+    m_ConstrainedObject: {fileID: 3662050186261222731}
     m_Source: {fileID: 6298774399559693516}
     m_DampPosition: 0.05
     m_DampRotation: 0.1
-    m_MaintainAim: 1
---- !u!1 &8258807733092595141
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7995676242438695004}
-  - component: {fileID: 7133535388109925540}
-  m_Layer: 0
-  m_Name: Bun2Damped
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7995676242438695004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8258807733092595141}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7740558615688303995}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7133535388109925540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8258807733092595141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b37cffab30b939469bac076fdd82c59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 8395569111188045251}
-    m_Source: {fileID: 8976364075239559070}
-    m_DampPosition: 0.15
-    m_DampRotation: 0.25
     m_MaintainAim: 1
 --- !u!1 &8556702924553822410
 GameObject:
@@ -543,8 +388,7 @@ Transform:
   m_LocalPosition: {x: 0.173, y: 1.903, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 254084351594804680}
+  m_Children: []
   m_Father: {fileID: 4425160675534490041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8737588152881925171
@@ -561,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 6471356218794326763}
+    m_ConstrainedObject: {fileID: 2662580794169912873}
     m_Source: {fileID: 6298774399559693516}
     m_DampPosition: 0.05
     m_DampRotation: 0.1

@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa0b23a7224c9c4383f8a0b6fe2609a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterGO: {fileID: 0}
   _movementBehaviour: {fileID: 185604015590141601}
   _shootingBehaviour: {fileID: 196600146685471231}
   _visualsBehaviour: {fileID: 1740699374721373943}
@@ -156,6 +157,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _impulseSource: {fileID: 89962587966118118}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &196600146685471231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,10 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnerLoc: {fileID: 8138716147729364984}
-  _baseForce: 100
-  _fireCd: 0.3
-  _recoilForce: 10
-  _currentPower: 1
+  _currentProjectile: 1
+  _queueHability: 0
 --- !u!114 &185604015590141601
 MonoBehaviour:
   m_ObjectHideFlags: 0

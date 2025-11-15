@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 780c3f149724c2b44a78528946f78491
+guid: 921f34df65ab7e041a5ee100a6833af1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -134,73 +134,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: PinkButton-UI
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 1868
-        width: 222
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 10, z: 50, w: 10}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9552937f6c803434ea16c7f4ef14d83a
-      internalID: -902022581
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BlueButton-UI
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 1730
-        width: 222
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 10, z: 50, w: 10}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4c22f24fd393fde4e8086a87ef814a8e
-      internalID: -970822015
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GreenButton-UI
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 1595
-        width: 222
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 10, z: 50, w: 10}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa4a96577d7acfd4f82b6454a6489a03
-      internalID: 1673226821
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
@@ -214,10 +148,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      BlueButton-UI: -970822015
-      GreenButton-UI: 1673226821
-      PinkButton-UI: -902022581
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

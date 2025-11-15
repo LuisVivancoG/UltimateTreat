@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ItemCrate : PooledAsset
 {
+    [SerializeField] SOType _powerUp;
+
     private PooledAsset _prefab;
     private Image _iconDisplayed;
     private Text _textDisplayed;
@@ -18,8 +20,28 @@ public class ItemCrate : PooledAsset
     {
         if (collision.transform.TryGetComponent<CharacterShooting>(out var player))
         {
+            switch (_powerUp)
+            {
+                case SOType.ChocoProjectile:
+                    player._queueHability = SOType.ChocoProjectile;
+                    player.HasItem = true;
+                    break;
+
+                case SOType.RollerProjectile:
+                    player._queueHability = SOType.ChocoProjectile;
+                    player.HasItem = true;
+                    break;
+                case SOType.CottonProjectile:
+                    player._queueHability = SOType.ChocoProjectile;
+                    player.HasItem = true;
+                    break;
+                /*case SOType.HealPack:
+                    player._queueHability = SOType.CottonProjectile;
+                    break;*/
+            }
+                
+
             returnItem();
-            //player._currentPower = _prefab.SOData.ObjectType;
         }
     }
 }
