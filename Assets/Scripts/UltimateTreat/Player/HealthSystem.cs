@@ -53,6 +53,7 @@ public class HealthSystem : MonoBehaviour
         {
             CurrentHealthPoints = CurrentHealthPoints + heal;
             CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints, 0, _maxHealthPoints);
+            OnDamageTaken?.Invoke();
         }
 
         //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");

@@ -28,16 +28,16 @@ public class ItemCrate : PooledAsset
                     break;
 
                 case SOType.RollerProjectile:
-                    player._queueHability = SOType.ChocoProjectile;
+                    player._queueHability = SOType.RollerProjectile;
                     player.HasItem = true;
                     break;
                 case SOType.CottonProjectile:
                     player._queueHability = SOType.ChocoProjectile;
                     player.HasItem = true;
                     break;
-                /*case SOType.HealPack:
-                    player._queueHability = SOType.CottonProjectile;
-                    break;*/
+                case SOType.HealPack:
+                    player._queueHability = SOType.HealPack;
+                    break;
             }
                 
 

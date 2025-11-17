@@ -14,6 +14,9 @@ public class ProjectileBase : PooledAsset
     [SerializeField] private float _speedForce = 30f;
     [SerializeField] private float _fireCD = 0.7f;
     [SerializeField] private float _recoil = 10f;
+
+    private Collider _ignoredCollider;
+
     public SphereCollider BulletCollider { get; private set; }
     public float SpeedForce { get { return _speedForce; } }
     public float FireCD { get { return _fireCD; } }
@@ -32,6 +35,14 @@ public class ProjectileBase : PooledAsset
     private void OnEnable()
     {
         SetProjectile();
+    }
+
+    public void SetIgnoreCollider(Collider parent)
+    {
+        _ignoredCollider = parent;
+        Debug.Log(parent.gameObject);
+
+        Physics.IgnoreCollision(BulletCollider, _ignoredCollider, true);
     }
 
     internal virtual void SetProjectile()
@@ -58,6 +69,8 @@ public class ProjectileBase : PooledAsset
 
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
+
+        Physics.IgnoreCollision(BulletCollider, _ignoredCollider, false);
 
         returnItem();
     }

@@ -16,11 +16,13 @@ public class CharacterShooting : MonoBehaviour
     private Rigidbody _characterRb;
     private Coroutine _fireCadence;
     private CapsuleCollider _playerCollider;
+    private HealthSystem _health;
 
-    public void SetBehaviours(CharacterVisualsBehaviour current, Rigidbody body)
+    public void SetBehaviours(CharacterVisualsBehaviour current, HealthSystem playerHealth, Rigidbody body)
     {
         _visuals = current;
         _characterRb = body;
+        _health = playerHealth;
 
         _playerCollider = GetComponent<CapsuleCollider>();
     }
@@ -34,7 +36,8 @@ public class CharacterShooting : MonoBehaviour
             var projectile = PoolsManagment.Instance.GetObject(_currentProjectile, SpawnerLoc.position, transform.localEulerAngles);
             
             projectile.TryGetComponent<ProjectileBase>(out ProjectileBase component);
-            Physics.IgnoreCollision(component.BulletCollider, _playerCollider);
+            component.SetIgnoreCollider(_playerCollider);
+            //Physics.IgnoreCollision(component.BulletCollider, _playerCollider);
             var velocity = SpawnerLoc.forward * component.SpeedForce;
             velocity.y = component.Gravity;
             component.RB.linearVelocity = velocity;
@@ -81,6 +84,7 @@ public class CharacterShooting : MonoBehaviour
         var projectile = PoolsManagment.Instance.GetObject(SOType.ChocoProjectile, SpawnerLoc.position, transform.localEulerAngles);
 
         projectile.TryGetComponent<ProjectileBase>(out ProjectileBase component);
+        component.SetIgnoreCollider(_playerCollider);
         var velocity = SpawnerLoc.forward * component.SpeedForce;
         velocity.y = component.Gravity;
         component.RB.linearVelocity = velocity;
@@ -93,7 +97,19 @@ public class CharacterShooting : MonoBehaviour
     {
         if (HasItem)
         {
-            StartCoroutine(PukeChocolate());
+            switch (_queueHability)
+            {
+                case SOType.ChocoProjectile:
+                    StartCoroutine(PukeChocolate());
+                    break;
+                case SOType.RollerProjectile:
+                    _currentProjectile = SOType.RollerProjectile;
+                    break;
+                case SOType.HealPack:
+                    _health.Heal(20);
+                    break;
+
+            }
 
             Debug.LogWarning($"{_queueHability} used");
             //_hasItem = false;

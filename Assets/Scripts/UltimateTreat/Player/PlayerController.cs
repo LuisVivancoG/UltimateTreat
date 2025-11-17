@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         //_movementBehaviour.SetupBehaviour();
         //_playerAnimationBehaviour.SetupBehaviour();
         //_playerVisualsBehaviour.SetupBehaviour(_playerID, _playerInput);
-        _shootingBehaviour.SetBehaviours(_visualsBehaviour, _movementBehaviour.RB);
+        _shootingBehaviour.SetBehaviours(_visualsBehaviour, _playerHealth, _movementBehaviour.RB);
         _visualsBehaviour.EnableGeo();
     }
     public void SetEventHandler(MESManager currentMES)
