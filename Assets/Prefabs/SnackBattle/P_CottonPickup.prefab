@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab14a6b729e347c488b868222c51b1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sOData: {fileID: 11400000, guid: 351b2d4c6782217408dbd0cf8e430c6a, type: 2}
+  _sOData: {fileID: 11400000, guid: 88defb05652eb064faaf6cfb6cf285d1, type: 2}
   _powerUp: 12
 --- !u!1 &5650907829361016869
 GameObject:

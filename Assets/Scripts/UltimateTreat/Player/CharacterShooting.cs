@@ -17,6 +17,7 @@ public class CharacterShooting : MonoBehaviour
     private Coroutine _fireCadence;
     private CapsuleCollider _playerCollider;
     private HealthSystem _health;
+    private int _specialProjectilesUsed;
 
     public void SetBehaviours(CharacterVisualsBehaviour current, HealthSystem playerHealth, Rigidbody body)
     {
@@ -34,10 +35,10 @@ public class CharacterShooting : MonoBehaviour
             _visuals.PlayMuzzleParticles(_spawnerLoc.position, transform.localEulerAngles);
             _canShoot = false;
             var projectile = PoolsManagment.Instance.GetObject(_currentProjectile, SpawnerLoc.position, transform.localEulerAngles);
-            
+
+            SoundManager.PlaySound(SoundOf.Gun);
             projectile.TryGetComponent<ProjectileBase>(out ProjectileBase component);
             component.SetIgnoreCollider(_playerCollider);
-            //Physics.IgnoreCollision(component.BulletCollider, _playerCollider);
             var velocity = SpawnerLoc.forward * component.SpeedForce;
             velocity.y = component.Gravity;
             component.RB.linearVelocity = velocity;
@@ -45,6 +46,14 @@ public class CharacterShooting : MonoBehaviour
             _fireCadence = StartCoroutine(FireCooldown(component.FireCD));
 
             _characterRb.AddForce((transform.forward * -component.Recoil), ForceMode.Impulse);
+
+            if(_currentProjectile != SOType.BasicProjectile)
+            {
+                _currentProjectile = SOType.BasicProjectile;
+                _queueHability = SOType.None;
+                HasItem = false;
+            }
+            //_specialProjectilesUsed++;
             //CameraShakeManager.Instance.AddShake(.05f, .15f, .1f);
         }
     }
@@ -72,6 +81,12 @@ public class CharacterShooting : MonoBehaviour
             yield return StartCoroutine(ShootFountain());
         }
         HasItem = false;
+    }
+
+    void SwitchProjectiles(SOType newProjectile)
+    {
+        _currentProjectile = newProjectile;
+
     }
 
     IEnumerator ShootFountain()
@@ -106,7 +121,10 @@ public class CharacterShooting : MonoBehaviour
                     _currentProjectile = SOType.RollerProjectile;
                     break;
                 case SOType.HealPack:
+                    Debug.Log($"Current health {_health.CurrentHealthPoints}");
                     _health.Heal(20);
+                    Debug.Log($"Health after item {_health.CurrentHealthPoints}");
+                    HasItem = false;
                     break;
 
             }

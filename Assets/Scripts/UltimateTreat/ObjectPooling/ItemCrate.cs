@@ -37,6 +37,7 @@ public class ItemCrate : PooledAsset
                     break;
                 case SOType.HealPack:
                     player._queueHability = SOType.HealPack;
+                    player.HasItem = true;
                     break;
             }
                 

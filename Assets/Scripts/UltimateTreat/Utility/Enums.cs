@@ -28,6 +28,17 @@ public enum RumblePattern
     Pulse = 1,
     Linear = 2,
 }
+public enum SoundOf
+{
+    MenuTheme,
+    GameMusic,
+    AcceptButton,
+    PopUp,
+    Poof,
+    Splash,
+    Gun,
+
+}
 
 public enum Menus
 {

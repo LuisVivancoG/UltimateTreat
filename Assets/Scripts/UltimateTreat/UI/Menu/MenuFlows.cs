@@ -45,6 +45,7 @@ public class MenuFlows : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.PlaySound(SoundOf.MenuTheme);
         var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
         if (levelsManager == null)
         {
@@ -63,6 +64,7 @@ public class MenuFlows : MonoBehaviour
 
     public void PlayersSelection()
     {
+        SoundManager.PlaySound(SoundOf.AcceptButton);
         _landUI.SetActive(false);
         _selectionUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonSelection));
@@ -70,6 +72,7 @@ public class MenuFlows : MonoBehaviour
 
     public void LandMenu()
     {
+        SoundManager.PlaySound(SoundOf.AcceptButton);
         _selectionUI.SetActive(false);
         _landUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
@@ -77,7 +80,8 @@ public class MenuFlows : MonoBehaviour
 
     public void TransitionToMatch(TMP_Text prompt)
     {
-        if(_playersList.Count < 2)
+        SoundManager.PlaySound(SoundOf.AcceptButton);
+        if (_playersList.Count < 2)
         {
             prompt.color = Color.red;
             prompt.text = new string("Not enough players. Plug another device");
@@ -98,6 +102,7 @@ public class MenuFlows : MonoBehaviour
 
     public void TerminateGame()
     {
+        SoundManager.PlaySound(SoundOf.AcceptButton);
         LevelsManager.Instance.QuitGame();
     }
 

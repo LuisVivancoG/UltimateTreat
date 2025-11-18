@@ -1102,6 +1102,7 @@ MonoBehaviour:
   _shootingBehaviour: {fileID: 4816538052755614504}
   _visualsBehaviour: {fileID: 6765310103578933774}
   _playerHealth: {fileID: 4274620907565676617}
+  _anim: {fileID: 347281835623822734}
   _movementSmoothSpeed: 5
   _playerInput: {fileID: 7431840355324615707}
 --- !u!1 &5888058752160003184
@@ -1457,11 +1458,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9039262176052992161, guid: b87a0ad936d45564f8f86a6165418bb2,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b87a0ad936d45564f8f86a6165418bb2, type: 3}
+--- !u!95 &347281835623822734 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9039262176052992161, guid: b87a0ad936d45564f8f86a6165418bb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8764044404836986159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5922768052296904692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3139507955854901979, guid: b87a0ad936d45564f8f86a6165418bb2,

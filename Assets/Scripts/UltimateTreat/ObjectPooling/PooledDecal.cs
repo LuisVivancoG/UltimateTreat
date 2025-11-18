@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PooledDecal : PooledAsset
@@ -8,8 +9,17 @@ public class PooledDecal : PooledAsset
 
     private void OnEnable()
     {
+        SoundManager.PlaySound(SoundOf.Splash);
         transform.DOScale(1, 0.4f).SetEase(Ease.OutBounce);
         StartCoroutine(TimeEnabled());
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.TryGetComponent<HealthSystem>(out var player))
+        {
+            player.TakeDamage(5f);
+        }
     }
 
     IEnumerator TimeEnabled()

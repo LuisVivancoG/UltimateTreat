@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterShooting _shootingBehaviour;
     [SerializeField] private CharacterVisualsBehaviour _visualsBehaviour;
     [SerializeField] private HealthSystem _playerHealth;
+    [SerializeField] private Animator _anim;
     //public PlayerAnimationBehaviour _playerAnimationBehaviour;
 
     [Header("Input settings")]
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputMovement = value.ReadValue<Vector2>();
         _rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
+        _anim.SetFloat("Velocity", inputMovement.sqrMagnitude);
     }
 
     public void OnAiming(InputAction.CallbackContext value)

@@ -98,6 +98,7 @@ public class HealthSystem : MonoBehaviour
 
     public void Death()
     {
+        SoundManager.PlaySound(SoundOf.Poof);
         PoolsManagment.Instance.GetObject(SOType.KillParticles, transform.position, transform.localEulerAngles);
         _impulseSource.GenerateImpulse(.3f);
         RumbleManager.Instance.StopAllMotions(Gamepad.current);

@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea946c7bdc4864c488955319887a4475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialHP: 30
+  _initialHP: 50
   _maxPoints: 3
   _nextScene: ThankYou
   _timeScoresDisplayed: 3
