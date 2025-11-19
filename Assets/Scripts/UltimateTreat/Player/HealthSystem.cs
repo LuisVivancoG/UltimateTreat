@@ -68,7 +68,7 @@ public class HealthSystem : MonoBehaviour
             _isVulnerable = false;
 
             OnDamageTaken?.Invoke();
-            RumbleManager.Instance.RumblePulse(0.15f, 0.15f, Gamepad.current);
+            //RumbleManager.Instance.RumblePulse(0.15f, 0.15f, Gamepad.current);
 
             _snSComp.CheckForAndStartCoroutine();
 
@@ -101,7 +101,7 @@ public class HealthSystem : MonoBehaviour
         SoundManager.PlaySound(SoundOf.Poof);
         PoolsManagment.Instance.GetObject(SOType.KillParticles, transform.position, transform.localEulerAngles);
         _impulseSource.GenerateImpulse(.3f);
-        RumbleManager.Instance.StopAllMotions(Gamepad.current);
+        //RumbleManager.Instance.StopAllMotions(Gamepad.current);
         //CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
         IsDead = true;
         //AudioManager.PlaySound(TypeOfSound.Death);
@@ -111,7 +111,7 @@ public class HealthSystem : MonoBehaviour
 
     void OneHit()
     {
-        RumbleManager.Instance.RumbleConstant(0.05f, 1f, Gamepad.current);
+        //RumbleManager.Instance.RumbleConstant(0.05f, 1f, Gamepad.current);
         OnLastHP?.Invoke();
     }
 
