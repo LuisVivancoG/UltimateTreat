@@ -38,9 +38,6 @@ public class GameManager : Singleton<GameManager>
         {
             Instantiate(_levelsManager);
         }
-
-        UIManager.Instance.ShowDialog(Menus.Scoreboard);
-
         StartCoroutine(InitiateCrates());
         FetchPlayers();
 
@@ -55,38 +52,29 @@ public class GameManager : Singleton<GameManager>
 
     void FetchPlayers()
     {
-        int iD = 1;
-
-        PlayerController[] players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
-        foreach (var player in players)
+        var created = UIManager.Instance.ShowDialog(Menus.Scoreboard);
+        if (created is ScoreboardDialog scoreboard)
         {
-            //Debug.LogError($"{player.gameObject.name}");
-            player.SetUp(iD, _initialHP);
+            int iD = 1;
 
-            var tracker = player.AddComponent<RoundTracker>();
-
-            _activePlayers.Add(tracker);
-
-            var scoreBoard = FindAnyObjectByType<ScoreboardDialog>();
-            if (scoreBoard == null)
+            PlayerController[] players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+            foreach (var player in players)
             {
-                var created = UIManager.Instance.ShowDialog(Menus.Scoreboard);
+                //Debug.LogError($"{player.gameObject.name}");
+                player.SetUp(iD, _initialHP);
 
-                var newBoard = created.GetComponent<ScoreboardDialog>();
-                var playerI = newBoard.AddPlayerToBoard(tracker, iD);
-                tracker.SetPlayer(player, playerI);
+                var tracker = player.AddComponent<RoundTracker>();
+
+                _activePlayers.Add(tracker);
+
+                tracker.SetPlayer(player);
+                var playerI = scoreboard.AddPlayerToBoard(tracker, iD, tracker.Controller.PlayerColor);
+                tracker.SetTracker(playerI);
+                iD++;
+
+                _targetGroup.AddMember(player.CharacterGO.transform, 0, 1);
             }
-
-            var playerUI = scoreBoard.AddPlayerToBoard(tracker, iD);
-            tracker.SetPlayer(player, playerUI);
-
-            iD++;
         }
-            //var scoreBoard = UIManager.Instance;
-            //scoreBoard.ShowDialog(Menus.Scoreboard);
-            //scoreBoard.HideDialog(Menus.Scoreboard);
-        
-        //InitialiceScoreborad();
         UIManager.Instance.HideDialog(Menus.Scoreboard);
     }
 
@@ -94,25 +82,6 @@ public class GameManager : Singleton<GameManager>
     {
         _matchBoard = currentBoard;
     }
-
-    /*void InitialiceScoreborad()
-    {
-        var board = FindAnyObjectByType<ScoreboardDialog>();
-
-        if (board != null)
-        {
-            //var playerUI = board.AddPlayerToBoard(tracker, iD);
-            //_activePlayers.Add(tracker);
-            //tracker.SetPlayer(player, playerUI);
-            //iD++;
-
-            Debug.Log($"{board.gameObject}");
-        }
-        else
-        {
-            Debug.Log($"Couldn't fetch ScoreboardDialog component from Menu prefab");
-        }
-    }*/
 
     IEnumerator GameLoop()
     {
@@ -164,8 +133,10 @@ public class GameManager : Singleton<GameManager>
         foreach (var player in _activePlayers)
         {
             player.RestoreStats();
-            _targetGroup.AddMember(player.Controller.CharacterGO.transform, 1f, 1f);
             player.Controller.CharacterGO.transform.position = _spawnerManager.GetLocationInBoundBox();
+
+            int index = _targetGroup.FindMember(player.Controller.CharacterGO.transform);
+            _targetGroup.Targets[index].Weight = 1;
         }
     }
 
@@ -242,5 +213,32 @@ public class GameManager : Singleton<GameManager>
             Destroy(player.gameObject);
         }
         LevelsManager.Instance.ChangeScene(_nextScene);
+    }
+
+    public void TogglePause(MESManager callerManager, PlayerController caller)
+    {
+        string textDisplayer;
+
+        var dialog = UIManager.Instance.ShowDialog(Menus.PauseMenu);
+        if (dialog is PauseDialog pause)
+        {
+            pause.Show(RestoreControls, textDisplayer = ($"Pause player {caller.PlayerID}"), caller.PlayerColor);
+            SoundManager.Instance.PauseMixer();
+
+            foreach (var player in _activePlayers)
+            {
+                player.Controller.EnablePauseMenuControls();
+            }
+
+            callerManager.UpdateCurrentSelection(pause.FirstSelection);
+        }
+    }
+    void RestoreControls()
+    {
+        foreach (var player in _activePlayers)
+        {
+            player.Controller.EnableGameplayControls();
+        }
+        SoundManager.Instance.UnpauseMixer();
     }
 }

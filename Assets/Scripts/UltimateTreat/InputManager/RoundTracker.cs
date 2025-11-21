@@ -11,10 +11,13 @@ public class RoundTracker : MonoBehaviour
     //Restart players initial stats (health, material status, rumble)
     //Track number of rounds won
 
-    public void SetPlayer(PlayerController component, PlayerUITracker currentUI)
+    public void SetPlayer(PlayerController component)
     {
         _player = component;
-        _tracker = currentUI;
+    }
+    public void SetTracker(PlayerUITracker tracker)
+    {
+        _tracker = tracker;
     }
 
     public void RestoreStats()

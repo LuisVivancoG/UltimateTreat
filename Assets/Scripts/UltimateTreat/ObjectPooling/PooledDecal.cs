@@ -9,7 +9,7 @@ public class PooledDecal : PooledAsset
 
     private void OnEnable()
     {
-        SoundManager.PlaySound(SoundOf.Splash);
+        SoundManager.Instance.Play("Splash");
         transform.DOScale(1, 0.4f).SetEase(Ease.OutBounce);
         StartCoroutine(TimeEnabled());
     }

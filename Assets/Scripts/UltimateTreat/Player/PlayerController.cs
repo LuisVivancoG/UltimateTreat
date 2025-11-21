@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -20,6 +22,9 @@ public class PlayerController : MonoBehaviour
     [Header("Input settings")]
     [SerializeField] private float _movementSmoothSpeed = 1f;
     [SerializeField] private PlayerInput _playerInput;
+
+    [SerializeField] private LayerMask _decorationMask;
+    [SerializeField] private CinemachineImpulseSource _impulseSource;
     
     private float _maxHP;
     private Vector3 _rawInputMovement;
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject CharacterGO { get { return _characterGO; } }
     public Color PlayerColor => _visualsBehaviour.PickedColor;
+    public int PlayerID => _playerID;
 
     public void SetUp(int currentPlayerID, float hP)
     {
@@ -92,21 +98,8 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            UIManager.Instance.ShowDialog(Menus.PauseMenu);
-            _playerInput.SwitchCurrentActionMap("Menu Controls");
+            GameManager.Instance.TogglePause(_mESManager, this);
 
-            var pauseMenu = FindAnyObjectByType<PauseDialog>();
-            if (pauseMenu != null)
-            {
-                _mESManager.UpdateCurrentSelection(pauseMenu.FirstSelection);
-            }
-            /*else
-            {
-                var menu = UIManager.Instance.ShowDialog(Menus.PauseMenu);
-                menu.TryGetComponent<PauseDialog>(out var component);
-                _mESManager.UpdateCurrentSelection(component.FirstSelection);
-            }*/
-            //GameManager.Instance.TogglePauseState(this);
         }
     }
     public void OnControlsChanged()
@@ -159,6 +152,39 @@ public class PlayerController : MonoBehaviour
     {
         _playerAnimationBehaviour.UpdateMovementAnimation(_smoothInputMovement.magnitude);
     }*/
+    public void ExplosionCast()
+    {
+        Debug.Log("Explosion called");
+        float radius = 15f;
+        List<CinemachineExternalImpulseListener> listenersHit = new List<CinemachineExternalImpulseListener>();
+
+        Collider[] hits = Physics.OverlapSphere(_characterGO.transform.position, radius, _decorationMask);
+
+        foreach (Collider hit in hits)
+        {
+            if (hit.TryGetComponent<CinemachineExternalImpulseListener>(out var listener))
+            {
+                listenersHit.Add(listener);
+
+                float distance = Vector3.Distance(_characterGO.transform.position, hit.transform.position);
+                listener.Gain = Mathf.Lerp(0, 1, distance/radius);
+            }
+        }
+        _impulseSource.GenerateImpulseAt(_characterGO.transform.position, new Vector3(1, .5f, 0));
+
+        StartCoroutine(RestoreGain(listenersHit));
+    }
+
+    IEnumerator RestoreGain(List<CinemachineExternalImpulseListener> list)
+    {
+        yield return new WaitForSeconds(1);
+        foreach (var listener in list)
+        {
+            listener.Gain = 0;
+        }
+        list.Clear();
+    }
+
     public void SetInputActiveState(bool gameIsPaused)
     {
         switch (gameIsPaused)
@@ -183,10 +209,6 @@ public class PlayerController : MonoBehaviour
     public void EnablePauseMenuControls()
     {
         _playerInput.SwitchCurrentActionMap(_actionMapMenuControls);
-    }
-    public int GetPlayerID()
-    {
-        return _playerID;
     }
     public InputActionAsset GetActionAsset()
     {

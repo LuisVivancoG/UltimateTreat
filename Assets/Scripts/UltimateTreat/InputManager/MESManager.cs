@@ -14,6 +14,7 @@ public class MESManager : MonoBehaviour
     [SerializeField] private CharacterVisualsBehaviour _playerVisuals;
     [SerializeField] private PlayerController _controller;
 
+    public Color ColorAssigned {  get; private set; }
     public PlayerInput PlayerInput { get { return _inputs; } }
 
     private DisplayColorManager _colorManager;
@@ -94,6 +95,7 @@ public class MESManager : MonoBehaviour
     {
         _display.DisplayedSprite.color = current;
         _playerVisuals.SetColor(current);
+        ColorAssigned = current;
     }
 
     public void UpdateCurrentSelection(GameObject current)

@@ -1,19 +1,59 @@
+using System;
 using UnityEngine;
-
-[RequireComponent(typeof(AudioSource))]
+using UnityEngine.Audio;
 
 public class SoundManager : PersistentSingleton<SoundManager>
 {
-    [SerializeField] private AudioClip[] _soundsList;
-    private AudioSource _source;
+    [SerializeField] private Sound[] _sounds;
+    [SerializeField] private GameObject _musicGrp;
+    [SerializeField] private GameObject _effectsGrp;
+    [SerializeField] private AudioMixerGroup _musicMixer;
+    [SerializeField] private AudioMixerGroup _effectsMixer;
+    [SerializeField] private AudioMixerSnapshot _snapshotPaused, _snapshotUnpaused;
 
     private void Start()
     {
-        _source = GetComponent<AudioSource>();
+        foreach (var sound in _sounds)
+        {
+            switch (sound.Type)
+            {
+                case SoundType.Music:
+                    sound.Source = _musicGrp.AddComponent<AudioSource>();
+                    sound.Source.outputAudioMixerGroup = _musicMixer;                    
+                    break;
+
+                case SoundType.Effect:
+                    sound.Source = _effectsGrp.AddComponent<AudioSource>();
+                    sound.Source.outputAudioMixerGroup = _effectsMixer;
+                    break;
+            }
+            sound.Source.clip = sound.Clip;
+            sound.Source.volume = sound.Volume;
+            sound.Source.pitch = sound.Pitch;
+            sound.Source.loop = sound.Loop;
+            sound.Source.spatialBlend = sound.SpatialBlend;
+            sound.Source.priority = sound.Priority;
+            sound.Source.playOnAwake = sound.PlayOnAwake;
+        }
+    }
+    public void Play(string name)
+    {
+        Sound s = Array.Find(_sounds, sound => sound.Name == name);
+        if (s == null)
+        {
+            Debug.LogWarning($"Missing sound {name} in {_sounds}");
+            return;
+        }
+        s.Source.Play();
     }
 
-    public static void PlaySound(SoundOf sound, float volume = 1)
+    public void PauseMixer()
     {
-        Instance._source.PlayOneShot(Instance._soundsList[(int)sound], volume);
+        _snapshotPaused.TransitionTo(2);
+    }
+
+    public void UnpauseMixer()
+    {
+        _snapshotUnpaused.TransitionTo(2);
     }
 }

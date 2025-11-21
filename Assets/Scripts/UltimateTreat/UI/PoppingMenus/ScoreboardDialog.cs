@@ -16,10 +16,10 @@ public class ScoreboardDialog : DialogBase
         GameManager.Instance.SetScoreboard(this);
     }
 
-    public PlayerUITracker AddPlayerToBoard (RoundTracker currentPlayer, int iD)
+    public PlayerUITracker AddPlayerToBoard (RoundTracker currentPlayer, int iD, Color playerColor)
     {
         var playerScore = Instantiate(_playerUIPrefab, _layoutGrp.transform);
-        playerScore.SetPlayerData(new string ("P" + iD)/*, currentPlayer.Controller.PlayerColor*/);
+        playerScore.SetPlayerData(new string ("P" + iD), currentPlayer.Controller.PlayerColor);
 
         return playerScore;
         //playerScore.GrantStar = pointCollected;

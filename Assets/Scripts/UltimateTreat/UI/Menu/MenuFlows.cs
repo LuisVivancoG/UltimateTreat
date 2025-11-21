@@ -1,9 +1,10 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MenuFlows : MonoBehaviour
@@ -14,12 +15,20 @@ public class MenuFlows : MonoBehaviour
     [Header("MenuGroups")]
     [SerializeField] private GameObject _landUI;
     [SerializeField] private GameObject _selectionUI;
+    [SerializeField] private RectTransform _optionsPivot;
 
     [Header("EventSystem")]
     [SerializeField] private GameObject _fButtonLand;
     [SerializeField] private GameObject _fButtonSelection;
+    [SerializeField] private GameObject _fButtonSettings;
     private GameObject _currentSelection;
     //private EventSystem _system;
+
+    [Header("Settings")]
+    [SerializeField] private AudioMixerGroup _musicMixer;
+    [SerializeField] private AudioMixerGroup _effectsMixer;
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;
 
     [SerializeField] private LevelsManager _levelsManager;
     [SerializeField] private GameObject _displayGrp;
@@ -41,11 +50,21 @@ public class MenuFlows : MonoBehaviour
         //_currentSelection = _fButtonLand;
         //StartCoroutine(CurrentSelectionDelay(_fButtonLand));
         _playersList = new List<MESManager>();
+        _optionsPivot.rotation = Quaternion.identity;
+    }
+
+    private void OnEnable()
+    {
+        _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
+        _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0);
+
+        _musicMixer.audioMixer.SetFloat("Music", Mathf.Log10(_musicSlider.value) * 20);
+        _effectsMixer.audioMixer.SetFloat("Music", Mathf.Log10(_sfxSlider.value) * 20);
     }
 
     private void Start()
     {
-        SoundManager.PlaySound(SoundOf.MenuTheme);
+        SoundManager.Instance.Play("MenuTheme");
         var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
         if (levelsManager == null)
         {
@@ -64,7 +83,7 @@ public class MenuFlows : MonoBehaviour
 
     public void PlayersSelection()
     {
-        SoundManager.PlaySound(SoundOf.AcceptButton);
+        SoundManager.Instance.Play("AcceptButton");
         _landUI.SetActive(false);
         _selectionUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonSelection));
@@ -72,7 +91,7 @@ public class MenuFlows : MonoBehaviour
 
     public void LandMenu()
     {
-        SoundManager.PlaySound(SoundOf.AcceptButton);
+        SoundManager.Instance.Play("AcceptButton");
         _selectionUI.SetActive(false);
         _landUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
@@ -80,7 +99,7 @@ public class MenuFlows : MonoBehaviour
 
     public void TransitionToMatch(TMP_Text prompt)
     {
-        SoundManager.PlaySound(SoundOf.AcceptButton);
+        SoundManager.Instance.Play("AcceptButton");
         if (_playersList.Count < 2)
         {
             prompt.color = Color.red;
@@ -100,9 +119,35 @@ public class MenuFlows : MonoBehaviour
         }
     }
 
+    public void ShowSettings()
+    {
+        SoundManager.Instance.Play("AcceptButton");
+        StartCoroutine(CurrentSelectionDelay(_fButtonSettings));
+        _optionsPivot.transform.DOLocalRotate(new Vector3(0, 75, 0), 0.75f).SetEase(Ease.OutSine);
+    }
+    public void HideSettings()
+    {
+        SoundManager.Instance.Play("AcceptButton");
+        StartCoroutine(CurrentSelectionDelay(_fButtonLand));
+        _optionsPivot.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.75f).SetEase(Ease.OutSine);
+    }
+
+    public void SetMusicVolume()
+    {
+        float volume = _musicSlider.value;
+        _musicMixer.audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+    }
+    public void SetEffectsVolume()
+    {
+        float volume = _sfxSlider.value;
+        _effectsMixer.audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
+
     public void TerminateGame()
     {
-        SoundManager.PlaySound(SoundOf.AcceptButton);
+        SoundManager.Instance.Play("AcceptButton");
         LevelsManager.Instance.QuitGame();
     }
 

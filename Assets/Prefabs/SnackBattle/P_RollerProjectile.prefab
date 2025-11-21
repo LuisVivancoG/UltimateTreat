@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sOData: {fileID: 11400000, guid: f8a228fd6761d114da4f813a9ae2005a, type: 2}
-  _damageDeal: 15
+  _damageDeal: 30
   _rb: {fileID: 3017404566454881957}
   _gravityForce: 2
   _impactParticles: 8

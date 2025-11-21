@@ -36,7 +36,7 @@ public class CharacterShooting : MonoBehaviour
             _canShoot = false;
             var projectile = PoolsManagment.Instance.GetObject(_currentProjectile, SpawnerLoc.position, transform.localEulerAngles);
 
-            SoundManager.PlaySound(SoundOf.Gun);
+            SoundManager.Instance.Play("Gun");
             projectile.TryGetComponent<ProjectileBase>(out ProjectileBase component);
             component.SetIgnoreCollider(_playerCollider);
             var velocity = SpawnerLoc.forward * component.SpeedForce;

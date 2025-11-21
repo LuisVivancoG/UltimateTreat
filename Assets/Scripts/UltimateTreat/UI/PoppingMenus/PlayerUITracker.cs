@@ -10,13 +10,13 @@ public class PlayerUITracker : MonoBehaviour
     [SerializeField] private GameObject[] _pointsDisplayed;
     private Dictionary<int, GameObject> _starsDictionary = new Dictionary<int, GameObject> ();
 
-    public void SetPlayerData(string playerID/*, Color currentColor*/)
+    public void SetPlayerData(string playerID, Color currentColor)
     {
         _playerTag.text = playerID;
         this.gameObject.name = playerID;
         
-        /*_playerPicture.color = currentColor;
-        _playerTag.color = currentColor;*/
+        _playerPicture.color = currentColor;
+        _playerTag.color = currentColor;
 
         SetDictionary();
     }
@@ -39,8 +39,12 @@ public class PlayerUITracker : MonoBehaviour
         {
             var star = _starsDictionary[currentScore];
             star.SetActive(true);
-            //star.TryGetComponent<SquashAndStretch>(out var squash);
-            //squash.CheckForAndStartCoroutine();
+            if (_starsDictionary[currentScore].gameObject == true)
+            {
+                Debug.Log("Star is enable");
+                _starsDictionary[currentScore].TryGetComponent<SquashAndStretch>(out var squash);
+                squash.CheckForAndStartCoroutine();
+            }
         }
         else Debug.Log($"{currentScore} is out of dictionary boundaries. Current size of dictionary is {_starsDictionary.Count}");
     }

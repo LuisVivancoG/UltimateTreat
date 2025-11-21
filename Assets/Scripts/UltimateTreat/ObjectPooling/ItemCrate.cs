@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,28 @@ public class ItemCrate : PooledAsset
     private PooledAsset _prefab;
     private Image _iconDisplayed;
     private Text _textDisplayed;
+    private SquashAndStretch _sNS;
+
+    private void Start()
+    {
+        _sNS = GetComponent<SquashAndStretch>();
+    }
 
     private void OnEnable()
     {
         transform.localScale = new Vector3(.2f, .2f, .2f);
         transform.DOScale(Vector3.one, 1f);
+
+        StartCoroutine(StretchDelay());
+    }
+
+    IEnumerator StretchDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
+        transform.localScale = Vector3.one;
+        yield return new WaitForSeconds(1.3f);
+        _sNS.CheckForAndStartCoroutine();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -40,8 +58,6 @@ public class ItemCrate : PooledAsset
                     player.HasItem = true;
                     break;
             }
-                
-
             returnItem();
         }
     }

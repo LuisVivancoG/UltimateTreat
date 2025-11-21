@@ -11,7 +11,7 @@ public class ConfirmationDialog : DialogBase
     [SerializeField] private TMP_Text _acceptButtonText;
     [SerializeField] private TMP_Text _cancelButtonText;
     private Action _onConfirm;
-    //private Action _onCancel;
+    private Action _onCancel;
     /*private Action<PlacedBuildingBase> _onDismantle;
     private PlacedBuildingBase _building;*/
     //[SerializeField] private Button _acceptButton;
@@ -42,5 +42,6 @@ public class ConfirmationDialog : DialogBase
     public void ButtonCancel()
     {
         _manager.HideDialog(MenuType());
+        //_onCancel?.Invoke();
     }
 }
