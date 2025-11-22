@@ -100,7 +100,13 @@ public class MESManager : MonoBehaviour
 
     public void UpdateCurrentSelection(GameObject current)
     {
-        _playerEventS.SetSelectedGameObject(current);
+        StartCoroutine(DelayNewSelection(current));
+    }
+
+    IEnumerator DelayNewSelection(GameObject selection)
+    {
+        yield return new WaitForSeconds(.3f);
+        _playerEventS.SetSelectedGameObject(selection);
     }
 
     IEnumerator FirstSelectionDelay()

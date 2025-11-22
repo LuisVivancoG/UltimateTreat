@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : PersistentSingleton<GameManager>
 {
     [Header("Players")]
     [SerializeField] private float _initialHP;
@@ -20,10 +20,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _timeToEndRound;
 
     [Header("Misc")]
-    [SerializeField] private LevelsManager _levelsManager;
-    [SerializeField] private CinemachineTargetGroup _targetGroup;
-    [SerializeField] private CratesManager _spawnerManager;
-    [SerializeField] private PlayerInputManager _inputManager;
+    private CinemachineTargetGroup _targetGroup;
+    private CratesManager _spawnerManager;
+    private LevelsManager _levelsManager;
+    private UIManager _uiManager;
+    private SoundManager _audioManager;
 
     private List<RoundTracker> _activePlayers = new List<RoundTracker>();
     private RoundTracker _roundWinner;
@@ -31,13 +32,29 @@ public class GameManager : Singleton<GameManager>
 
     private ScoreboardDialog _matchBoard;
 
-    private void Start()
+    public void StartGame()
     {
-        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
-        if (levelsManager == null)
+        _levelsManager = FindAnyObjectByType<LevelsManager>();
+        if (_levelsManager == null)
         {
-            Instantiate(_levelsManager);
+            _levelsManager = LevelsManager.Instance;
         }
+
+        _uiManager = FindAnyObjectByType<UIManager>();
+        if (_uiManager == null)
+        {
+            _uiManager = UIManager.Instance;
+        }
+
+        _audioManager = FindAnyObjectByType<SoundManager>();
+        if (_audioManager == null)
+        {
+            _audioManager = SoundManager.Instance;
+        }
+
+        _targetGroup = FindAnyObjectByType<CinemachineTargetGroup>();
+        _spawnerManager = FindAnyObjectByType<CratesManager>();    
+
         StartCoroutine(InitiateCrates());
         FetchPlayers();
 
@@ -52,7 +69,7 @@ public class GameManager : Singleton<GameManager>
 
     void FetchPlayers()
     {
-        var created = UIManager.Instance.ShowDialog(Menus.Scoreboard);
+        var created = _uiManager.ShowDialog(Menus.Scoreboard);
         if (created is ScoreboardDialog scoreboard)
         {
             int iD = 1;
@@ -75,7 +92,7 @@ public class GameManager : Singleton<GameManager>
                 _targetGroup.AddMember(player.CharacterGO.transform, 0, 1);
             }
         }
-        UIManager.Instance.HideDialog(Menus.Scoreboard);
+        _uiManager.HideDialog(Menus.Scoreboard);
     }
 
     public void SetScoreboard(ScoreboardDialog currentBoard)
@@ -111,9 +128,9 @@ public class GameManager : Singleton<GameManager>
             player.Controller.SetInputActiveState(true);
         }
 
-        UIManager.Instance.ShowDialog(Menus.Scoreboard);
+        _uiManager.ShowDialog(Menus.Scoreboard);
         yield return new WaitForSeconds(_timeScoresDisplayed);
-        UIManager.Instance.HideDialog(Menus.Scoreboard);
+        _uiManager.HideDialog(Menus.Scoreboard);
 
         foreach (var player in _activePlayers)
         {
@@ -208,30 +225,39 @@ public class GameManager : Singleton<GameManager>
 
     void ShowCredits()
     {
-        foreach (var player in _activePlayers)
-        {
-            Destroy(player.gameObject);
-        }
-        LevelsManager.Instance.ChangeScene(_nextScene);
+        ClearPlayers();
+        _levelsManager.ChangeScene(_nextScene);
     }
 
     public void TogglePause(MESManager callerManager, PlayerController caller)
     {
         string textDisplayer;
 
-        var dialog = UIManager.Instance.ShowDialog(Menus.PauseMenu);
+        var dialog = _uiManager.ShowDialog(Menus.PauseMenu);
         if (dialog is PauseDialog pause)
         {
-            pause.Show(RestoreControls, textDisplayer = ($"Pause player {caller.PlayerID}"), caller.PlayerColor);
-            SoundManager.Instance.PauseMixer();
+            textDisplayer = ($"Pause player {caller.PlayerID}");
+
+            pause.Show(RestoreControls, ClearPlayers, textDisplayer, caller.PlayerColor, callerManager);
+            callerManager.UpdateCurrentSelection(pause.FirstSelection);
+            _audioManager.PauseMixer();
 
             foreach (var player in _activePlayers)
             {
                 player.Controller.EnablePauseMenuControls();
             }
-
-            callerManager.UpdateCurrentSelection(pause.FirstSelection);
         }
+    }
+    void ClearPlayers()
+    {
+        _matchBoard.RemovePlayers();
+
+        foreach (var player in _activePlayers)
+        {
+            Destroy(player.gameObject);
+        }
+        StopAllCoroutines();
+        _activePlayers.Clear();
     }
     void RestoreControls()
     {
@@ -239,6 +265,6 @@ public class GameManager : Singleton<GameManager>
         {
             player.Controller.EnableGameplayControls();
         }
-        SoundManager.Instance.UnpauseMixer();
+        _audioManager.UnpauseMixer();
     }
 }

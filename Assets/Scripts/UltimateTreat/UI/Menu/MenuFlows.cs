@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class MenuFlows : MonoBehaviour
+public class MenuFlows : PersistentSingleton<MenuFlows>
 {
     [Header("GameplayScene")]
     [SerializeField] private string _nextScene;
@@ -29,29 +28,16 @@ public class MenuFlows : MonoBehaviour
     [SerializeField] private AudioMixerGroup _effectsMixer;
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _sfxSlider;
-
-    [SerializeField] private LevelsManager _levelsManager;
     [SerializeField] private GameObject _displayGrp;
     //private PlayerInputManager _inputManager;
     private List<MESManager> _playersList;
     private MESManager _playerOne;
+    private SoundManager _audioManager;
+    private LevelsManager _levelsManager;
+    private GameManager _gManager;
 
     public GameObject InitialSelection {  get { return _fButtonLand; } set { _fButtonSelection = value; } }
     public GameObject DisplayGrp {  get { return _displayGrp; } }
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-
-        //_system = FindAnyObjectByType<EventSystem>();
-
-        _landUI.SetActive(true);
-        _selectionUI.SetActive(false);
-        //_currentSelection = _fButtonLand;
-        //StartCoroutine(CurrentSelectionDelay(_fButtonLand));
-        _playersList = new List<MESManager>();
-        _optionsPivot.rotation = Quaternion.identity;
-    }
 
     private void OnEnable()
     {
@@ -64,12 +50,30 @@ public class MenuFlows : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.Instance.Play("MenuTheme");
-        var levelsManager = FindAnyObjectByType(typeof(LevelsManager));
-        if (levelsManager == null)
+        _landUI.SetActive(true);
+        _selectionUI.SetActive(false);
+        _playersList = new List<MESManager>();
+        _optionsPivot.rotation = Quaternion.identity;
+
+        _gManager = FindAnyObjectByType<GameManager>();
+        if (_gManager == null)
         {
-            Instantiate(_levelsManager);
+            _gManager = GameManager.Instance;
         }
+
+        _levelsManager = FindAnyObjectByType<LevelsManager>();
+        if (_levelsManager == null)
+        {
+            _levelsManager = LevelsManager.Instance;
+        }
+
+        _audioManager = FindAnyObjectByType<SoundManager>();
+        if(_audioManager == null)
+        {
+            _audioManager = SoundManager.Instance;
+        }
+
+        _audioManager.Play("MenuTheme");
     }
 
     public void AddPlayerToList(MESManager player)
@@ -83,7 +87,7 @@ public class MenuFlows : MonoBehaviour
 
     public void PlayersSelection()
     {
-        SoundManager.Instance.Play("AcceptButton");
+        _audioManager.Play("AcceptButton");
         _landUI.SetActive(false);
         _selectionUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonSelection));
@@ -91,7 +95,7 @@ public class MenuFlows : MonoBehaviour
 
     public void LandMenu()
     {
-        SoundManager.Instance.Play("AcceptButton");
+        _audioManager.Play("AcceptButton");
         _selectionUI.SetActive(false);
         _landUI.SetActive(true);
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
@@ -99,7 +103,7 @@ public class MenuFlows : MonoBehaviour
 
     public void TransitionToMatch(TMP_Text prompt)
     {
-        SoundManager.Instance.Play("AcceptButton");
+        _audioManager.Play("AcceptButton");
         if (_playersList.Count < 2)
         {
             prompt.color = Color.red;
@@ -109,25 +113,50 @@ public class MenuFlows : MonoBehaviour
         {
             prompt.color = Color.white;
             prompt.text = new string("GET READY!");
-            LevelsManager.Instance.ChangeScene(_nextScene);
+            _levelsManager.ChangeScene(_nextScene);
+            RemoveDisplayedPlayer();
             foreach (var player in _playersList)
             {
                 player.PlayerInput.SwitchCurrentActionMap("Player Controls");
             }
             _landUI.SetActive(false);
             _selectionUI.SetActive(false);
+
+            StartCoroutine(LoadMatch());
         }
+    }
+
+    void RemoveDisplayedPlayer()
+    {
+        var childs = _displayGrp.transform.childCount;
+        var gOList = new List<GameObject>();
+
+        for (int i = 0; i < childs; i++)
+        {
+            gOList.Add(_displayGrp.transform.GetChild(i).gameObject);
+        }
+        foreach (var child in gOList)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    IEnumerator LoadMatch()
+    {
+        yield return new WaitForSeconds(1);
+
+        _gManager.StartGame();
     }
 
     public void ShowSettings()
     {
-        SoundManager.Instance.Play("AcceptButton");
+        _audioManager.Play("AcceptButton");
         StartCoroutine(CurrentSelectionDelay(_fButtonSettings));
         _optionsPivot.transform.DOLocalRotate(new Vector3(0, 75, 0), 0.75f).SetEase(Ease.OutSine);
     }
     public void HideSettings()
     {
-        SoundManager.Instance.Play("AcceptButton");
+        _audioManager.Play("AcceptButton");
         StartCoroutine(CurrentSelectionDelay(_fButtonLand));
         _optionsPivot.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.75f).SetEase(Ease.OutSine);
     }
@@ -147,8 +176,8 @@ public class MenuFlows : MonoBehaviour
 
     public void TerminateGame()
     {
-        SoundManager.Instance.Play("AcceptButton");
-        LevelsManager.Instance.QuitGame();
+        _audioManager.Play("AcceptButton");
+        _levelsManager.QuitGame();
     }
 
     IEnumerator CurrentSelectionDelay(GameObject selection)

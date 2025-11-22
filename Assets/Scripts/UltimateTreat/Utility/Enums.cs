@@ -38,8 +38,11 @@ public enum SoundType
 public enum Menus
 {
     Underfined = 0,
-    PauseMenu = 1,
-    ConfirmationDialog = 2,
-    Scoreboard = 3,
-    PlayAgain = 4,
+    MainMenu = 1,
+    PlayerSelection = 2,
+    Settings = 3,
+    PauseMenu = 4,
+    ConfirmationDialog = 5,
+    Scoreboard = 6,
+    Credits = 7,
 }

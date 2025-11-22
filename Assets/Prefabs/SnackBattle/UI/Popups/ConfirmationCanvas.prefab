@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogCanvas: {fileID: 7433904838258005096}
+  _firstSelectionBttn: {fileID: 6922595163135003894}
   _titleText: {fileID: 176351519509411309}
   _descriptionText: {fileID: 3420260179021630329}
   _acceptButtonText: {fileID: 3349034062555951415}

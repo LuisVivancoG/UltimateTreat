@@ -4,9 +4,13 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject _safeZone;
-    [SerializeField] private PauseDialog _pauseOptionsPrefab;
+    //[SerializeField] private LandMenuDialog _landMenuPrefab;
+    //[SerializeField] private SettingsDialog _settingsPrefab;
+    //[SerializeField] private SelectionDialog _selectionPrefab;
     [SerializeField] private ConfirmationDialog _confirmationDialogPrefab;
     [SerializeField] private ScoreboardDialog _scoreboardPrefab;
+    [SerializeField] private PauseDialog _pauseOptionsPrefab;
+    //[SerializeField] private CreditsDialog _creditsPrefab;
     //[SerializeField] private PlayAgainDialog _playAgainPrefab;
 
     Dictionary<Menus, DialogBase> _dialogInstances = new();
@@ -14,8 +18,18 @@ public class UIManager : Singleton<UIManager>
     Stack<DialogBase> _dialogStack = new Stack<DialogBase>();
     Dictionary<Menus, DialogBase> _disabledDialogs = new ();
 
+    private LevelsManager _levelManager;
     private int _topSortingOrder = 0;
     private const int _sortOrderGap = 10;
+
+    private void Start()
+    {
+        _levelManager = FindAnyObjectByType<LevelsManager>();
+        if (_levelManager == null)
+        {
+            _levelManager = LevelsManager.Instance;
+        }
+    }
 
     public DialogBase ShowDialog(Menus dialogType)
     {
@@ -74,7 +88,7 @@ public class UIManager : Singleton<UIManager>
     private DialogBase CreateDialogFromPrefab(DialogBase dialogPrefab)
     {
         DialogBase created = Instantiate(dialogPrefab , _safeZone.transform);
-        created.OnCreation(this);
+        created.OnCreation(this, _levelManager);
         return created;
     }
 

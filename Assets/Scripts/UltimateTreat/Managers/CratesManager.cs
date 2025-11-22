@@ -11,6 +11,8 @@ public class CratesManager : Singleton<CratesManager>
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private float _frequencyTime = 5f;
 
+    private PoolsManagment _poolManager;
+
     private float _currentFrequency;
     private Vector3 _spawnOrigin;
     private float _yMin;
@@ -30,11 +32,17 @@ public class CratesManager : Singleton<CratesManager>
         _yMin = transform.position.y - _spawnableArea.y;
         _currentFrequency = _frequencyTime;
         //_spawnedPositions = new List<Vector3>();
+
+        _poolManager = FindAnyObjectByType<PoolsManagment>();
+        if (_poolManager == null)
+        {
+            _poolManager = PoolsManagment.Instance;
+        }
     }
 
     public void SpawnCrates()
     {
-        var crate = PoolsManagment.Instance.GetObject(RandomPickup(), GetLocationInBoundBox());
+        var crate = _poolManager.GetObject(RandomPickup(), GetLocationInBoundBox());
         //_spawnedPositions.Add(crate.transform.position);
         StartCoroutine(Cooldown());
     }
