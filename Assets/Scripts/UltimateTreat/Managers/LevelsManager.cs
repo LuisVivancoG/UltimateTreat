@@ -33,7 +33,9 @@ public class LevelsManager : PersistentSingleton<LevelsManager>
 
         while (!loading.isDone)
         {
-            _progressBar.fillAmount = loading.progress;
+            float progress = Mathf.Clamp01(loading.progress/.9f);
+            _progressBar.fillAmount = progress;
+            Debug.Log(progress);
             yield return null;
         }
         _loadingUIPrefab.SetActive(false);
