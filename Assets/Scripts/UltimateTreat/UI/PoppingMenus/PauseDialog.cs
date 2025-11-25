@@ -45,7 +45,7 @@ public class PauseDialog : DialogBase
         var dialog = _manager.ShowDialog(Menus.ConfirmationDialog);
         if (dialog is ConfirmationDialog confirmation)
         {
-            confirmation.Show("Are you sure you want to back to Menu?",
+            confirmation.Show(_playerID.text, _playerID.color, "Are you sure you want to back to Menu?",
                 "The progress of current match will be lost.",
                 "Back Menu",
                 "Continue match", BackMenu, _currentUser);
@@ -57,7 +57,7 @@ public class PauseDialog : DialogBase
         var dialog = _manager.ShowDialog(Menus.ConfirmationDialog);
         if (dialog is ConfirmationDialog confirmation)
         {
-            confirmation.Show("Are you sure you want to quit the game?",
+            confirmation.Show(_playerID.text, _playerID.color, "Are you sure you want to quit the game?",
                 "The progress of current match will be lost.",
                 "Exit game",
                 "Continue match", TerminateApp, _currentUser);

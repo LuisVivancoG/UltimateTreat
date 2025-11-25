@@ -44,5 +44,6 @@ public enum Menus
     PauseMenu = 4,
     ConfirmationDialog = 5,
     Scoreboard = 6,
-    Credits = 7,
+    FinalBoard = 7,
+    Credits = 8
 }

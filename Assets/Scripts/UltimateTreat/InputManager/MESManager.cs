@@ -39,6 +39,7 @@ public class MESManager : MonoBehaviour
         StartCoroutine(FirstSelectionDelay());
         var ui = Instantiate(_displayPrefab, _inputManager.DisplayGrp.transform);
         ui.TryGetComponent<PlayerDisplay>(out var component);
+        component.NewDisplay();
         _display = component;
         _display.DisplayedSprite.color = _colorManager.LookForColor(0);
 

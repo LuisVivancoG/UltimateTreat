@@ -39,12 +39,9 @@ public class HealthSystem : MonoBehaviour
 
     public void SetHP(float maxHP)
     {
-        //_playerID = iD;
         _maxHealthPoints = maxHP;
         CurrentHealthPoints = _maxHealthPoints;
         IsDead = false;
-
-        //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
     }
 
     public void Heal(float heal)
@@ -55,20 +52,15 @@ public class HealthSystem : MonoBehaviour
             CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints, 0, _maxHealthPoints);
             OnDamageTaken?.Invoke();
         }
-
-        //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
-        //_playerVisuals?.FlashMaterial();
     }
 
     public void TakeDamage(float damage)
     {
         if (_isVulnerable)
         {
-            //CameraShakeManager.Instance.AddShake(.5f, .3f, .25f);
             _isVulnerable = false;
 
             OnDamageTaken?.Invoke();
-            //RumbleManager.Instance.RumblePulse(0.15f, 0.15f, Gamepad.current);
 
             _snSComp.CheckForAndStartCoroutine();
 
@@ -77,9 +69,7 @@ public class HealthSystem : MonoBehaviour
 
             HealthCheck();
 
-            //Debug.Log($"Player{_playerID} HP is {CurrentHealthPoints}");
-
-            StartCoroutine(ExitVulnerability());
+            StartCoroutine(ExitVulnerability()); 
         }
     }
 
@@ -101,17 +91,12 @@ public class HealthSystem : MonoBehaviour
         SoundManager.Instance.Play("Poof");
         PoolsManagment.Instance.GetObject(SOType.KillParticles, transform.position, transform.localEulerAngles);
         _impulseSource.GenerateImpulse(.3f);
-        //RumbleManager.Instance.StopAllMotions(Gamepad.current);
-        //CameraShakeManager.Instance.AddShake(1f, 1f, .5f);
         IsDead = true;
-        //AudioManager.PlaySound(TypeOfSound.Death);
-        //gameObject.SetActive(false);
         OnDeath?.Invoke();
     }
 
     void OneHit()
     {
-        //RumbleManager.Instance.RumbleConstant(0.05f, 1f, Gamepad.current);
         OnLastHP?.Invoke();
     }
 

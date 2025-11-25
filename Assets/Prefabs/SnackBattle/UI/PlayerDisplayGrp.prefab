@@ -91,6 +91,13 @@ MonoBehaviour:
   _displayedSprite: {fileID: 1353682627784510545}
   _rightButton: {fileID: 8869154895195474998}
   _leftButton: {fileID: 6166700375406752544}
+  _characterPictures:
+  - {fileID: -708679475, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: -1743019439, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 1491724590, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 2027996511, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: -865641346, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 751220456, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
 --- !u!1 &2807605960202485926
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +358,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c39cbe6eddfa54d4285fe7a3046275a3, type: 3}
+  m_Sprite: {fileID: 751220456, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

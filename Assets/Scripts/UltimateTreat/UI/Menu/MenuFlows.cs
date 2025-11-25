@@ -48,10 +48,17 @@ public class MenuFlows : PersistentSingleton<MenuFlows>
         _effectsMixer.audioMixer.SetFloat("Music", Mathf.Log10(_sfxSlider.value) * 20);
     }
 
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level == 0)
+        {
+            _landUI.SetActive(true);
+            _selectionUI.SetActive(false);
+        }
+    }
+
     private void Start()
     {
-        _landUI.SetActive(true);
-        _selectionUI.SetActive(false);
         _playersList = new List<MESManager>();
         _optionsPivot.rotation = Quaternion.identity;
 

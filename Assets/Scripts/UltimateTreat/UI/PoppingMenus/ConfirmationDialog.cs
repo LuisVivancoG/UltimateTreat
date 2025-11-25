@@ -12,6 +12,7 @@ public class ConfirmationDialog : DialogBase
     [SerializeField] private TMP_Text _descriptionText;
     [SerializeField] private TMP_Text _acceptButtonText;
     [SerializeField] private TMP_Text _cancelButtonText;
+    [SerializeField] private TMP_Text _playerTxt;
     private Action _onConfirm;
     private Action _onCancel;
     private MESManager _currentUser;
@@ -26,8 +27,10 @@ public class ConfirmationDialog : DialogBase
         return Menus.ConfirmationDialog;
     }
 
-    public void Show(string title, string description, string acceptButtonText, string cancelButtonText, Action actionConfirmed/*, Action actionCanceled*/, MESManager user)
+    public void Show(string player, Color playerColor, string title, string description, string acceptButtonText, string cancelButtonText, Action actionConfirmed/*, Action actionCanceled*/, MESManager user)
     {
+        _playerTxt.text = player;
+        _playerTxt.color = playerColor;
         _titleText.text = title;
         _descriptionText.text = description;
         _acceptButtonText.text = acceptButtonText;

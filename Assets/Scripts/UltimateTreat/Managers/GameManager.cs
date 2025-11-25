@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,8 +19,10 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] private float _timeScoresDisplayed;
     [SerializeField] private float _timeToStartRound;
     [SerializeField] private float _timeToEndRound;
+    [SerializeField] private float _timeFinal = 6f;
 
     [Header("Misc")]
+    [SerializeField] private TextMeshProUGUI _countdown;
     private CinemachineTargetGroup _targetGroup;
     private CratesManager _spawnerManager;
     private LevelsManager _levelsManager;
@@ -123,26 +126,37 @@ public class GameManager : PersistentSingleton<GameManager>
 
     IEnumerator DisplayScores()
     {
+        _uiManager.ShowDialog(Menus.Scoreboard);
+        yield return new WaitForSeconds(_timeScoresDisplayed);
+        _uiManager.HideDialog(Menus.Scoreboard);
+    }
+
+    IEnumerator RoundStarting()
+    {
         foreach (var player in _activePlayers)
         {
             player.Controller.SetInputActiveState(true);
         }
 
-        _uiManager.ShowDialog(Menus.Scoreboard);
-        yield return new WaitForSeconds(_timeScoresDisplayed);
-        _uiManager.HideDialog(Menus.Scoreboard);
+        float currentTime = 0;
+        var initialTimer = _timeToStartRound;
+        _countdown.enabled = true;
+        while (_timeToStartRound > currentTime)
+        {
+            _countdown.text = _timeToStartRound.ToString();
+            yield return new WaitForSeconds(1f);
+            _timeToStartRound--;
+        }
+        //Clear items on scene
+        SetUpPlayers();
+        yield return new WaitForSeconds(1f);
+        _countdown.enabled = false;
+        _timeToStartRound = initialTimer;
 
         foreach (var player in _activePlayers)
         {
             player.Controller.SetInputActiveState(false);
         }
-    }
-
-    IEnumerator RoundStarting()
-    {
-        //Clear items on scene
-        SetUpPlayers();
-        yield return new WaitForSeconds(_timeToStartRound);
     }
 
     private void SetUpPlayers()
@@ -218,9 +232,16 @@ public class GameManager : PersistentSingleton<GameManager>
 
     IEnumerator VictorySequence()
     {
-        yield return new WaitForSeconds(6f);
+        var dialog = _uiManager.ShowDialog(Menus.FinalBoard);
+        if (dialog is LastBoard result)
+        {
+            result.Show(_gameWinner);
+        }
+
+            yield return new WaitForSeconds(_timeFinal);
 
         ShowCredits();
+        _uiManager.HideDialog(Menus.FinalBoard);
     }
 
     void ShowCredits()
@@ -250,6 +271,7 @@ public class GameManager : PersistentSingleton<GameManager>
     }
     void ClearPlayers()
     {
+        _audioManager.UnpauseMixer();
         _matchBoard.RemovePlayers();
 
         foreach (var player in _activePlayers)

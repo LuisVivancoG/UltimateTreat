@@ -156,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 483732971, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -233,6 +233,13 @@ MonoBehaviour:
   - {fileID: 6672436277125121510}
   - {fileID: 4163225781349028459}
   - {fileID: 7758347542996692868}
+  _pictures:
+  - {fileID: -510768255, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: -1194618629, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: -827183958, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 1443412446, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 1624833345, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
+  - {fileID: 483732971, guid: 7d2c8bef6c0f2304ab6a767c72e59aff, type: 3}
 --- !u!1 &4163225781349028459
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,13 +8,26 @@ public class PlayerUITracker : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerTag;
     [SerializeField] private Image _playerPicture;
     [SerializeField] private GameObject[] _pointsDisplayed;
+    [SerializeField] private List<Sprite> _pictures;
     private Dictionary<int, GameObject> _starsDictionary = new Dictionary<int, GameObject> ();
+
+    private Sprite PickRandomImage()
+    {
+        int lenght = _pictures.Count;
+        var i = Random.Range (0, lenght);
+        var randomImage = _pictures[i];
+
+        return randomImage;
+    }
 
     public void SetPlayerData(string playerID, Color currentColor)
     {
+        var picture = PickRandomImage();
+
         _playerTag.text = playerID;
         this.gameObject.name = playerID;
         
+        _playerPicture.sprite = picture;
         _playerPicture.color = currentColor;
         _playerTag.color = currentColor;
 

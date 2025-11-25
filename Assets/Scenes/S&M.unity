@@ -1948,6 +1948,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GummyRigTest
       objectReference: {fileID: 0}
+    - target: {fileID: 2889872816125993285, guid: f30a5dad7792bd9408ff7111e7f8eee0,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bec2d15eaa7e97a45a76246d949debac, type: 2}
     - target: {fileID: 5866666021909216657, guid: f30a5dad7792bd9408ff7111e7f8eee0,
         type: 3}
       propertyPath: m_Avatar

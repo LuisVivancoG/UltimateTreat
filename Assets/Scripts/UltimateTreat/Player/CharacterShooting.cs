@@ -53,8 +53,6 @@ public class CharacterShooting : MonoBehaviour
                 _queueHability = SOType.None;
                 HasItem = false;
             }
-            //_specialProjectilesUsed++;
-            //CameraShakeManager.Instance.AddShake(.05f, .15f, .1f);
         }
     }
 
@@ -121,16 +119,11 @@ public class CharacterShooting : MonoBehaviour
                     _currentProjectile = SOType.RollerProjectile;
                     break;
                 case SOType.HealPack:
-                    Debug.Log($"Current health {_health.CurrentHealthPoints}");
                     _health.Heal(20);
-                    Debug.Log($"Health after item {_health.CurrentHealthPoints}");
                     HasItem = false;
                     break;
 
             }
-
-            Debug.LogWarning($"{_queueHability} used");
-            //_hasItem = false;
         }
     }
 }

@@ -40,7 +40,6 @@ public class ProjectileBase : PooledAsset
     public void SetIgnoreCollider(Collider parent)
     {
         _ignoredCollider = parent;
-        Debug.Log(parent.gameObject);
 
         Physics.IgnoreCollision(BulletCollider, _ignoredCollider, true);
     }

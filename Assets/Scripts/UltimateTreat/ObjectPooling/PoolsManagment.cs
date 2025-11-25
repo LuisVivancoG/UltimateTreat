@@ -60,7 +60,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
 
             return item;
         }
-        Debug.LogError($"{type} not found in {_poolsDictionary}");
+        //Debug.LogError($"{type} not found in {_poolsDictionary}");
         return null;
     }
     public PooledAsset GetObject(SOType type, Vector3 locationToSpawn, Vector3 spawnedRotation)
@@ -74,8 +74,7 @@ public class PoolsManagment : Singleton<PoolsManagment>
 
             return item;
         }
-        Debug.LogError($"{type} not found in {_poolsDictionary}" +
-            $"Dictionary pools: {_poolsDictionary.Keys}");
+        //Debug.LogError($"{type} not found in {_poolsDictionary} Dictionary pools: {_poolsDictionary.Keys}");
         return null;
     }
 
