@@ -41,7 +41,7 @@ public class MenuFlows : PersistentSingleton<MenuFlows>
 
     private void OnEnable()
     {
-        _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
+        _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", -.3f);
         _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0);
 
         _musicMixer.audioMixer.SetFloat("Music", Mathf.Log10(_musicSlider.value) * 20);
@@ -75,10 +75,16 @@ public class MenuFlows : PersistentSingleton<MenuFlows>
         }
 
         _audioManager = FindAnyObjectByType<SoundManager>();
-        if(_audioManager == null)
+        if (_audioManager == null)
         {
             _audioManager = SoundManager.Instance;
         }
+        StartCoroutine(SoundDelay());
+    }
+
+    IEnumerator SoundDelay()
+    {
+        yield return new WaitForSeconds(.5f);
 
         _audioManager.Play("MenuTheme");
     }

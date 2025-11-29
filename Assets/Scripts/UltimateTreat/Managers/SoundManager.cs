@@ -49,11 +49,11 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void PauseMixer()
     {
-        _snapshotPaused.TransitionTo(2);
+        _snapshotPaused.TransitionTo(.5f);
     }
 
     public void UnpauseMixer()
     {
-        _snapshotUnpaused.TransitionTo(2);
+        _snapshotUnpaused.TransitionTo(.5f);
     }
 }
